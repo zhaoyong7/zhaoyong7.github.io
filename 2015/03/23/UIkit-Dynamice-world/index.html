@@ -1,0 +1,817 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+
+
+  <meta name="keywords" content="Dynamics,ios,swift," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。
+妈蛋，太专业，反正就是可以让一些不明真相的群众觉得你很牛B！
+好，进入正题，让我们来用swift练习一下效果
+有四个概念我们来稍微描述一下：
+
+UIDynamicI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIkit Dynamics(UIkit动力世界)">
+<meta property="og:url" content="http://dqmore.com/2015/03/23/UIkit-Dynamice-world/index.html">
+<meta property="og:site_name" content="Qmore's Blog">
+<meta property="og:description" content="UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。
+妈蛋，太专业，反正就是可以让一些不明真相的群众觉得你很牛B！
+好，进入正题，让我们来用swift练习一下效果
+有四个概念我们来稍微描述一下：
+
+UIDynamicI">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/gravity.gif">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/gravity_collision.gif">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/attachment.gif">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/snap.gif">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/push.gif">
+<meta property="og:updated_time" content="2015-04-15T08:51:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIkit Dynamics(UIkit动力世界)">
+<meta name="twitter:description" content="UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。
+妈蛋，太专业，反正就是可以让一些不明真相的群众觉得你很牛B！
+好，进入正题，让我们来用swift练习一下效果
+有四个概念我们来稍微描述一下：
+
+UIDynamicI">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> UIkit Dynamics(UIkit动力世界) | Qmore's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Qmore's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'j53rD5pMCPztMTezDwgP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              UIkit Dynamics(UIkit动力世界)
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-03-23T17:10:15+08:00" content="2015-03-23">
+            2015-03-23
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/03/23/UIkit-Dynamice-world/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/03/23/UIkit-Dynamice-world/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。</p>
+<p>妈蛋，太专业，反正就是可以让一些不明真相的群众觉得你很牛B！</p>
+<p>好，进入正题，让我们来用swift练习一下效果</p>
+<p>有四个概念我们来稍微描述一下：</p>
+<ul>
+<li>UIDynamicItem 就是物理体系可以影响到的物体，像现实世界的桌子、椅子。在ios我们常见的UI控件像UIButton、UIView等实现了该接口。</li>
+<li>UIDynamicBehavior 一个行为，像重力或者弹性、吸附等效果</li>
+<li>UIDynamicAnimator 一个动画执行者，所有的行为都可以加入这个执行者，重力+碰撞就可以模拟高空坠落拉！</li>
+<li>referenceView 参照体系，就像现实世界的参照物。</li>
+</ul>
+<h4 id="一、重力行为UIGravityBehavior">一、重力行为UIGravityBehavior</h4><!-- swift -->
+<pre><code>var animator : <span class="built_in">UIDynamicAnimator</span>!
+override func viewDidLoad() {
+    <span class="keyword">super</span><span class="variable">.viewDidLoad</span>()
+    <span class="comment">//box</span>
+    let box : <span class="built_in">UIView</span> = <span class="built_in">UIView</span>(frame: <span class="built_in">CGRectMake</span>(<span class="number">135</span>, <span class="number">80</span>, <span class="number">50</span>, <span class="number">50</span>))
+    box<span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.grayColor</span>()
+    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.whiteColor</span>()
+    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.addSubview</span>(box)
+    <span class="comment">//参照物为背景view</span>
+    <span class="keyword">self</span><span class="variable">.animator</span> = <span class="built_in">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span><span class="variable">.view</span>)
+    <span class="comment">//为box添加重力行为</span>
+    let gravity = <span class="built_in">UIGravityBehavior</span>(items: [box])
+    <span class="comment">//执行动画</span>
+    <span class="keyword">self</span><span class="variable">.animator</span><span class="variable">.addBehavior</span>(gravity)
+}
+</code></pre><p>这里注意把animator声明为类的成员变量，不然animator在viewDidLoad后就释放内存引用，就没有什么重力效果了。</p>
+<p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/gravity.gif" alt=""></p>
+<p>我们可以设置重力的向量，大小和方向就是坠落的方向和下坠加速度了。</p>
+<p><code>gravity.gravityDirection = CGVector(dx: 0, dy: 5)</code></p>
+<h4 id="二、碰撞行为UICollisionBehavior">二、碰撞行为UICollisionBehavior</h4><p>就这么无休止的坠落深渊未免也太无聊了吧，我们来让那个它跟屏幕下方进行碰撞，让它以一定角度落下让碰撞更加明显。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var animator : <span class="built_in">UIDynamicAnimator</span>!</span><br><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">	<span class="keyword">super</span><span class="variable">.viewDidLoad</span>()</span><br><span class="line">	<span class="comment">//box</span></span><br><span class="line">    let box : <span class="built_in">UIView</span> = <span class="built_in">UIView</span>(frame: <span class="built_in">CGRectMake</span>(<span class="number">135</span>, <span class="number">80</span>, <span class="number">50</span>, <span class="number">50</span>))</span><br><span class="line">    box<span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.grayColor</span>()</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.whiteColor</span>()</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.addSubview</span>(box)</span><br><span class="line">    <span class="comment">//设置为45度角</span></span><br><span class="line">    box<span class="variable">.transform</span> = <span class="built_in">CGAffineTransformMakeRotation</span>(<span class="number">45</span>)</span><br><span class="line">    <span class="comment">//参照物为背景view</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.animator</span> = <span class="built_in">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span><span class="variable">.view</span>)</span><br><span class="line">    <span class="comment">//为box添加重力行为</span></span><br><span class="line">    let gravity = <span class="built_in">UIGravityBehavior</span>(items: [box])</span><br><span class="line">    <span class="comment">//为box碰撞行为</span></span><br><span class="line">    let collision = <span class="built_in">UICollisionBehavior</span>(items: [box])</span><br><span class="line">    <span class="comment">//设置碰撞边缘为物体的参照系统，即self.view</span></span><br><span class="line">    collision<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">true</span></span><br><span class="line">    <span class="comment">//执行动画</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.animator</span><span class="variable">.addBehavior</span>(gravity)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/gravity_collision.gif" alt=""></p>
+<h4 id="三、连线行为UIAttachmentBehavior">三、连线行为UIAttachmentBehavior</h4><p>连线就是两个物体之间进行连接或者一个物体跟一个锚点之间连接。</p>
+<p>参数说明：UIAttachmentBehavior(item: offsetFromCenter: attachedToAnchor: )</p>
+<ul>
+<li>item:物理体系可以影响到的物体</li>
+<li>offsetFromCenter:物体中心偏移</li>
+<li>attachedToAnchor:跟物体相连的锚点</li>
+</ul>
+<!-- swift -->
+<pre><code>var animator : UIDynamicAnimator<span class="built_in">!</span>
+override func viewDidLoad<span class="params">()</span> {
+    super.viewDidLoad<span class="params">()</span>
+
+    animator = UIDynamicAnimator<span class="params">(referenceView: self.view)</span>
+
+    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span>
+    <span class="comment">//静止的box</span>
+    <span class="built_in">let</span> staticBox = UIView<span class="params">(frame: CGRectMake<span class="params">(<span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span>)</span>)</span>
+    staticBox.backgroundColor = UIColor.redColor<span class="params">()</span>
+    staticBox.layer.cornerRadius = <span class="number">5</span> ;
+    <span class="comment">//下坠的box</span>
+    <span class="built_in">let</span> dynamicBox = UIView<span class="params">(frame: CGRectMake<span class="params">(<span class="number">250</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span>)</span>)</span>
+    dynamicBox.backgroundColor = UIColor.grayColor<span class="params">()</span>
+    dynamicBox.layer.cornerRadius = <span class="number">5</span> ;
+
+    <span class="comment">//为dynamicBox添加重力行为</span>
+    <span class="built_in">let</span> cravity = UIGravityBehavior<span class="params">(items: [dynamicBox])</span>
+    <span class="comment">//为dynamicBox添加连线行为</span>
+    <span class="built_in">let</span> attachment = UIAttachmentBehavior<span class="params">(item: dynamicBox, offsetFromCenter: UIOffsetMake<span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span>, attachedToAnchor: CGPointMake<span class="params">(staticBox.center.x, staticBox.center.y)</span>)</span>
+    <span class="comment">//为dynamicBox添加碰撞行为</span>
+    <span class="built_in">let</span> collision = UICollisionBehavior<span class="params">(items: [dynamicBox])</span>
+    collision.translatesReferenceBoundsIntoBoundary = <span class="literal">true</span>
+
+    self.view.addSubview<span class="params">(staticBox)</span>
+    self.view.addSubview<span class="params">(dynamicBox)</span>
+
+    animator.addBehavior<span class="params">(cravity)</span>
+    animator.addBehavior<span class="params">(attachment)</span>
+    animator.addBehavior<span class="params">(collision)</span> 
+}
+</code></pre><p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/attachment.gif" alt=""></p>
+<p>想让“绳子”有弹性加上这段：<code>attachment.frequency = 1</code></p>
+<h4 id="四、吸附行为UISnapBehavior">四、吸附行为UISnapBehavior</h4><p>很有趣的“牛皮糖”效果</p>
+<!-- swift -->
+<pre><code><span class="keyword">var</span> animator : <span class="type">UIDynamicAnimator</span>!
+<span class="keyword">let</span> tapGesture = <span class="type">UITapGestureRecognizer</span>()
+<span class="keyword">var</span> box:<span class="type">UIView</span>!  
+<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
+    <span class="keyword">super</span>.viewDidLoad()
+
+    <span class="comment">//添加手势，轻触self.view，</span>
+    <span class="keyword">self</span>.tapGesture.addTarget(<span class="keyword">self</span>, action: <span class="string">"tappedView"</span>)
+    <span class="keyword">self</span>.view.userInteractionEnabled = <span class="literal">true</span> ;
+    <span class="keyword">self</span>.view.addGestureRecognizer(tapGesture)
+
+    <span class="keyword">self</span>.animator = <span class="type">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span>.view)
+
+    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span>
+    <span class="comment">//物体</span>
+    <span class="keyword">self</span>.box = <span class="type">UIView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">110</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>))
+    box.backgroundColor = <span class="type">UIColor</span>.grayColor()
+    box.layer.cornerRadius = <span class="number">5</span>
+
+    <span class="keyword">self</span>.view.addSubview(box)
+}
+
+<span class="comment">//手势回调方法</span>
+<span class="func"><span class="keyword">func</span> <span class="title">tappedView</span><span class="params">()</span></span>{
+    <span class="keyword">let</span> point = <span class="keyword">self</span>.tapGesture.locationInView(<span class="keyword">self</span>.view)
+    <span class="keyword">self</span>.animator.removeAllBehaviors()
+    <span class="keyword">let</span> snap = <span class="type">UISnapBehavior</span>(item: <span class="keyword">self</span>.box, snapToPoint: point)
+    <span class="keyword">self</span>.animator.addBehavior(snap)
+}
+</code></pre><p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/snap.gif" alt=""></p>
+<h4 id="四、推力UIPushBehavior">四、推力UIPushBehavior</h4><p>为物体施加一个外力，遵循力的合成</p>
+<!-- swift -->
+<pre><code><span class="keyword">var</span> box : <span class="type">UIView</span>!
+<span class="keyword">var</span> animator : <span class="type">UIDynamicAnimator</span>!
+<span class="keyword">var</span> push : <span class="type">UIPushBehavior</span>!    
+<span class="keyword">let</span> tapGetsture = <span class="type">UITapGestureRecognizer</span>()
+
+<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
+    <span class="keyword">super</span>.viewDidLoad()
+    <span class="keyword">self</span>.animator = <span class="type">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span>.view)
+
+    <span class="comment">//self.view加入轻触手势</span>
+    <span class="keyword">self</span>.tapGetsture.addTarget(<span class="keyword">self</span>, action: <span class="string">"tappedView"</span>)
+    <span class="keyword">self</span>.view.userInteractionEnabled = <span class="literal">true</span>
+    <span class="keyword">self</span>.view.addGestureRecognizer(tapGetsture)
+
+    <span class="comment">//box</span>
+    <span class="keyword">self</span>.box = <span class="type">UIView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">110</span>, <span class="number">234</span>, <span class="number">100</span>, <span class="number">100</span>))
+    <span class="keyword">self</span>.box.layer.cornerRadius = <span class="number">5</span> ;
+    <span class="keyword">self</span>.box.backgroundColor = <span class="type">UIColor</span>.grayColor()
+
+    <span class="comment">//加入box</span>
+    <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.box)
+    <span class="comment">//碰撞</span>
+    <span class="keyword">let</span> collision = <span class="type">UICollisionBehavior</span>(items: [box])
+     collision.setTranslatesReferenceBoundsIntoBoundaryWithInsets(<span class="type">UIEdgeInsets</span>(top: <span class="keyword">self</span>.topLayoutGuide.length, <span class="keyword">left</span>: <span class="number">0</span>, bottom: <span class="keyword">self</span>.bottomLayoutGuide.length, <span class="keyword">right</span>: <span class="number">0</span>))
+    <span class="comment">//推力</span>
+    <span class="keyword">self</span>.push = <span class="type">UIPushBehavior</span>(items: [<span class="keyword">self</span>.box], mode: <span class="type">UIPushBehaviorMode</span>.<span class="type">Instantaneous</span>)
+    <span class="keyword">self</span>.push.angle = <span class="number">0</span>
+    <span class="keyword">self</span>.push.magnitude = <span class="number">0</span> ;
+
+    <span class="comment">//加入行为</span>
+    <span class="keyword">self</span>.animator.addBehavior(<span class="keyword">self</span>.push)
+    <span class="keyword">self</span>.animator.addBehavior(collision)
+}
+
+<span class="comment">//轻触手势</span>
+<span class="func"><span class="keyword">func</span> <span class="title">tappedView</span><span class="params">()</span></span>{
+
+    <span class="keyword">let</span> tapPoint = <span class="keyword">self</span>.tapGetsture.locationInView(<span class="keyword">self</span>.view)
+    <span class="keyword">let</span> centerPoint = <span class="type">CGPointMake</span>(<span class="keyword">self</span>.box.center.x, <span class="keyword">self</span>.box.center.y)
+
+    <span class="comment">//角度和大小</span>
+    <span class="keyword">let</span> angle =  atan2(tapPoint.y - centerPoint.y, tapPoint.x - centerPoint.x)
+    <span class="keyword">var</span> <span class="built_in">distance</span> = sqrtf(powf(<span class="type">Float</span>(tapPoint.x - centerPoint.x),<span class="number">2.0</span>) + powf(<span class="type">Float</span>(tapPoint.y - centerPoint.y),<span class="number">2</span>))
+    <span class="built_in">distance</span> =  <span class="built_in">min</span>(<span class="built_in">distance</span>, <span class="number">100.00</span>)
+
+    <span class="keyword">self</span>.push.setAngle(angle, magnitude: <span class="type">CGFloat</span>(<span class="built_in">distance</span>/<span class="number">100</span>))
+
+    <span class="comment">//每次更改push属性时，push都会变为不可活动状态，需要手动更改active为true</span>
+    <span class="keyword">self</span>.push.active = <span class="literal">true</span> ;
+    }
+</code></pre><p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/push.gif" alt=""></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Dynamics/" rel="tag">#Dynamics</a>
+          
+            <a href="/tags/ios/" rel="tag">#ios</a>
+          
+            <a href="/tags/swift/" rel="tag">#swift</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/31/startup-animation-in-swift/" rel="prev">ios开机动画</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/27/swift-gesture/" rel="next">swift手势调用</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Qmore" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Qmore</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhaoyong7" target="_blank">github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1898047552/" target="_blank">weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.douban.com/people/zhaoyong7/" target="_blank">douban</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、重力行为UIGravityBehavior"><span class="nav-number">1.</span> <span class="nav-text">一、重力行为UIGravityBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、碰撞行为UICollisionBehavior"><span class="nav-number">2.</span> <span class="nav-text">二、碰撞行为UICollisionBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、连线行为UIAttachmentBehavior"><span class="nav-number">3.</span> <span class="nav-text">三、连线行为UIAttachmentBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、吸附行为UISnapBehavior"><span class="nav-number">4.</span> <span class="nav-text">四、吸附行为UISnapBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、推力UIPushBehavior"><span class="nav-number">5.</span> <span class="nav-text">四、推力UIPushBehavior</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp;  2014 - 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qmore</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'qmore';
+      var disqus_identifier = '2015/03/23/UIkit-Dynamice-world/';
+      var disqus_title = 'UIkit Dynamics(UIkit动力世界)';
+      var disqus_url = 'http://dqmore.com/2015/03/23/UIkit-Dynamice-world/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
