@@ -215,21 +215,17 @@
         
           <span itemprop="articleBody"><p>刚学习ios 一直不明白从打开APP到现实View过程中程序究竟执行了什么，它是如何以最终的形式显示给我们的。</p>
 <p>在<a href="http://swiftist.org" target="_blank" rel="external">swiftist</a>摸爬打滚了一整子，自己总结了一点经验，可能不是很准确，但该文章会一直保持更新。</p>
-<p>##屏幕（Screen）、窗口（Window）和视图（View）</p>
-<ul>
+<h4 id="屏幕（Screen）、窗口（Window）和视图（View）">屏幕（Screen）、窗口（Window）和视图（View）</h4><ul>
 <li>UIScreen 代表一块物理屏幕；</li>
 <li>UIWindow 代表一个窗口；</li>
 <li>UIView 代表窗口里某一块矩形显示区域，用来展示用户界面和响应用户操作；</li>
 <li>UILabel和UIButton，继承自UIView的特定UI控件，实现了特定的样式和行为。<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/swift-life-p1.png" alt=""></li>
 </ul>
-<p>##应用代理类（AppDelegate）与视图控制器（UIViewController）</p>
-<p>在我们打开app的时候，程序会自动执行一个叫main的入口函数，调用UIApplicationMain函数来创建AppDelegate类的实例，并委托其实现app在不同生命周期的定制行为。</p>
+<h4 id="应用代理类（AppDelegate）与视图控制器（UIViewController）">应用代理类（AppDelegate）与视图控制器（UIViewController）</h4><p>在我们打开app的时候，程序会自动执行一个叫main的入口函数，调用UIApplicationMain函数来创建AppDelegate类的实例，并委托其实现app在不同生命周期的定制行为。</p>
 <p>AppDelegate是应用程序代理类，其中定义了app进入不同生命周期（包括app启动动、闲置、进入后台、进入前台、激活、完全退出）时的回调方法。</p>
 <p>AppDelegate内创建了一个UIWindow对象,UIWindow代表一个窗口，ios应用一般只有一个窗口，而os应用一般会有多个窗口。<br>我们可以建立一个UIViewController类来指定UIWindow.rootViewController，这样就可以在该视图控制器上绘制我们需要的视图控件</p>
-<p>#####下图在playground模拟UIWindow绑定UIViewController的场景：</p>
-<p><img src="http://7u2h92.com1.z0.glb.clouddn.com/swift-ViewController-lift-p1.png" alt=""></p>
-<p>##视图控制器（UIViewController）生命周期</p>
-<p>当我们的视图控制器与应用代理类绑定并在屏幕上显示时，代码的执行顺序</p>
+<h6 id="下图在playground模拟UIWindow绑定UIViewController的场景：">下图在playground模拟UIWindow绑定UIViewController的场景：</h6><p><img src="http://7u2h92.com1.z0.glb.clouddn.com/swift-ViewController-lift-p1.png" alt=""></p>
+<h4 id="视图控制器（UIViewController）生命周期">视图控制器（UIViewController）生命周期</h4><p>当我们的视图控制器与应用代理类绑定并在屏幕上显示时，代码的执行顺序</p>
 <ol>
 <li>alloc                      创建对象，分配内存</li>
 <li>init(initWithNibName)    初始化对象</li>
@@ -428,15 +424,13 @@ Client::main()
         
           <span itemprop="articleBody"><p>当我们在一个类的功能上需要添加额外的功能时候，在传统的编程方式里要么过程式的在核心代码外包围一连串的额外功能代码或者写一个子类集成它重写这个类的方法。</p>
 <p>使用装饰模式，我们可以动态地添加修改类的功能，仅需在运行时添加一个装饰器对象即可，实现了极大的灵活性。</p>
-<p>####被装饰类：</p>
-<!-- lang:php -->
+<h4 id="被装饰类：">被装饰类：</h4><!-- lang:php -->
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">DataClass</span> </span>{
     <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">()</span></span>{
         <span class="keyword">echo</span> <span class="string">"write some thing"</span> ;
     }
 }
-</code></pre><p>####传统方式1——过程式：</p>
-<!-- lang:php -->
+</code></pre><h4 id="传统方式1——过程式：">传统方式1——过程式：</h4><!-- lang:php -->
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">DataClass</span> </span>{
 
     <span class="function"><span class="keyword">function</span> <span class="title">wirte</span><span class="params">()</span></span>{
@@ -451,8 +445,7 @@ Client::main()
     }
 
 }
-</code></pre><p>####传统方式2——继承父类：</p>
-<!-- lang:php -->
+</code></pre><h4 id="传统方式2——继承父类：">传统方式2——继承父类：</h4><!-- lang:php -->
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">SubDataClass</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">DataClass</span>{</span>
     function write(){
         <span class="comment">/*包裹*/</span>
@@ -464,8 +457,7 @@ Client::main()
         echo <span class="string">"after write some thing"</span> ;
     }
 }
-</code></pre><p>###装饰模式：</p>
-<!-- lang:php -->
+</code></pre><h4 id="装饰模式：">装饰模式：</h4><!-- lang:php -->
 <pre><code>/*定义装饰器接口*/
 interface Decorator{
     function before() ;
@@ -589,9 +581,7 @@ class DataClass {
         
           <span itemprop="articleBody"><p>当一个对象状态发生改变时，依赖它的对象全部收到通知，并执行相对应的裸机操作，这样的情况我们可以使用观察者模式。</p>
 <p><strong>场景</strong>：一个事件发生后，要执行一连串逻辑操作。传统的方式是在该事件发生后过程式的侵入处理逻辑代码。一旦这些代码越来越多，会便得难以维护。这种方式是耦合的，侵入不友好的，每次增加新的逻辑需要修改事件主体代码。</p>
-<p>######观察者模式实现场景的解耦，非侵入式的通知与更新机制。</p>
-<p>####传统方式：</p>
-<!-- lang:php -->
+<h6 id="观察者模式实现场景的解耦，非侵入式的通知与更新机制。">观察者模式实现场景的解耦，非侵入式的通知与更新机制。</h6><h4 id="传统方式：">传统方式：</h4><!-- lang:php -->
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">Event</span></span>{
     <span class="function"><span class="keyword">function</span> <span class="title">trigger</span><span class="params">()</span></span>{
         <span class="keyword">echo</span> <span class="string">"do something..."</span> ;
@@ -607,8 +597,7 @@ class DataClass {
 
 <span class="variable">$ev</span> = <span class="keyword">new</span> Event; 
 <span class="variable">$ev</span>-&gt;trigger() ;
-</code></pre><p>####观察者模式:</p>
-<!-- lang:php -->
+</code></pre><h4 id="观察者模式:">观察者模式:</h4><!-- lang:php -->
 <pre><code><span class="comment">//观察者接口</span>
 <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span>()</span>{
     <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($args = null)</span> </span>;
@@ -794,8 +783,7 @@ abstract EventGenerator {
         
           <span itemprop="articleBody"><p>hexo 框架中在ejs文件内可以以js对象访问一定的属性，其中比较常用的有page对象，在ejs文件中的调用方式：</p>
 <p><code>&lt;%= page.title %&gt;</code></p>
-<p>###page的主要属性有：</p>
-<!-- lang:json -->
+<h4 id="page的主要属性有：">page的主要属性有：</h4><!-- lang:json -->
 <pre><code>{
     “title”: “文章标题”,
     “date”: “文章的发布日期（Moment.js 库）“,
@@ -1122,10 +1110,8 @@ abstract EventGenerator {
     <span class="keyword">type</span>:’<span class="keyword">get</span>’
 }) ;
 </code></pre><p>页面会报一个这样的错误：XMLHttpRequest cannot load <a href="http://test.com/books.php" target="_blank" rel="external">http://test.com/books.php</a>. Origin <a href="http://localhost" target="_blank" rel="external">http://localhost</a> is not allowed by Access-Control-Allow-Origin.</p>
-<p>###JSONP的原理:</p>
-<p>虽然有同源策略的限制，但是并不是所有HTML资源都必须在同一个域名，我们经常会在HTML标签中嵌入的一些图片、js、iframe、css样式等都可以通过外链的形式加载，可以利用标签跨域请求来实现。JSONP正式利用Script标签实现跨域问题的。</p>
-<p>###代码实现:</p>
-<p>####服务器端:<br><!-- lang:php --></p>
+<h3 id="JSONP的原理:">JSONP的原理:</h3><p>虽然有同源策略的限制，但是并不是所有HTML资源都必须在同一个域名，我们经常会在HTML标签中嵌入的一些图片、js、iframe、css样式等都可以通过外链的形式加载，可以利用标签跨域请求来实现。JSONP正式利用Script标签实现跨域问题的。</p>
+<h3 id="代码实现:">代码实现:</h3><h4 id="服务器端:">服务器端:</h4><!-- lang:php -->
 <pre><code>&lt;?php 
     <span class="variable">$data</span> = <span class="keyword">array</span>(
     <span class="keyword">array</span>( ‘id’=&gt;<span class="number">123</span>,’name’=&gt;’煮酒论西游’),
@@ -1134,7 +1120,7 @@ abstract EventGenerator {
 
     <span class="variable">$callbackName</span> = $_GET[‘callback’] ;
     echo “<span class="variable">$callbackName</span>(<span class="variable">$json</span>)” ;
-</code></pre><p>####客户端:<br><!-- lang:javascript --></p>
+</code></pre><h4 id="客户端:">客户端:</h4><!-- lang:javascript -->
 <pre><code><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
     <span class="function"><span class="keyword">function</span> <span class="title">showbooks</span>(<span class="params">json</span>)</span>{
         <span class="built_in">console</span>.log(json)

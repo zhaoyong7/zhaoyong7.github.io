@@ -37,35 +37,32 @@
 
 <meta name="description" content="刚学习ios 一直不明白从打开APP到现实View过程中程序究竟执行了什么，它是如何以最终的形式显示给我们的。
 在swiftist摸爬打滚了一整子，自己总结了一点经验，可能不是很准确，但该文章会一直保持更新。
-##屏幕（Screen）、窗口（Window）和视图（View）
-
+屏幕（Screen）、窗口（Window）和视图（View）
 UIScreen 代表一块物理屏幕；
 UIWindow 代表一个窗口；
-UIView 代表窗口里某一块矩形显示区域，用来展">
+UIView 代表窗口里某一块矩形显示区域，用来展示用户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="swift执行过程">
 <meta property="og:url" content="http://blog.dqmore.com/2015/01/09/swift-life/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="刚学习ios 一直不明白从打开APP到现实View过程中程序究竟执行了什么，它是如何以最终的形式显示给我们的。
 在swiftist摸爬打滚了一整子，自己总结了一点经验，可能不是很准确，但该文章会一直保持更新。
-##屏幕（Screen）、窗口（Window）和视图（View）
-
+屏幕（Screen）、窗口（Window）和视图（View）
 UIScreen 代表一块物理屏幕；
 UIWindow 代表一个窗口；
-UIView 代表窗口里某一块矩形显示区域，用来展">
+UIView 代表窗口里某一块矩形显示区域，用来展示用户">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/swift-life-p1.png">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/swift-ViewController-lift-p1.png">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/swift_life_p2.jpg">
-<meta property="og:updated_time" content="2015-01-10T02:32:13.000Z">
+<meta property="og:updated_time" content="2015-08-04T01:02:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="swift执行过程">
 <meta name="twitter:description" content="刚学习ios 一直不明白从打开APP到现实View过程中程序究竟执行了什么，它是如何以最终的形式显示给我们的。
 在swiftist摸爬打滚了一整子，自己总结了一点经验，可能不是很准确，但该文章会一直保持更新。
-##屏幕（Screen）、窗口（Window）和视图（View）
-
+屏幕（Screen）、窗口（Window）和视图（View）
 UIScreen 代表一块物理屏幕；
 UIWindow 代表一个窗口；
-UIView 代表窗口里某一块矩形显示区域，用来展">
+UIView 代表窗口里某一块矩形显示区域，用来展示用户">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -232,21 +229,17 @@ UIView 代表窗口里某一块矩形显示区域，用来展">
       
         <span itemprop="articleBody"><p>刚学习ios 一直不明白从打开APP到现实View过程中程序究竟执行了什么，它是如何以最终的形式显示给我们的。</p>
 <p>在<a href="http://swiftist.org" target="_blank" rel="external">swiftist</a>摸爬打滚了一整子，自己总结了一点经验，可能不是很准确，但该文章会一直保持更新。</p>
-<p>##屏幕（Screen）、窗口（Window）和视图（View）</p>
-<ul>
+<h4 id="屏幕（Screen）、窗口（Window）和视图（View）">屏幕（Screen）、窗口（Window）和视图（View）</h4><ul>
 <li>UIScreen 代表一块物理屏幕；</li>
 <li>UIWindow 代表一个窗口；</li>
 <li>UIView 代表窗口里某一块矩形显示区域，用来展示用户界面和响应用户操作；</li>
 <li>UILabel和UIButton，继承自UIView的特定UI控件，实现了特定的样式和行为。<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/swift-life-p1.png" alt=""></li>
 </ul>
-<p>##应用代理类（AppDelegate）与视图控制器（UIViewController）</p>
-<p>在我们打开app的时候，程序会自动执行一个叫main的入口函数，调用UIApplicationMain函数来创建AppDelegate类的实例，并委托其实现app在不同生命周期的定制行为。</p>
+<h4 id="应用代理类（AppDelegate）与视图控制器（UIViewController）">应用代理类（AppDelegate）与视图控制器（UIViewController）</h4><p>在我们打开app的时候，程序会自动执行一个叫main的入口函数，调用UIApplicationMain函数来创建AppDelegate类的实例，并委托其实现app在不同生命周期的定制行为。</p>
 <p>AppDelegate是应用程序代理类，其中定义了app进入不同生命周期（包括app启动动、闲置、进入后台、进入前台、激活、完全退出）时的回调方法。</p>
 <p>AppDelegate内创建了一个UIWindow对象,UIWindow代表一个窗口，ios应用一般只有一个窗口，而os应用一般会有多个窗口。<br>我们可以建立一个UIViewController类来指定UIWindow.rootViewController，这样就可以在该视图控制器上绘制我们需要的视图控件</p>
-<p>#####下图在playground模拟UIWindow绑定UIViewController的场景：</p>
-<p><img src="http://7u2h92.com1.z0.glb.clouddn.com/swift-ViewController-lift-p1.png" alt=""></p>
-<p>##视图控制器（UIViewController）生命周期</p>
-<p>当我们的视图控制器与应用代理类绑定并在屏幕上显示时，代码的执行顺序</p>
+<h6 id="下图在playground模拟UIWindow绑定UIViewController的场景：">下图在playground模拟UIWindow绑定UIViewController的场景：</h6><p><img src="http://7u2h92.com1.z0.glb.clouddn.com/swift-ViewController-lift-p1.png" alt=""></p>
+<h4 id="视图控制器（UIViewController）生命周期">视图控制器（UIViewController）生命周期</h4><p>当我们的视图控制器与应用代理类绑定并在屏幕上显示时，代码的执行顺序</p>
 <ol>
 <li>alloc                      创建对象，分配内存</li>
 <li>init(initWithNibName)    初始化对象</li>
@@ -431,7 +424,7 @@ UIView 代表窗口里某一块矩形显示区域，用来展">
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#屏幕（Screen）、窗口（Window）和视图（View）"><span class="nav-number">1.</span> <span class="nav-text">屏幕（Screen）、窗口（Window）和视图（View）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用代理类（AppDelegate）与视图控制器（UIViewController）"><span class="nav-number">2.</span> <span class="nav-text">应用代理类（AppDelegate）与视图控制器（UIViewController）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#下图在playground模拟UIWindow绑定UIViewController的场景："><span class="nav-number">2.0.1.</span> <span class="nav-text">下图在playground模拟UIWindow绑定UIViewController的场景：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图控制器（UIViewController）生命周期"><span class="nav-number">3.</span> <span class="nav-text">视图控制器（UIViewController）生命周期</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -305,7 +305,7 @@ print_r(<span class="variable">$args</span>);
 
       
         
-          <span itemprop="articleBody"><h4 id="stream_contex_create(array)-">stream_contex_create(array)..</h4><p>不依赖curl，php已经有了相关的函数实现<code>stream_contex_create</code></p>
+          <span itemprop="articleBody"><h4 id="stream_contex_create(array)">stream_contex_create(array)</h4><p>不依赖curl，php已经有了相关的函数实现<code>stream_contex_create</code></p>
 <p>实现方法很简单：</p>
 <!-- php -->
 <pre><code><span class="variable">$data</span> = <span class="keyword">array</span>(
@@ -395,7 +395,7 @@ echo <span class="variable">$result</span>;
 
       
         
-          <span itemprop="articleBody"><p>####1、apache配置:<br>找到httpd.conf中的这两段内容：</p>
+          <span itemprop="articleBody"><h4 id="1、apache配置:">1、apache配置:</h4><p>找到httpd.conf中的这两段内容：</p>
 <!-- .conf -->
 <pre><code> <span class="comment"># AllowOverride controls what directives may be placed in .htaccess files.</span>
 <span class="comment"># It can be "All", "None", or any combination of the keywords:</span>
@@ -406,15 +406,14 @@ echo <span class="variable">$result</span>;
 <!-- .conf -->
 <pre><code><span class="comment">#LoadModule rewrite_module libexec/apache2/mod_rewrite.so</span>
 </code></pre><p>将<code>#</code>去掉，打开rewrite模块</p>
-<p>####2、.htaccess文件:<br>写入下面内容,并放入yii2根目录的web目录下：webroot/yii2/web(yii2是自己命名的项目名称，webroot的Apache根目录)<br><!-- .htaccess --></p>
+<h4 id="2、-htaccess文件:">2、.htaccess文件:</h4><p>写入下面内容,并放入yii2根目录的web目录下：webroot/yii2/web(yii2是自己命名的项目名称，webroot的Apache根目录)<br><!-- .htaccess --></p>
 <pre><code><span class="keyword"><span class="common">Options</span></span> +FollowSymLinks
 <span class="keyword">IndexIgnore</span> /
 <span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span>
 <span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-f
 <span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-d
 <span class="keyword"><span class="common">RewriteRule</span></span> . index.php
-</code></pre><p>####3、config/web.php配置urlManager:</p>
-<!-- php -->
+</code></pre><h4 id="3、config/web-php配置urlManager:">3、config/web.php配置urlManager:</h4><!-- php -->
 <pre><code><span class="string">'urlManager'</span> =&gt; [
         <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,
         <span class="string">'enableStrictParsing'</span> =&gt; <span class="keyword">true</span>,
@@ -426,15 +425,14 @@ echo <span class="variable">$result</span>;
         ],
     ] ,
 </code></pre><p>访问路径：<code><a href="http://loacalhost/yii2/web/users" target="_blank" rel="external">http://loacalhost/yii2/web/users</a></code>(yii自动讲名词变为复数形式，具体看文档，可取消)</p>
-<p>####4、controller继承ActiveController:</p>
-<!-- controller -->
+<h4 id="4、controller继承ActiveController:">4、controller继承ActiveController:</h4><!-- controller -->
 <pre><code>namespace app\controllers;
 use yii\rest\<span class="type">ActiveController</span>;
 <span class="class"><span class="keyword">class</span> <span class="title">CountryController</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActiveController</span>
 </span>{
     public $modelClass = <span class="symbol">'app</span>\models\<span class="type">Country</span>';
 }
-</code></pre><p>###额外：不同modules下urlmanger配置:<br>假设生成了一个modules/v1 的模块，urlmanger配置如下</p>
+</code></pre><h4 id="额外：不同modules下urlmanger配置:">额外：不同modules下urlmanger配置:</h4><p>假设生成了一个modules/v1 的模块，urlmanger配置如下</p>
 <!-- conf -->
 <pre><code><span class="symbol">'urlManager'</span> =&gt; [
        <span class="symbol">'enablePrettyUrl'</span> =&gt; <span class="literal">true</span>,
@@ -898,7 +896,7 @@ let panRec = <span class="function"><span class="title">UIPanGestureRecognizer</
 
       
         
-          <span itemprop="articleBody"><p>####1.mcrypt拓展<br>Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原</p>
+          <span itemprop="articleBody"><h4 id="1-mcrypt拓展">1.mcrypt拓展</h4><p>Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原</p>
 <ul>
 <li>下载并解压<a href="ftp://mcrypt.hellug.gr/pub/crypto/mcrypt/libmcrypt" target="_blank" rel="external">libmcrypt-2.5.X</a></li>
 <li>终端依次执行以下命令：<ul>
@@ -1242,7 +1240,7 @@ class Pdo implements IDatabase{
 
       
         
-          <span itemprop="articleBody"><p>###1.属性监视器的巧妙运用：<br>在做ios开发的时候，我们经常有这样的需求，当一个属性，更改时，相对应的UI控件表现出来的状态也要改变，最明显的就是，当我们做一个计时器，显示分钟和秒数需要格式化，传统我们是在把实际秒数和视图表现写在回调函数中。这样当我们有多个回调函数时，代码就很冗余了。</p>
+          <span itemprop="articleBody"><h3 id="1-属性监视器的巧妙运用：">1.属性监视器的巧妙运用：</h3><p>在做ios开发的时候，我们经常有这样的需求，当一个属性，更改时，相对应的UI控件表现出来的状态也要改变，最明显的就是，当我们做一个计时器，显示分钟和秒数需要格式化，传统我们是在把实际秒数和视图表现写在回调函数中。这样当我们有多个回调函数时，代码就很冗余了。</p>
 <p>我们可以用更<em>swift</em>的方式来编写我们的代码。</p>
 <pre><code>var changeSecond : Int = <span class="number">0</span> {
      willSet(newSecond){
@@ -1251,15 +1249,13 @@ class Pdo implements IDatabase{
          labbel!.<span class="keyword">text</span> = NSString(<span class="built_in">format</span>:<span class="string">"%02d:%02d"</span>,<span class="built_in">min</span>,<span class="keyword">second</span>)
      }    
  }
-</code></pre><p>###2.空合运算符:??</p>
-<p>空合运算符(a ?? b)将对可选类型a进行空判断，如果a包含一个值就进行解封，否则就返回一个默认值b.这个运算符有两个条件:</p>
+</code></pre><h3 id="2-空合运算符:??">2.空合运算符:??</h3><p>空合运算符(a ?? b)将对可选类型a进行空判断，如果a包含一个值就进行解封，否则就返回一个默认值b.这个运算符有两个条件:</p>
 <ul>
 <li>表达式a必须是Optional类型</li>
 <li>默认值b的类型必须要和a存储值的类型保持一致</li>
 </ul>
 <p>相当于<code>a != nil ? a! : b</code></p>
-<p>###3.一个值在某个范围内（0～100）</p>
-<p><code>var value = min(max(someValue,0),100)</code></p>
+<h3 id="3-一个值在某个范围内（0～100）">3.一个值在某个范围内（0～100）</h3><p><code>var value = min(max(someValue,0),100)</code></p>
 </span>
         
       
