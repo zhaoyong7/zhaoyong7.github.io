@@ -175,6 +175,74 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/04/yii1-source-exception/" itemprop="url">
+                yii1-source-exception
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-04T10:15:42+08:00" content="2015-08-04">
+            2015-08-04
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/04/yii1-source-exception/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/04/yii1-source-exception/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/25/get-cli-agrs/" itemprop="url">
                 获取php cli模式里的参数方法
               </a>
@@ -1191,95 +1259,11 @@ class Pdo implements IDatabase{
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/12/swfit-skill/" itemprop="url">
-                swfit编程技巧总结
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-01-12T11:47:02+08:00" content="2015-01-12">
-            2015-01-12
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/01/12/swfit-skill/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/12/swfit-skill/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h3 id="1-属性监视器的巧妙运用：">1.属性监视器的巧妙运用：</h3><p>在做ios开发的时候，我们经常有这样的需求，当一个属性，更改时，相对应的UI控件表现出来的状态也要改变，最明显的就是，当我们做一个计时器，显示分钟和秒数需要格式化，传统我们是在把实际秒数和视图表现写在回调函数中。这样当我们有多个回调函数时，代码就很冗余了。</p>
-<p>我们可以用更<em>swift</em>的方式来编写我们的代码。</p>
-<pre><code>var changeSecond : Int = <span class="number">0</span> {
-     willSet(newSecond){
-         let <span class="built_in">min</span> = newSecond / <span class="number">60</span>
-         let <span class="keyword">second</span> = newSecond % <span class="number">60</span> 
-         labbel!.<span class="keyword">text</span> = NSString(<span class="built_in">format</span>:<span class="string">"%02d:%02d"</span>,<span class="built_in">min</span>,<span class="keyword">second</span>)
-     }    
- }
-</code></pre><h3 id="2-空合运算符:??">2.空合运算符:??</h3><p>空合运算符(a ?? b)将对可选类型a进行空判断，如果a包含一个值就进行解封，否则就返回一个默认值b.这个运算符有两个条件:</p>
-<ul>
-<li>表达式a必须是Optional类型</li>
-<li>默认值b的类型必须要和a存储值的类型保持一致</li>
-</ul>
-<p>相当于<code>a != nil ? a! : b</code></p>
-<h3 id="3-一个值在某个范围内（0～100）">3.一个值在某个范围内（0～100）</h3><p><code>var value = min(max(someValue,0),100)</code></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
  </div>
@@ -1313,7 +1297,7 @@ class Pdo implements IDatabase{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1327,7 +1311,7 @@ class Pdo implements IDatabase{
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
