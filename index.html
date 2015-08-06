@@ -183,6 +183,133 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/06/the-same-variable-function-name/" itemprop="url">
+                php类中同名变量与函数
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-06T12:02:10+08:00" content="2015-08-06">
+            2015-08-06
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/06/the-same-variable-function-name/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/06/the-same-variable-function-name/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。</p>
+<h5 id="写小例子来理解下思路。">写小例子来理解下思路。</h5><p>写个类，里面有个同名的变量和方法：</p>
+<!-- lang:php -->
+<pre><code>class Dmore(){
+    public <span class="variable">$qmore</span> = <span class="string">''</span> ;
+    public function qmore(){
+        echo <span class="string">"qmore..qmore"</span>
+    }
+}
+<span class="variable">$dmore</span> = new Dmore() ;
+<span class="variable">$dmore-</span>&gt;qmore     // 输出: <span class="string">''</span>
+<span class="variable">$dmore-</span>&gt;qmore()   // 输出: qmore..qmore
+</code></pre><p>1、如果更改下qmore属性，传入一个匿名函数</p>
+<!-- lang: php -->
+<pre><code><span class="variable">$dmore-</span>&gt;qmore = <span class="keyword">function</span>(){
+    echo <span class="string">"xxxxxxx"</span> ;
+}
+<span class="variable">$dmore-</span>&gt;qmore() ; //输出: qmore..qmore
+</code></pre><p>2、我以为能更改这个qmore函数呢，太菜太天真，其实函数一直是qmore(),变量一直是qmore,只不过此时变量为qmore = Closure 类型的闭包。可以用另外一个回调函数验证一下：</p>
+<!-- lang:php --> 
+<pre><code><span class="keyword">function</span> callf(Closure <span class="variable">$callBack</span>){
+    <span class="variable">$callBack</span>() ;
+}
+callf(<span class="variable">$dmore-</span>&gt;qmore) ; //输出: xxxxxxx
+</code></pre><p>3、突然间，我又想到个奇怪的想法，如果类中只有这个函数，没有变量名，可以对函数赋值吗？再来看下</p>
+<!-- lang:php -->
+<pre><code>class Dmore(){
+    //public <span class="variable">$qmore</span> = <span class="string">''</span> ;
+    public function qmore(){
+        echo <span class="string">"qmore..qmore"</span>
+    }
+}
+<span class="variable">$dmore</span> = new Dmore();
+<span class="variable">$dmore-</span>&gt;qmore = <span class="keyword">function</span>(){
+    echo <span class="string">'xxxxxx'</span>
+}
+<span class="variable">$dmore-</span>&gt;qmore() ; //输出 qmore..qmore
+</code></pre><p>天真了，php可以动态添加变量嘛，这样一搞又回到了开始的那样，函数一直是qmore(),变量多了个qmore，且qmore = Closure 类型的闭包，不信你调回第二部分代码。</p>
+<p>总结一下：</p>
+<ul>
+<li>变量就是变量，函数是函数，不管名字是否一样但是意义不同，起码函数屁股跟个‘()’不是？</li>
+<li>无论怎么赋值，操作的总是变量。</li>
+<li>以上都是瞎猜，不过写在这里以后要是真正懂了、解决了至少有个凭证</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/04/yii1-source-exception/" itemprop="url">
                 yii1－源码：错误信息处理机制
               </a>
@@ -1173,130 +1300,6 @@ class Client implements IUserStrtegy{
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/15/desgin-adapter/" itemprop="url">
-                适配器模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-01-15T10:32:46+08:00" content="2015-01-15">
-            2015-01-15
-          </time>
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/01/15/desgin-adapter/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/15/desgin-adapter/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>适配器模式可以将截然不同的函数接口封装成统一的API</p>
-<p>在实际应用中，如 PHP的数据库操作接口有mysql,mysqli,pdo三种，我们可以通过适配器模式统一成一致的api，方便外部调用。<br>类似的场景还有memcache,redis,file,apc等不同的缓存函数。</p>
-<p>####适配器模式</p>
-<!-- lang:php -->
-<pre><code>/*适配器接口*/
-interface IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>) ;
-    function query(<span class="variable">$sql</span>) ;
-    function close() ;
-}
-
-/*mysql*/
-class Mysql implements IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>){
-        //Mysql操作接口connect代码
-    }
-
-    function query(<span class="variable">$sql</span>){
-        //Mysql操作接口query代码
-    }
-
-    function close(){
-        //Mysql操作接口close代码
-    }
-
-}
-
-/*mysqli*/
-class Mysqli implements IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>){
-        //Mysqli操作接口connect代码
-    }
-
-    function query(<span class="variable">$sql</span>){
-        //Mysqli操作接口query代码
-    }
-
-    function close(){
-        //Mysqli操作接口close代码
-    }
-}
-
-/*pdo*/
-class Pdo implements IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>){
-        //Pdo操作接口connect代码
-    }
-
-    function query(<span class="variable">$sql</span>){
-        //Pdo操作接口query代码
-    }
-
-    function close(){
-        //Pdo操作接口close代码
-    }
-}
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1335,7 +1338,7 @@ class Pdo implements IDatabase{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1349,7 +1352,7 @@ class Pdo implements IDatabase{
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
