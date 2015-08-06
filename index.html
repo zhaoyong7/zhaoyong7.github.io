@@ -236,8 +236,8 @@
 
       
         
-          <span itemprop="articleBody"><p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。</p>
-<h5 id="写小例子来理解下思路。">写小例子来理解下思路。</h5><p>写个类，里面有个同名的变量和方法：</p>
+          <span itemprop="articleBody"><p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。写小例子来理解下思路。</p>
+<p>Dmore类，里面有个同名的变量和方法：</p>
 <!-- lang:php -->
 <pre><code>class Dmore(){
     public <span class="variable">$qmore</span> = <span class="string">''</span> ;

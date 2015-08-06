@@ -41,7 +41,7 @@
 <meta property="og:url" content="http://blog.dqmore.com/2015/08/06/the-same-variable-function-name/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑">
-<meta property="og:updated_time" content="2015-08-06T07:35:06.000Z">
+<meta property="og:updated_time" content="2015-08-06T07:36:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php类中同名变量与函数">
 <meta name="twitter:description" content="追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑">
@@ -232,8 +232,8 @@
       
 
       
-        <span itemprop="articleBody"><p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。</p>
-<h5 id="写小例子来理解下思路。">写小例子来理解下思路。</h5><p>写个类，里面有个同名的变量和方法：</p>
+        <span itemprop="articleBody"><p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。写小例子来理解下思路。</p>
+<p>Dmore类，里面有个同名的变量和方法：</p>
 <!-- lang:php -->
 <pre><code>class Dmore(){
     public <span class="variable">$qmore</span> = <span class="string">''</span> ;
@@ -446,7 +446,7 @@ callf(<span class="variable">$dmore-</span>&gt;qmore) ; //输出: xxxxxxx
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#写小例子来理解下思路。"><span class="nav-number">1.</span> <span class="nav-text">写小例子来理解下思路。</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
