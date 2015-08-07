@@ -378,6 +378,47 @@ protected <span class="function"><span class="keyword">function</span> <span cla
 }
 </code></pre><p>yii将错误处理分配给handleError;异常处理机制分配给handleException。</p>
 <p>handleError，handleException函数将接收发生错误处所抛出的异常或错误的对象<code>throw new CException(‘有异常’)</code></p>
+<p>代码跟进到handleException($exception)函数：（handleExrror同理）</p>
+<!-- lang:php -->
+<pre><code>public <span class="keyword">function</span> handleException(<span class="variable">$exception</span>)
+{
+    .....
+    try
+    {
+        <span class="variable">$event</span>=new CExceptionEvent(<span class="variable">$this</span>,<span class="variable">$exception</span>);
+        <span class="variable">$this-</span>&gt;onException(<span class="variable">$event</span>);
+        if(!<span class="variable">$event-</span>&gt;handled)
+        {
+            // try an error handler
+            if((<span class="variable">$handler</span>=<span class="variable">$this-</span>&gt;getErrorHandler())!==null)
+                <span class="variable">$handler-</span>&gt;handle(<span class="variable">$event</span>);
+            else
+                <span class="variable">$this-</span>&gt;displayException(<span class="variable">$exception</span>);
+        }
+    }
+    .....
+}
+</code></pre><p>yii处理异常是通过事件处理的，这里<code>$event=new CExceptionEvent($this,$exception);$this-&gt;onException($event);</code>将异常包装成一个异常事件，丢入事件处理队列(onException),若用户之前用onException函数绑定了一些handler类handler方法：</p>
+<p>main.php:</p>
+<!-- lang:php -->
+<pre><code><span class="attribute">...</span>
+onException = <span class="built_in">array</span>(<span class="string">'MyHandlerClass'</span>,<span class="string">'MyHandlerClassMethod'</span>) ;<span class="comment">//静态方法</span>
+<span class="attribute">...</span>
+</code></pre><!-- lang:php -->
+<pre><code>class MyHandlerClass{
+    public static function MyHandlerClassMethod(<span class="variable">$event</span>){
+        print_r(<span class="variable">$event-</span>&gt;sender) 
+    }
+}
+</code></pre><p>在这个handler类handler方法可以处理下这个这个异常事件，例如是写log什么的操作。</p>
+<p>接下来就重中之重了：</p>
+<!-- lang:php -->
+<pre><code>// <span class="keyword">try</span> an error handler
+<span class="keyword">if</span>((<span class="variable">$handler</span>=<span class="variable">$this-</span>&gt;getErrorHandler())!==null)
+    <span class="variable">$handler-</span>&gt;handle(<span class="variable">$event</span>);
+<span class="keyword">else</span>
+    <span class="variable">$this-</span>&gt;displayException(<span class="variable">$exception</span>);
+</code></pre><p>获取一个errorHandler组件来处理这个异常任务，例如是直接输出异常信息，还是render一个页面，又或者是运行errorHandler指定的errorAction,全凭客官选择了。</p>
 </span>
         
       
