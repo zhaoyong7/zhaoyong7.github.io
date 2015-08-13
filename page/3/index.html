@@ -239,7 +239,7 @@
           <span itemprop="articleBody"><p>大多数跨域AJAX请求我们都使用JSONP ，参考 <a href="http://dqmore.com/2014/11/05/jsonp-simple-principle/" target="_blank" rel="external">JSONP的简单原理</a></p>
 <p>而jsonp是基于get请求的，当要传输的数据过大，只能基于POST请求，get形式无法满足我们的需求</p>
 <p>可以使用CORS(<em>跨域资源共享</em>，Cross-Origin Resource Sharing)</p>
-<p>CORS可以帮助我们解决AJAX跨域的问题，允许一个域的网络应用向另一个域提交跨域请求，要实现该功能十分简单，只需要由服务器返回一个相应header头，以php服务器为例子:</p>
+<p>CORS可以帮助我们解决AJAX跨域的问题，允许一个域的网络应用向另一个域提交跨域请求，要实现该功能十分简单，<em>前端只需正常的以AJAX调用即可</em>，只需要由服务器返回一个相应header头，以php服务器为例子:</p>
 <p><strong>接口中包含以下头信息:</strong><br><!-- lang:php --></p>
 <pre><code><span class="function"><span class="title">header</span><span class="params">(“Access-Control-Allow-Origin: *”)</span></span>
 <span class="comment">//(*)表示允许任何域名向该服务器提交信息，也可以指定对应域名:</span>
