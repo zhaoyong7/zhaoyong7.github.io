@@ -47,7 +47,7 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
 上一篇文章，php同名函数与变量也是因为阅读源码的时候突然遇到的奇怪问题。
 php可以为对象动态添加变量（在该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法来处理。
 yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇到已">
-<meta property="og:updated_time" content="2015-08-19T06:30:43.000Z">
+<meta property="og:updated_time" content="2015-08-19T06:52:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：事件处理机制">
 <meta name="twitter:description" content="yii1的事件处理，其实也是对观察者模式的运用。
@@ -327,12 +327,7 @@ class FeekBackController extend CController{
 <span class="comment">//FeekBackController</span>
 <span class="class"><span class="keyword">class</span> <span class="title">FeekBackController</span> <span class="title">extend</span> <span class="title">CController</span></span>{
 
-    <span class="function"><span class="keyword">function</span> <span class="title">actionAdd</span><span class="params">(<span class="variable">$text</span>)</span></span>{
-        <span class="variable">$this</span>-&gt;onFeekBack = <span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$event</span>)</span></span>{
-            <span class="keyword">echo</span> <span class="string">'send email to admin'</span>.<span class="string">"&lt;br&gt;"</span> ;
-        }
-
-        <span class="variable">$this</span>-&gt;onFeekBack = <span class="keyword">array</span>(<span class="variable">$this</span>,<span class="string">'myFeekBack'</span>) ;            
+    <span class="function"><span class="keyword">function</span> <span class="title">actionAdd</span><span class="params">(<span class="variable">$text</span>)</span></span>{            
         <span class="variable">$feekBack</span> = <span class="keyword">new</span> FeekBack() ;
         <span class="comment">/*
          *添加一个email通知。
@@ -340,7 +335,7 @@ class FeekBackController extend CController{
          *当然，如果你想这个notify类统一，那么为他们加一个统一接口也是不错的
          */</span>
         <span class="variable">$feekBack</span>-&gt;onFeekBack =     <span class="keyword">array</span>(<span class="keyword">new</span> EmailNotify,<span class="string">'feekback'</span>)
-
+        <span class="comment">/*用户发送反馈信息*/</span>
         <span class="variable">$feekBack</span>-&gt;add(<span class="variable">$text</span>) ;
 
     }

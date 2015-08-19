@@ -322,12 +322,7 @@ class FeekBackController extend CController{
 <span class="comment">//FeekBackController</span>
 <span class="class"><span class="keyword">class</span> <span class="title">FeekBackController</span> <span class="title">extend</span> <span class="title">CController</span></span>{
 
-    <span class="function"><span class="keyword">function</span> <span class="title">actionAdd</span><span class="params">(<span class="variable">$text</span>)</span></span>{
-        <span class="variable">$this</span>-&gt;onFeekBack = <span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$event</span>)</span></span>{
-            <span class="keyword">echo</span> <span class="string">'send email to admin'</span>.<span class="string">"&lt;br&gt;"</span> ;
-        }
-
-        <span class="variable">$this</span>-&gt;onFeekBack = <span class="keyword">array</span>(<span class="variable">$this</span>,<span class="string">'myFeekBack'</span>) ;            
+    <span class="function"><span class="keyword">function</span> <span class="title">actionAdd</span><span class="params">(<span class="variable">$text</span>)</span></span>{            
         <span class="variable">$feekBack</span> = <span class="keyword">new</span> FeekBack() ;
         <span class="comment">/*
          *添加一个email通知。
@@ -335,7 +330,7 @@ class FeekBackController extend CController{
          *当然，如果你想这个notify类统一，那么为他们加一个统一接口也是不错的
          */</span>
         <span class="variable">$feekBack</span>-&gt;onFeekBack =     <span class="keyword">array</span>(<span class="keyword">new</span> EmailNotify,<span class="string">'feekback'</span>)
-
+        <span class="comment">/*用户发送反馈信息*/</span>
         <span class="variable">$feekBack</span>-&gt;add(<span class="variable">$text</span>) ;
 
     }
