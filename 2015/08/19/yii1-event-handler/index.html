@@ -47,7 +47,7 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
 上一篇文章，php同名函数与变量也是因为阅读源码的时候突然遇到的奇怪问题。
 php可以为对象动态添加变量（再该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法形式来处理。
 yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇">
-<meta property="og:updated_time" content="2015-08-19T06:14:54.000Z">
+<meta property="og:updated_time" content="2015-08-19T06:16:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：事件处理机制">
 <meta name="twitter:description" content="yii1的事件处理，其实也是对观察者模式的运用。
@@ -242,7 +242,7 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
 
       
         <span itemprop="articleBody"><p>yii1的事件处理，其实也是对<a href="http://blog.dqmore.com/2015/01/06/design-observer/"><em>观察者模式</em></a>的运用。</p>
-<p>上一篇文章，<a href="http://blog.dqmore.com/2015/08/06/the-same-variable-function-name/">php同名函数与变量</a>也是因为阅读源码的时候突然遇到的奇怪问题。</p>
+<p>上一篇文章，<a href="http://blog.dqmore.com/2015/08/06/the-same-variable-function-name/"><em>php同名函数与变量</em></a>也是因为阅读源码的时候突然遇到的奇怪问题。</p>
 <p>php可以为对象动态添加变量（再该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法形式来处理。</p>
 <p>yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇到已”onXXX”开头的变量时候，且该变量对应的同名方法存在（注意哈，是<em>变量对应的同名方法</em>）则将动态变量名以key形式放入关联数组_e中，值为CList对象：</p>
 <!-- lang:php -->
