@@ -183,6 +183,104 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/20/php5-new-feature——traits/" itemprop="url">
+                php5.4新特新——Trait
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-20T16:51:49+08:00" content="2014-12-20">
+            2014-12-20
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/12/20/php5-new-feature——traits/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/20/php5-new-feature——traits/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>PHP 5.4中的traits，是新引入的特性。其实际的目的，是为了有的场合想用多继承，但PHP又没多继承，于是就发明了这样的一个东西。<br>Traits可以理解为一组能被不同的类都能调用到的方法集合，但Traits不是类！不能被实例化。先来例子看下语法：</p>
+<!-- lang: php -->
+<pre><code><span class="keyword">trait</span> myTrait{
+    <span class="function"><span class="keyword">function</span> <span class="title">traitMethod1</span><span class="params">()</span></span>{}
+    <span class="function"><span class="keyword">function</span> <span class="title">traitMethod2</span><span class="params">()</span></span>{}
+}
+</code></pre><p>通过use myTraits，调用Traits中的方法了，调用这个traits的语法为：</p>
+<!-- lang: php -->
+<pre><code>class myClass{
+    use myTrait;
+}
+
+<span class="variable">$obj</span> = new myClass();
+<span class="variable">$obj-</span>&gt; traitMethod1 ();
+<span class="variable">$obj-</span>&gt; traitMethod2 ();
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/10/Cross-Origin-Resource-Sharing/" itemprop="url">
                 Ajax跨域post问题
               </a>
@@ -410,7 +508,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

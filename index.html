@@ -183,6 +183,188 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/19/yii1-event-handler/" itemprop="url">
+                yii1－源码：事件处理机制
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-08-19T09:01:38+08:00" content="2015-08-19">
+            2015-08-19
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/19/yii1-event-handler/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/19/yii1-event-handler/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>yii1的事件处理，其实也是对<a href="http://blog.dqmore.com/2015/01/06/design-observer/"><em>观察者模式</em></a>的运用。</p>
+<p>上一篇文章，<a href="http://blog.dqmore.com/2015/08/06/the-same-variable-function-name/">php同名函数与变量</a>也是因为阅读源码的时候突然遇到的奇怪问题。</p>
+<p>php可以为对象动态添加变量（再该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法形式来处理。</p>
+<p>yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇到已”onXXX”开头的变量时候，且该变量对应的同名方法存在（注意哈，是<em>变量对应的同名方法</em>）则将动态变量名以key形式放入关联数组_e中，值为CList对象：</p>
+<!-- lang:php -->
+<pre><code>public <span class="keyword">function</span> __set(<span class="variable">$name</span>,<span class="variable">$value</span>)
+{
+    <span class="variable">$setter</span>=<span class="string">'set'</span>.<span class="variable">$name</span>;
+    if(method_exists(<span class="variable">$this</span>,<span class="variable">$setter</span>))
+        return <span class="variable">$this-</span>&gt;<span class="variable">$setter</span>(<span class="variable">$value</span>);
+    elseif(strncasecmp(<span class="variable">$name</span>,<span class="string">'on'</span>,<span class="number">2</span>)===<span class="number">0</span> &amp;&amp; method_exists(<span class="variable">$this</span>,<span class="variable">$name</span>))
+    {
+        // duplicating getEventHandlers() here for performance
+        <span class="variable">$name</span>=strtolower(<span class="variable">$name</span>);
+        if(!isset(<span class="variable">$this-</span>&gt;_e[<span class="variable">$name</span>]))
+            <span class="variable">$this-</span>&gt;_e[<span class="variable">$name</span>]=new CList;
+        return <span class="variable">$this-</span>&gt;_e[<span class="variable">$name</span>]-&gt;add(<span class="variable">$value</span>);
+    }
+    ....
+}
+</code></pre><p>需要调用该事件只需<code>$this-&gt;raiseEvent(‘onXXX’,new Event($this))</code>,当然new Event 不是必须的～只是传个参数而已，到时候可以回调这个对象。</p>
+<p>下面我门写个例子，比如有个用户反馈模块，当用户提交了反馈，就会发送一封邮件给管理员。</p>
+<!-- lang:php -->
+<pre><code>//定义一个controller
+class FeekBackController extend CController{
+
+    function actionAdd(<span class="variable">$text</span>){
+        <span class="variable">$this-</span>&gt;onFeekBack = function(<span class="variable">$event</span>){
+            echo <span class="string">'send email to admin'</span>.<span class="string">"&lt;br&gt;"</span> ;
+
+        }
+
+        <span class="variable">$this-</span>&gt;onFeekBack = array(<span class="variable">$this</span>,<span class="string">'myFeekBack'</span>) ;            
+        <span class="variable">$this-</span>&gt;onFeekBack(new CEvent(<span class="variable">$this</span>)) ;
+        //添加操作    
+        ...
+        ..
+        .    
+    }
+
+    function onFeekBack(<span class="variable">$event</span>){
+        if(<span class="variable">$this-</span>&gt;hasEventHandler(<span class="string">'onFeekBack'</span>)){
+             <span class="variable">$this-</span>&gt;raiseEvent(<span class="string">'onFeekBack'</span>,<span class="variable">$event</span>) ;
+        }
+    }
+
+    function myFeekBack(<span class="variable">$event</span>){
+        echo <span class="string">'send other msg to admin'</span>.<span class="string">"&lt;br&gt;"</span> ;
+    }
+} 
+
+//输出：send email <span class="keyword">to</span> admin
+       send other msg <span class="keyword">to</span> admin
+</code></pre><p>上面的例子体现不了多大好处，我们可以像这样写分离写：</p>
+<!-- lang:php -->
+<pre><code><span class="comment">//module</span>
+<span class="class"><span class="keyword">class</span> <span class="title">Feedback</span> <span class="keyword">extends</span> <span class="title">CActiveRecord</span></span>{
+
+        <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(<span class="variable">$text</span>)</span></span>{    
+
+            <span class="variable">$this</span>-&gt;insert(<span class="keyword">array</span>(<span class="string">'text'</span>=&gt;<span class="variable">$text</span>))  ;
+
+            <span class="variable">$this</span>-&gt;onFeekBack(<span class="keyword">new</span> CEvent(<span class="variable">$this</span>))
+
+        }    
+
+        <span class="function"><span class="keyword">function</span> <span class="title">onFeekBack</span><span class="params">(<span class="variable">$event</span>)</span></span>{
+            <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;hasEventHandler(<span class="string">'onFeekBack'</span>)){
+                 <span class="variable">$this</span>-&gt;raiseEvent(<span class="string">'onFeekBack'</span>,<span class="variable">$event</span>) ;
+            }
+        }            
+}
+
+<span class="comment">//components/EmailNotify.php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">EmailNotify</span></span>{
+
+    <span class="function"><span class="keyword">function</span> <span class="title">feekback</span><span class="params">(<span class="variable">$event</span>)</span></span>{
+        <span class="variable">$text</span> = <span class="variable">$event</span>-&gt;handler-&gt;text;
+         mail(<span class="string">'admin@example.com'</span>, <span class="string">'New feekback'</span>, <span class="variable">$text</span>);
+    }
+
+}
+
+<span class="comment">//FeekBackController</span>
+<span class="class"><span class="keyword">class</span> <span class="title">FeekBackController</span> <span class="title">extend</span> <span class="title">CController</span></span>{
+
+    <span class="function"><span class="keyword">function</span> <span class="title">actionAdd</span><span class="params">(<span class="variable">$text</span>)</span></span>{
+        <span class="variable">$this</span>-&gt;onFeekBack = <span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$event</span>)</span></span>{
+            <span class="keyword">echo</span> <span class="string">'send email to admin'</span>.<span class="string">"&lt;br&gt;"</span> ;
+        }
+
+        <span class="variable">$this</span>-&gt;onFeekBack = <span class="keyword">array</span>(<span class="variable">$this</span>,<span class="string">'myFeekBack'</span>) ;            
+        <span class="variable">$feekBack</span> = <span class="keyword">new</span> FeekBack() ;
+        <span class="comment">/*添加一个email通知，到时候你可以添加什么phonenotify什么的，只需要增加个类就好了，当然，如果你像这个notify类统一，那么为他们加一个统一接口也是不错的*/</span>
+        <span class="variable">$feekBack</span>-&gt;onFeekBack =     <span class="keyword">array</span>(<span class="keyword">new</span> EmailNotify,<span class="string">'feekback'</span>)
+
+        <span class="variable">$feekBack</span>-&gt;add(<span class="variable">$text</span>) ;
+
+    }
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/06/the-same-variable-function-name/" itemprop="url">
                 php类中同名变量与函数
               </a>
@@ -1322,145 +1504,6 @@ let panRec = <span class="function"><span class="title">UIPanGestureRecognizer</
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/15/desgin-strategy/" itemprop="url">
-                策略模式
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-01-15T10:45:33+08:00" content="2015-01-15">
-            2015-01-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/程序员世界/" itemprop="url" rel="index">
-                  <span itemprop="name">程序员世界</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/01/15/desgin-strategy/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/15/desgin-strategy/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>策略模式是讲一组特定的行为和算法封装成类。以适应某些特定的上下文环境。这种模式叫做策略模式。</p>
-<p>实际应用中，当一个系统有多种不同类型的用户，展示行为相似，但展示内容不同，那么我们就可以使用策略模式。如针对不同性别用户或不同年龄层用户展示不同的商品内容。</p>
-<p>####策略模式<br><!-- lang:php --></p>
-<pre><code>/*策略接口*/
-interface IUserStrategy{
-    function showAd() ;
-    function showCategory() ;
-}
-
-/*策略类*/
-class FemaleUserStrategy implements IUserStrtegy{
-    function showAd(){
-        echo <span class="string">"新款女装"</span> ;
-    }
-
-    function showCategory(){
-        echo <span class="string">"女装"</span> ;
-    }
-}
-
-class ManUserStrategy implements IUserStrtegy{
-    function showAd(){
-        echo <span class="string">"新款手机"</span> ;
-    }
-
-    function showCategory(){
-        echo <span class="string">"电子产品"</span> ;
-    }
-}
-
-/*客户端，IUserStrtegy可不继承，随意*/
-class Client implements IUserStrtegy{
-    private <span class="variable">$strtegy</span> = null
-
-    function setStrtegy(IUserStrtegy <span class="variable">$strte</span>){
-        <span class="variable">$this-</span>&gt;strtegy = <span class="variable">$strte</span> ;
-    }
-
-    function __construct(IUserStrtegy strte){
-        <span class="variable">$this-</span>&gt;strtegy = <span class="variable">$strte</span> ;
-    }
-
-    function showAd(){
-        <span class="variable">$this-</span>&gt;strtegy-&gt;showAd() ;
-    }
-
-    function showCategory(){
-        <span class="variable">$this-</span>&gt;strtegy-&gt;showCategory() ;
-    }
-}
-
-/*根据条件加入策略类，以后多种情况只需添加多一个策略类即可*/
-<span class="variable">$obj</span> = $_GET[<span class="string">'female'</span>] ? new FemaleUserStrategy() : new ManUserStrategy() ;
-<span class="variable">$client</span> = new Client(<span class="variable">$obj</span>) ; // <span class="variable">$client-</span>&gt;setStrtegy(<span class="variable">$obj</span>)
-<span class="variable">$client-</span>&gt;showAd() ;
-<span class="variable">$client-</span>&gt;showCategory() ;
-</code></pre></span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1499,7 +1542,7 @@ class Client implements IUserStrtegy{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
