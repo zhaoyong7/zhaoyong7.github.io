@@ -47,7 +47,7 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
 上一篇文章，php同名函数与变量也是因为阅读源码的时候突然遇到的奇怪问题。
 php可以为对象动态添加变量（再该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法形式来处理。
 yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇">
-<meta property="og:updated_time" content="2015-08-19T06:09:58.000Z">
+<meta property="og:updated_time" content="2015-08-19T06:14:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：事件处理机制">
 <meta name="twitter:description" content="yii1的事件处理，其实也是对观察者模式的运用。
@@ -334,13 +334,19 @@ class FeekBackController extend CController{
 
         <span class="variable">$this</span>-&gt;onFeekBack = <span class="keyword">array</span>(<span class="variable">$this</span>,<span class="string">'myFeekBack'</span>) ;            
         <span class="variable">$feekBack</span> = <span class="keyword">new</span> FeekBack() ;
-        <span class="comment">/*添加一个email通知，到时候你可以添加什么phonenotify什么的，只需要增加个类就好了，当然，如果你像这个notify类统一，那么为他们加一个统一接口也是不错的*/</span>
+        <span class="comment">/*
+         *添加一个email通知。
+         *到时候你可以添加什么Phonenotify什么的，只需要增加个类就好了。
+         *当然，如果你想这个notify类统一，那么为他们加一个统一接口也是不错的
+         */</span>
         <span class="variable">$feekBack</span>-&gt;onFeekBack =     <span class="keyword">array</span>(<span class="keyword">new</span> EmailNotify,<span class="string">'feekback'</span>)
 
         <span class="variable">$feekBack</span>-&gt;add(<span class="variable">$text</span>) ;
 
     }
-</code></pre></span>
+}
+</code></pre><p>啊，好像很厉害，但自己用的还真少。</p>
+</span>
       
     </div>
 

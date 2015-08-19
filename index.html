@@ -329,13 +329,19 @@ class FeekBackController extend CController{
 
         <span class="variable">$this</span>-&gt;onFeekBack = <span class="keyword">array</span>(<span class="variable">$this</span>,<span class="string">'myFeekBack'</span>) ;            
         <span class="variable">$feekBack</span> = <span class="keyword">new</span> FeekBack() ;
-        <span class="comment">/*添加一个email通知，到时候你可以添加什么phonenotify什么的，只需要增加个类就好了，当然，如果你像这个notify类统一，那么为他们加一个统一接口也是不错的*/</span>
+        <span class="comment">/*
+         *添加一个email通知。
+         *到时候你可以添加什么Phonenotify什么的，只需要增加个类就好了。
+         *当然，如果你想这个notify类统一，那么为他们加一个统一接口也是不错的
+         */</span>
         <span class="variable">$feekBack</span>-&gt;onFeekBack =     <span class="keyword">array</span>(<span class="keyword">new</span> EmailNotify,<span class="string">'feekback'</span>)
 
         <span class="variable">$feekBack</span>-&gt;add(<span class="variable">$text</span>) ;
 
     }
-</code></pre></span>
+}
+</code></pre><p>啊，好像很厉害，但自己用的还真少。</p>
+</span>
         
       
     </div>
