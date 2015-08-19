@@ -47,7 +47,7 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
 上一篇文章，php同名函数与变量也是因为阅读源码的时候突然遇到的奇怪问题。
 php可以为对象动态添加变量（在该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法来处理。
 yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇到已">
-<meta property="og:updated_time" content="2015-08-19T06:16:58.000Z">
+<meta property="og:updated_time" content="2015-08-19T06:30:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：事件处理机制">
 <meta name="twitter:description" content="yii1的事件处理，其实也是对观察者模式的运用。
@@ -345,7 +345,44 @@ class FeekBackController extend CController{
 
     }
 }
-</code></pre><p>啊，好像很厉害，但自己用的还真少。</p>
+</code></pre><p>那么，究竟是怎么调用到EmailNotify::feekback的呢？其实就在<code>$this-&gt;raiseEvent(‘onFeekBack’,$event) ;</code>跟进代码：</p>
+<!-- lang:php -->
+<pre><code>public <span class="keyword">function</span> raiseEvent(<span class="variable">$name</span>,<span class="variable">$event</span>)
+{
+    <span class="variable">$name</span>=strtolower(<span class="variable">$name</span>);
+    if(isset(<span class="variable">$this-</span>&gt;_e[<span class="variable">$name</span>]))
+    {
+        foreach(<span class="variable">$this-</span>&gt;_e[<span class="variable">$name</span>] as <span class="variable">$handler</span>)
+        {
+            if(is_string(<span class="variable">$handler</span>))
+                call_user_func(<span class="variable">$handler</span>,<span class="variable">$event</span>);
+            elseif(is_callable(<span class="variable">$handler</span>,true))
+            {
+                if(is_array(<span class="variable">$handler</span>))
+                {
+                    // an array: <span class="number">0</span> - object, <span class="number">1</span> - method name
+                    list(<span class="variable">$object</span>,<span class="variable">$method</span>)=<span class="variable">$handler</span>;
+                    if(is_string(<span class="variable">$object</span>))    // static method call
+                        call_user_func(<span class="variable">$handler</span>,<span class="variable">$event</span>);
+                    elseif(method_exists(<span class="variable">$object</span>,<span class="variable">$method</span>))
+                        <span class="variable">$object-</span>&gt;<span class="variable">$method</span>(<span class="variable">$event</span>);
+                    else
+                        throw new CException(Yii::t(<span class="string">'yii'</span>,<span class="string">'Event "{class}.{event}" is attached with an invalid handler "{handler}".'</span>,
+                            array(<span class="string">'{class}'</span>=&gt;get_class(<span class="variable">$this</span>), <span class="string">'{event}'</span>=&gt;<span class="variable">$name</span>, <span class="string">'{handler}'</span>=&gt;<span class="variable">$handler</span>[<span class="number">1</span>])));
+                }
+                else // PHP <span class="number">5.3</span>: anonymous function
+                    call_user_func(<span class="variable">$handler</span>,<span class="variable">$event</span>);
+            }
+            else
+                throw new CException(Yii::t(<span class="string">'yii'</span>,<span class="string">'Event "{class}.{event}" is attached with an invalid handler "{handler}".'</span>,
+                    array(<span class="string">'{class}'</span>=&gt;get_class(<span class="variable">$this</span>), <span class="string">'{event}'</span>=&gt;<span class="variable">$name</span>, <span class="string">'{handler}'</span>=&gt;gettype(<span class="variable">$handler</span>))));
+            // stop further handling if param.handled is set true
+            if((<span class="variable">$event</span> instanceof CEvent) &amp;&amp; <span class="variable">$event-</span>&gt;handled)
+                return;
+        }
+    }    
+</code></pre><p>一大串代码。其实即使根据key找到之前我们插入到_e管理数组的CList对象。</p>
+<p>最后根据call_user_func以及参数来调用对应的方法了。<br>有人就疑问了，为什么CList对像可以循环调用呀，那是因为<code>class CList extends CComponent implements IteratorAggregate,ArrayAccess,Countable</code>中CList继承了SPL标准库里的迭代器</p>
 </span>
       
     </div>
