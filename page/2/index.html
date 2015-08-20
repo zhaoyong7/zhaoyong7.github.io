@@ -183,6 +183,117 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/17/php-config/" itemprop="url">
+                php配置总览（mac）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-17T10:48:07+08:00" content="2015-01-17">
+            2015-01-17
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/01/17/php-config/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/17/php-config/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h4 id="1-mcrypt拓展">1.mcrypt拓展</h4><p>Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原</p>
+<ul>
+<li>下载并解压<a href="ftp://mcrypt.hellug.gr/pub/crypto/mcrypt/libmcrypt" target="_blank" rel="external">libmcrypt-2.5.X</a></li>
+<li>终端依次执行以下命令：<ul>
+<li>tar zxvf libmcrypt-2.5.7.tar.gz</li>
+<li>cd libmcrypt-2.5.7/</li>
+<li>./configure –disable-poxsi-thread –enable-static</li>
+<li>make</li>
+<li>sudo make install</li>
+</ul>
+</li>
+<li>下载并解压<a href="http://cn2.php.net/get/php-5.4.36.tar.bz2/from/a/mirror" target="_blank" rel="external">php源码文件</a></li>
+<li>终端依次执行以下命令：<ul>
+<li>tar zxvf php-5.3.4.tar.gz</li>
+<li>cd php-5.3.4/ext/mcrypt</li>
+<li>phpsize</li>
+<li>./configure</li>
+<li>make</li>
+<li>sudo cp modules/mcrypt.so /usr/lib/php/extensions/no-debug-non-zts-20100525/ （目录名字有所差异）</li>
+</ul>
+</li>
+<li>打开php.ini<ul>
+<li>sudo vi /etc/php.ini</li>
+<li>添加extension=/usr/lib/php/extensions/no-debug-non-zts-20100525/mcrypt.so</li>
+</ul>
+</li>
+<li>重启服务器sudo apachectl restart</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/15/desgin-strategy/" itemprop="url">
                 策略模式
               </a>
@@ -1296,94 +1407,6 @@ abstract EventGenerator {
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/12/30/hello-hexo-gitcafe/" itemprop="url">
-                博客搬家
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-12-30T17:04:15+08:00" content="2014-12-30">
-            2014-12-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/随便说说/" itemprop="url" rel="index">
-                  <span itemprop="name">随便说说</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/12/30/hello-hexo-gitcafe/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/30/hello-hexo-gitcafe/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>之前为了建个人博客就是单纯的记录自己的学习情况。<br>想来想去觉得wordpress太重了，如果就只是记录，完全没必要使用功能这么强大的框架。</p>
-<p>况且还害怕自己的数据丢失，想来想去决定把博客托管到gitcafe，gitcafe是github国内的托管软件。这样就不怕访问速度慢了。</p>
-<p>再者，还免费！</p>
-<p>后续我会总结一下如何利用hexo，把个人博客架设在gitcafe上。</p>
-<p>网站：<a href="http://dqmore.com" target="_blank" rel="external">点这里</a></p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1422,7 +1445,7 @@ abstract EventGenerator {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
