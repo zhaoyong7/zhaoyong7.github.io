@@ -36,24 +36,24 @@
 
 
 <meta name="description" content="当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。
-####1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
+1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
 &amp;lt;!-- lang:php --&amp;gt;
-//protected/behav">
+//protected/behaviors">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yii1－源码：行为处理机制">
 <meta property="og:url" content="http://blog.dqmore.com/2015/08/20/yii1-source-behavior/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。
-####1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
+1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
 &amp;lt;!-- lang:php --&amp;gt;
-//protected/behav">
-<meta property="og:updated_time" content="2015-08-20T03:34:02.000Z">
+//protected/behaviors">
+<meta property="og:updated_time" content="2015-08-20T03:35:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：行为处理机制">
 <meta name="twitter:description" content="当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。
-####1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
+1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
 &amp;lt;!-- lang:php --&amp;gt;
-//protected/behav">
+//protected/behaviors">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -242,7 +242,7 @@
 
       
         <span itemprop="articleBody"><p>当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。<br>yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。</p>
-<p>####1、绑定变量和函数：<br>首先，我们用先创建一个CBehavior类,只有一个成员属性，如：</p>
+<h4 id="1、绑定变量和函数：">1、绑定变量和函数：</h4><p>首先，我们用先创建一个CBehavior类,只有一个成员属性，如：</p>
 <!-- lang:php -->
 <pre><code><span class="comment">//protected/behaviors/QmoreBehavior.php</span>
 <span class="class"><span class="keyword">class</span> <span class="title">QmoreBehavior</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">CBehavior</span>{</span>
@@ -300,8 +300,7 @@
     ...
 }
 </code></pre><p>如果没有找到这个属性最终都回去_m立马去找对应的属性，__call方法相同，去找对应的方法。</p>
-<p>####2、事件的升级版：</p>
-<p>其实CBehavior还是事件处理的升级版，他有个events方法来绑定事件处理：</p>
+<h4 id="2、事件的升级版：">2、事件的升级版：</h4><p>其实CBehavior还是事件处理的升级版，他有个events方法来绑定事件处理：</p>
 <!-- lang:php -->
 <pre><code><span class="comment">//QmoreBehavior.php</span>
 <span class="class"><span class="keyword">class</span> <span class="title">QmoreBehavior</span> <span class="keyword">extends</span> <span class="title">CBehavior</span></span>{
@@ -525,7 +524,7 @@ public <span class="keyword">function</span> attachEventHandler(<span class="var
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、绑定变量和函数："><span class="nav-number">1.</span> <span class="nav-text">1、绑定变量和函数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、事件的升级版："><span class="nav-number">2.</span> <span class="nav-text">2、事件的升级版：</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

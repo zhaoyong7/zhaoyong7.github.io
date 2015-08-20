@@ -237,7 +237,7 @@
       
         
           <span itemprop="articleBody"><p>当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。<br>yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。</p>
-<p>####1、绑定变量和函数：<br>首先，我们用先创建一个CBehavior类,只有一个成员属性，如：</p>
+<h4 id="1、绑定变量和函数：">1、绑定变量和函数：</h4><p>首先，我们用先创建一个CBehavior类,只有一个成员属性，如：</p>
 <!-- lang:php -->
 <pre><code><span class="comment">//protected/behaviors/QmoreBehavior.php</span>
 <span class="class"><span class="keyword">class</span> <span class="title">QmoreBehavior</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">CBehavior</span>{</span>
@@ -295,8 +295,7 @@
     ...
 }
 </code></pre><p>如果没有找到这个属性最终都回去_m立马去找对应的属性，__call方法相同，去找对应的方法。</p>
-<p>####2、事件的升级版：</p>
-<p>其实CBehavior还是事件处理的升级版，他有个events方法来绑定事件处理：</p>
+<h4 id="2、事件的升级版：">2、事件的升级版：</h4><p>其实CBehavior还是事件处理的升级版，他有个events方法来绑定事件处理：</p>
 <!-- lang:php -->
 <pre><code><span class="comment">//QmoreBehavior.php</span>
 <span class="class"><span class="keyword">class</span> <span class="title">QmoreBehavior</span> <span class="keyword">extends</span> <span class="title">CBehavior</span></span>{
