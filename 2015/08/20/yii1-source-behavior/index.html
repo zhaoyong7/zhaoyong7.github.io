@@ -47,7 +47,7 @@
 1、绑定变量和函数：首先，我们用先创建一个CBehavior类,只有一个成员属性，如：
 &amp;lt;!-- lang:php --&amp;gt;
 //protected/behaviors">
-<meta property="og:updated_time" content="2015-08-20T03:35:15.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:42:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：行为处理机制">
 <meta name="twitter:description" content="当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。
@@ -262,6 +262,7 @@
 }   
 <span class="comment">//输出 ：i am lmy</span>
 </code></pre><p>很神奇，它可以输出QmoreBehavior的变量：i am lmy,我们可以跟进<code>attachBehavior</code>这个方法看看作了什么处理<code>attachBehavior</code>：</p>
+<a id="more"></a>
 <!-- lang:php -->
 <pre><code>public <span class="keyword">function</span> attachBehavior(<span class="variable">$name</span>,<span class="variable">$behavior</span>)
 {
