@@ -452,7 +452,7 @@
 
       
         
-          <span itemprop="articleBody"><p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。写小例子来理解下思路。</p>
+          <p>追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑。写小例子来理解下思路。</p>
 <p>Dmore类，里面有个同名的变量和方法：</p>
 <!-- lang:php -->
 <pre><code>class Dmore(){
@@ -464,39 +464,12 @@
 <span class="variable">$dmore</span> = new Dmore() ;
 <span class="variable">$dmore-</span>&gt;qmore     // 输出: <span class="string">''</span>
 <span class="variable">$dmore-</span>&gt;qmore()   // 输出: qmore..qmore
-</code></pre><p>1、如果更改下qmore属性，传入一个匿名函数</p>
-<!-- lang: php -->
-<pre><code><span class="variable">$dmore-</span>&gt;qmore = <span class="keyword">function</span>(){
-    echo <span class="string">"xxxxxxx"</span> ;
-}
-<span class="variable">$dmore-</span>&gt;qmore() ; //输出: qmore..qmore
-</code></pre><p>2、我以为能更改这个qmore函数呢，太菜太天真，其实函数一直是qmore(),变量一直是qmore,只不过此时变量为qmore = Closure 类型的闭包。可以用另外一个回调函数验证一下：</p>
-<!-- lang:php --> 
-<pre><code><span class="keyword">function</span> callf(Closure <span class="variable">$callBack</span>){
-    <span class="variable">$callBack</span>() ;
-}
-callf(<span class="variable">$dmore-</span>&gt;qmore) ; //输出: xxxxxxx
-</code></pre><p>3、突然间，我又想到个奇怪的想法，如果类中只有这个函数，没有变量名，可以对函数赋值吗？再来看下</p>
-<!-- lang:php -->
-<pre><code>class Dmore(){
-    //public <span class="variable">$qmore</span> = <span class="string">''</span> ;
-    public function qmore(){
-        echo <span class="string">"qmore..qmore"</span>
-    }
-}
-<span class="variable">$dmore</span> = new Dmore();
-<span class="variable">$dmore-</span>&gt;qmore = <span class="keyword">function</span>(){
-    echo <span class="string">'xxxxxx'</span>
-}
-<span class="variable">$dmore-</span>&gt;qmore() ; //输出 qmore..qmore
-</code></pre><p>天真了，php可以动态添加变量嘛，这样一搞又回到了开始的那样，函数一直是qmore(),变量多了个qmore，且qmore = Closure 类型的闭包，不信你调回第二部分代码。</p>
-<p>总结一下：</p>
-<ul>
-<li>变量就是变量，函数是函数，不管名字是否一样但是意义不同，起码函数屁股跟个‘()’不是？</li>
-<li>无论怎么赋值，操作的总是变量。</li>
-<li>以上都是瞎猜，不过写在这里以后要是真正懂了、解决了至少有个凭证</li>
-</ul>
-</span>
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/08/06/the-same-variable-function-name/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -680,31 +653,13 @@ protected <span class="function"><span class="keyword">function</span> <span cla
 
       
         
-          <span itemprop="articleBody"><p>php可以在cli（命令行）模式里运行，不需要人和一种web服务器做载体</p>
+          <p>php可以在cli（命令行）模式里运行，不需要人和一种web服务器做载体</p>
 <p>在cli模式里如何获取传入的参数呢？</p>
-<p>1、使用全局参数$argv接受参数（register_argc_argv打开时可用）</p>
-<p>cli ： /php/xxx.php one two three</p>
-<pre><code>print_r(<span class="variable">$argv</span>)
-
-打印：<span class="keyword">array</span>(
-            [<span class="number">0</span>] =&gt; /php/xxx.php
-            [<span class="number">1</span>] =&gt; one 
-            [<span class="number">2</span>] =&gt; two 
-            [<span class="number">3</span>] =&gt; three 
-        )
-</code></pre><p>第一个参数为文件路径，其余为传入参数（$argc为参数个数，所以最小为1）</p>
-<p>2、使用getopt()函数获取参数</p>
-<p>cli ： /php/xxx.php －a one -b two -c three</p>
-<pre><code>//获取 -a -b -c参数
-<span class="variable">$args</span> = getopt(<span class="string">'a:b:c:'</span>);
-print_r(<span class="variable">$args</span>);
-
-打印：<span class="keyword">array</span>(
-            [a] =&gt; one 
-            [b] =&gt; two 
-            [c] =&gt; three 
-        )
-</code></pre></span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/06/25/get-cli-agrs/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -787,29 +742,12 @@ print_r(<span class="variable">$args</span>);
 
       
         
-          <span itemprop="articleBody"><h4 id="stream_contex_create(array)">stream_contex_create(array)</h4><p>不依赖curl，php已经有了相关的函数实现<code>stream_contex_create</code></p>
-<p>实现方法很简单：</p>
-<!-- php -->
-<pre><code><span class="variable">$data</span> = <span class="keyword">array</span>(
-    <span class="string">'foo'</span>=&gt;<span class="string">'bar'</span>, 
-    <span class="string">'baz'</span>=&gt;<span class="string">'boom'</span>, 
-    <span class="string">'site'</span>=&gt;<span class="string">'www.baidu.com'</span>, 
-    <span class="string">'name'</span>=&gt;<span class="string">'nowa magic'</span>
-); 
-<span class="variable">$data</span> = http_build_query(<span class="variable">$data</span>); 
-<span class="variable">$options</span> = <span class="keyword">array</span>(
-    <span class="string">'http'</span> =&gt; <span class="keyword">array</span>(
-        <span class="string">'method'</span> =&gt; <span class="string">'POST'</span>,
-        <span class="string">'header'</span> =&gt; <span class="string">'Content-type:application/x-www-form-urlencoded'</span>,
-        <span class="string">'content'</span> =&gt; <span class="variable">$data</span>
-        <span class="string">'timeout'</span> =&gt; <span class="number">60</span> * <span class="number">60</span> // 超时时间（单位:s）
-    )
-);
-<span class="variable">$url</span> = <span class="string">"www.baidu.com"</span>;
-<span class="variable">$context</span> = stream_context_create(<span class="variable">$options</span>);
-<span class="variable">$result</span> = file_get_contents(<span class="variable">$url</span>, <span class="literal">false</span>, <span class="variable">$context</span>);
-echo <span class="variable">$result</span>;
-</code></pre></span>
+          <h4 id="stream_contex_create(array)">stream_contex_create(array)</h4><p>不依赖curl，php已经有了相关的函数实现<code>stream_contex_create</code></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/06/25/use-stream-context-create/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -892,57 +830,19 @@ echo <span class="variable">$result</span>;
 
       
         
-          <span itemprop="articleBody"><h4 id="1、apache配置:">1、apache配置:</h4><p>找到httpd.conf中的这两段内容：</p>
+          <h4 id="1、apache配置:">1、apache配置:</h4><p>找到httpd.conf中的这两段内容：</p>
 <!-- .conf -->
 <pre><code> <span class="comment"># AllowOverride controls what directives may be placed in .htaccess files.</span>
 <span class="comment"># It can be "All", "None", or any combination of the keywords:</span>
 <span class="comment">#   Options FileInfo AuthConfig Limit</span>
 <span class="comment">#</span>
 <span class="title">AllowOverride</span> <span class="built_in">none</span>
-</code></pre><p>将<code>AllowOverride none</code> 改为 <code>AllowOverride all</code></p>
-<!-- .conf -->
-<pre><code><span class="comment">#LoadModule rewrite_module libexec/apache2/mod_rewrite.so</span>
-</code></pre><p>将<code>#</code>去掉，打开rewrite模块</p>
-<h4 id="2、-htaccess文件:">2、.htaccess文件:</h4><p>写入下面内容,并放入yii2根目录的web目录下：webroot/yii2/web(yii2是自己命名的项目名称，webroot的Apache根目录)<br><!-- .htaccess --></p>
-<pre><code><span class="keyword"><span class="common">Options</span></span> +FollowSymLinks
-<span class="keyword">IndexIgnore</span> /
-<span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span>
-<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-f
-<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-d
-<span class="keyword"><span class="common">RewriteRule</span></span> . index.php
-</code></pre><h4 id="3、config/web-php配置urlManager:">3、config/web.php配置urlManager:</h4><!-- php -->
-<pre><code><span class="string">'urlManager'</span> =&gt; [
-        <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,
-        <span class="string">'enableStrictParsing'</span> =&gt; <span class="keyword">true</span>,
-        <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,
-        <span class="string">'rules'</span> =&gt; [
-            [
-                <span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>,  <span class="string">'controller'</span> =&gt; <span class="string">'user'</span> ,
-            ],
-        ],
-    ] ,
-</code></pre><p>访问路径：<code><a href="http://loacalhost/yii2/web/users" target="_blank" rel="external">http://loacalhost/yii2/web/users</a></code>(yii自动讲名词变为复数形式，具体看文档，可取消)</p>
-<h4 id="4、controller继承ActiveController:">4、controller继承ActiveController:</h4><!-- controller -->
-<pre><code>namespace app\controllers;
-use yii\rest\<span class="type">ActiveController</span>;
-<span class="class"><span class="keyword">class</span> <span class="title">CountryController</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActiveController</span>
-</span>{
-    public $modelClass = <span class="symbol">'app</span>\models\<span class="type">Country</span>';
-}
-</code></pre><h4 id="额外：不同modules下urlmanger配置:">额外：不同modules下urlmanger配置:</h4><p>假设生成了一个modules/v1 的模块，urlmanger配置如下</p>
-<!-- conf -->
-<pre><code><span class="symbol">'urlManager'</span> =&gt; [
-       <span class="symbol">'enablePrettyUrl'</span> =&gt; <span class="literal">true</span>,
-       <span class="symbol">'enableStrictParsing'</span> =&gt; <span class="literal">true</span>,
-       <span class="symbol">'showScriptName'</span> =&gt; <span class="literal">false</span>,
-       <span class="symbol">'rules'</span> =&gt; [
-           [
-               <span class="symbol">'class'</span> =&gt; <span class="symbol">'yii</span>\rest\<span class="type">UrlRule'</span>,  <span class="symbol">'controller'</span> =&gt; [<span class="symbol">'v1</span>/country'] ,
-           ],
-       ],
-   ] ,
-</code></pre><p>访问路径：<code><a href="http://loacalhost/yii2/web/v1/countries" target="_blank" rel="external">http://loacalhost/yii2/web/v1/countries</a></code>(yii自动讲名词变为复数形式，具体看文档，可取消)</p>
-</span>
+</code></pre><p>将<code>AllowOverride none</code> 改为 <code>AllowOverride all</code><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/07/yii2-restful-api/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1108,7 +1008,7 @@ use yii\rest\<span class="type">ActiveController</span>;
 
       
         
-          <span itemprop="articleBody"><p>UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。</p>
+          <p>UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。</p>
 <p>妈蛋，太专业，反正就是可以让一些不明真相的群众觉得你很牛B！</p>
 <p>好，进入正题，让我们来用swift练习一下效果</p>
 <p>有四个概念我们来稍微描述一下：</p>
@@ -1116,158 +1016,12 @@ use yii\rest\<span class="type">ActiveController</span>;
 <li>UIDynamicItem 就是物理体系可以影响到的物体，像现实世界的桌子、椅子。在ios我们常见的UI控件像UIButton、UIView等实现了该接口。</li>
 <li>UIDynamicBehavior 一个行为，像重力或者弹性、吸附等效果</li>
 <li>UIDynamicAnimator 一个动画执行者，所有的行为都可以加入这个执行者，重力+碰撞就可以模拟高空坠落拉！</li>
-<li>referenceView 参照体系，就像现实世界的参照物。</li>
-</ul>
-<h4 id="一、重力行为UIGravityBehavior">一、重力行为UIGravityBehavior</h4><!-- swift -->
-<pre><code>var animator : <span class="built_in">UIDynamicAnimator</span>!
-override func viewDidLoad() {
-    <span class="keyword">super</span><span class="variable">.viewDidLoad</span>()
-    <span class="comment">//box</span>
-    let box : <span class="built_in">UIView</span> = <span class="built_in">UIView</span>(frame: <span class="built_in">CGRectMake</span>(<span class="number">135</span>, <span class="number">80</span>, <span class="number">50</span>, <span class="number">50</span>))
-    box<span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.grayColor</span>()
-    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.whiteColor</span>()
-    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.addSubview</span>(box)
-    <span class="comment">//参照物为背景view</span>
-    <span class="keyword">self</span><span class="variable">.animator</span> = <span class="built_in">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span><span class="variable">.view</span>)
-    <span class="comment">//为box添加重力行为</span>
-    let gravity = <span class="built_in">UIGravityBehavior</span>(items: [box])
-    <span class="comment">//执行动画</span>
-    <span class="keyword">self</span><span class="variable">.animator</span><span class="variable">.addBehavior</span>(gravity)
-}
-</code></pre><p>这里注意把animator声明为类的成员变量，不然animator在viewDidLoad后就释放内存引用，就没有什么重力效果了。</p>
-<p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/gravity.gif" alt=""></p>
-<p>我们可以设置重力的向量，大小和方向就是坠落的方向和下坠加速度了。</p>
-<p><code>gravity.gravityDirection = CGVector(dx: 0, dy: 5)</code></p>
-<h4 id="二、碰撞行为UICollisionBehavior">二、碰撞行为UICollisionBehavior</h4><p>就这么无休止的坠落深渊未免也太无聊了吧，我们来让那个它跟屏幕下方进行碰撞，让它以一定角度落下让碰撞更加明显。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var animator : <span class="built_in">UIDynamicAnimator</span>!</span><br><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">	<span class="keyword">super</span><span class="variable">.viewDidLoad</span>()</span><br><span class="line">	<span class="comment">//box</span></span><br><span class="line">    let box : <span class="built_in">UIView</span> = <span class="built_in">UIView</span>(frame: <span class="built_in">CGRectMake</span>(<span class="number">135</span>, <span class="number">80</span>, <span class="number">50</span>, <span class="number">50</span>))</span><br><span class="line">    box<span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.grayColor</span>()</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.backgroundColor</span> = <span class="built_in">UIColor</span><span class="variable">.whiteColor</span>()</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.addSubview</span>(box)</span><br><span class="line">    <span class="comment">//设置为45度角</span></span><br><span class="line">    box<span class="variable">.transform</span> = <span class="built_in">CGAffineTransformMakeRotation</span>(<span class="number">45</span>)</span><br><span class="line">    <span class="comment">//参照物为背景view</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.animator</span> = <span class="built_in">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span><span class="variable">.view</span>)</span><br><span class="line">    <span class="comment">//为box添加重力行为</span></span><br><span class="line">    let gravity = <span class="built_in">UIGravityBehavior</span>(items: [box])</span><br><span class="line">    <span class="comment">//为box碰撞行为</span></span><br><span class="line">    let collision = <span class="built_in">UICollisionBehavior</span>(items: [box])</span><br><span class="line">    <span class="comment">//设置碰撞边缘为物体的参照系统，即self.view</span></span><br><span class="line">    collision<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">true</span></span><br><span class="line">    <span class="comment">//执行动画</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.animator</span><span class="variable">.addBehavior</span>(gravity)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/gravity_collision.gif" alt=""></p>
-<h4 id="三、连线行为UIAttachmentBehavior">三、连线行为UIAttachmentBehavior</h4><p>连线就是两个物体之间进行连接或者一个物体跟一个锚点之间连接。</p>
-<p>参数说明：UIAttachmentBehavior(item: offsetFromCenter: attachedToAnchor: )</p>
-<ul>
-<li>item:物理体系可以影响到的物体</li>
-<li>offsetFromCenter:物体中心偏移</li>
-<li>attachedToAnchor:跟物体相连的锚点</li>
-</ul>
-<!-- swift -->
-<pre><code>var animator : UIDynamicAnimator<span class="built_in">!</span>
-override func viewDidLoad<span class="params">()</span> {
-    super.viewDidLoad<span class="params">()</span>
-
-    animator = UIDynamicAnimator<span class="params">(referenceView: self.view)</span>
-
-    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span>
-    <span class="comment">//静止的box</span>
-    <span class="built_in">let</span> staticBox = UIView<span class="params">(frame: CGRectMake<span class="params">(<span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span>)</span>)</span>
-    staticBox.backgroundColor = UIColor.redColor<span class="params">()</span>
-    staticBox.layer.cornerRadius = <span class="number">5</span> ;
-    <span class="comment">//下坠的box</span>
-    <span class="built_in">let</span> dynamicBox = UIView<span class="params">(frame: CGRectMake<span class="params">(<span class="number">250</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">50</span>)</span>)</span>
-    dynamicBox.backgroundColor = UIColor.grayColor<span class="params">()</span>
-    dynamicBox.layer.cornerRadius = <span class="number">5</span> ;
-
-    <span class="comment">//为dynamicBox添加重力行为</span>
-    <span class="built_in">let</span> cravity = UIGravityBehavior<span class="params">(items: [dynamicBox])</span>
-    <span class="comment">//为dynamicBox添加连线行为</span>
-    <span class="built_in">let</span> attachment = UIAttachmentBehavior<span class="params">(item: dynamicBox, offsetFromCenter: UIOffsetMake<span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span>, attachedToAnchor: CGPointMake<span class="params">(staticBox.center.x, staticBox.center.y)</span>)</span>
-    <span class="comment">//为dynamicBox添加碰撞行为</span>
-    <span class="built_in">let</span> collision = UICollisionBehavior<span class="params">(items: [dynamicBox])</span>
-    collision.translatesReferenceBoundsIntoBoundary = <span class="literal">true</span>
-
-    self.view.addSubview<span class="params">(staticBox)</span>
-    self.view.addSubview<span class="params">(dynamicBox)</span>
-
-    animator.addBehavior<span class="params">(cravity)</span>
-    animator.addBehavior<span class="params">(attachment)</span>
-    animator.addBehavior<span class="params">(collision)</span> 
-}
-</code></pre><p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/attachment.gif" alt=""></p>
-<p>想让“绳子”有弹性加上这段：<code>attachment.frequency = 1</code></p>
-<h4 id="四、吸附行为UISnapBehavior">四、吸附行为UISnapBehavior</h4><p>很有趣的“牛皮糖”效果</p>
-<!-- swift -->
-<pre><code><span class="keyword">var</span> animator : <span class="type">UIDynamicAnimator</span>!
-<span class="keyword">let</span> tapGesture = <span class="type">UITapGestureRecognizer</span>()
-<span class="keyword">var</span> box:<span class="type">UIView</span>!  
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="keyword">super</span>.viewDidLoad()
-
-    <span class="comment">//添加手势，轻触self.view，</span>
-    <span class="keyword">self</span>.tapGesture.addTarget(<span class="keyword">self</span>, action: <span class="string">"tappedView"</span>)
-    <span class="keyword">self</span>.view.userInteractionEnabled = <span class="literal">true</span> ;
-    <span class="keyword">self</span>.view.addGestureRecognizer(tapGesture)
-
-    <span class="keyword">self</span>.animator = <span class="type">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span>.view)
-
-    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span>
-    <span class="comment">//物体</span>
-    <span class="keyword">self</span>.box = <span class="type">UIView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">110</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>))
-    box.backgroundColor = <span class="type">UIColor</span>.grayColor()
-    box.layer.cornerRadius = <span class="number">5</span>
-
-    <span class="keyword">self</span>.view.addSubview(box)
-}
-
-<span class="comment">//手势回调方法</span>
-<span class="func"><span class="keyword">func</span> <span class="title">tappedView</span><span class="params">()</span></span>{
-    <span class="keyword">let</span> point = <span class="keyword">self</span>.tapGesture.locationInView(<span class="keyword">self</span>.view)
-    <span class="keyword">self</span>.animator.removeAllBehaviors()
-    <span class="keyword">let</span> snap = <span class="type">UISnapBehavior</span>(item: <span class="keyword">self</span>.box, snapToPoint: point)
-    <span class="keyword">self</span>.animator.addBehavior(snap)
-}
-</code></pre><p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/snap.gif" alt=""></p>
-<h4 id="五、推力UIPushBehavior">五、推力UIPushBehavior</h4><p>为物体施加一个外力，遵循力的合成</p>
-<!-- swift -->
-<pre><code><span class="keyword">var</span> box : <span class="type">UIView</span>!
-<span class="keyword">var</span> animator : <span class="type">UIDynamicAnimator</span>!
-<span class="keyword">var</span> push : <span class="type">UIPushBehavior</span>!    
-<span class="keyword">let</span> tapGetsture = <span class="type">UITapGestureRecognizer</span>()
-
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="keyword">super</span>.viewDidLoad()
-    <span class="keyword">self</span>.animator = <span class="type">UIDynamicAnimator</span>(referenceView: <span class="keyword">self</span>.view)
-
-    <span class="comment">//self.view加入轻触手势</span>
-    <span class="keyword">self</span>.tapGetsture.addTarget(<span class="keyword">self</span>, action: <span class="string">"tappedView"</span>)
-    <span class="keyword">self</span>.view.userInteractionEnabled = <span class="literal">true</span>
-    <span class="keyword">self</span>.view.addGestureRecognizer(tapGetsture)
-
-    <span class="comment">//box</span>
-    <span class="keyword">self</span>.box = <span class="type">UIView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">110</span>, <span class="number">234</span>, <span class="number">100</span>, <span class="number">100</span>))
-    <span class="keyword">self</span>.box.layer.cornerRadius = <span class="number">5</span> ;
-    <span class="keyword">self</span>.box.backgroundColor = <span class="type">UIColor</span>.grayColor()
-
-    <span class="comment">//加入box</span>
-    <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.box)
-    <span class="comment">//碰撞</span>
-    <span class="keyword">let</span> collision = <span class="type">UICollisionBehavior</span>(items: [box])
-     collision.setTranslatesReferenceBoundsIntoBoundaryWithInsets(<span class="type">UIEdgeInsets</span>(top: <span class="keyword">self</span>.topLayoutGuide.length, <span class="keyword">left</span>: <span class="number">0</span>, bottom: <span class="keyword">self</span>.bottomLayoutGuide.length, <span class="keyword">right</span>: <span class="number">0</span>))
-    <span class="comment">//推力</span>
-    <span class="keyword">self</span>.push = <span class="type">UIPushBehavior</span>(items: [<span class="keyword">self</span>.box], mode: <span class="type">UIPushBehaviorMode</span>.<span class="type">Instantaneous</span>)
-    <span class="keyword">self</span>.push.angle = <span class="number">0</span>
-    <span class="keyword">self</span>.push.magnitude = <span class="number">0</span> ;
-
-    <span class="comment">//加入行为</span>
-    <span class="keyword">self</span>.animator.addBehavior(<span class="keyword">self</span>.push)
-    <span class="keyword">self</span>.animator.addBehavior(collision)
-}
-
-<span class="comment">//轻触手势</span>
-<span class="func"><span class="keyword">func</span> <span class="title">tappedView</span><span class="params">()</span></span>{
-
-    <span class="keyword">let</span> tapPoint = <span class="keyword">self</span>.tapGetsture.locationInView(<span class="keyword">self</span>.view)
-    <span class="keyword">let</span> centerPoint = <span class="type">CGPointMake</span>(<span class="keyword">self</span>.box.center.x, <span class="keyword">self</span>.box.center.y)
-
-    <span class="comment">//角度和大小</span>
-    <span class="keyword">let</span> angle =  atan2(tapPoint.y - centerPoint.y, tapPoint.x - centerPoint.x)
-    <span class="keyword">var</span> <span class="built_in">distance</span> = sqrtf(powf(<span class="type">Float</span>(tapPoint.x - centerPoint.x),<span class="number">2.0</span>) + powf(<span class="type">Float</span>(tapPoint.y - centerPoint.y),<span class="number">2</span>))
-    <span class="built_in">distance</span> =  <span class="built_in">min</span>(<span class="built_in">distance</span>, <span class="number">100.00</span>)
-
-    <span class="keyword">self</span>.push.setAngle(angle, magnitude: <span class="type">CGFloat</span>(<span class="built_in">distance</span>/<span class="number">100</span>))
-
-    <span class="comment">//每次更改push属性时，push都会变为不可活动状态，需要手动更改active为true</span>
-    <span class="keyword">self</span>.push.active = <span class="literal">true</span> ;
-    }
-</code></pre><p>######GIF效果图<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/push.gif" alt=""></p>
-</span>
+<li>referenceView 参照体系，就像现实世界的参照物。-
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/23/UIkit-Dynamice-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1350,27 +1104,18 @@ override func viewDidLoad<span class="params">()</span> {
 
       
         
-          <span itemprop="articleBody"><p>IOS支持大量的手势操作，它们能提供了很好的应用控制和出色用户体验。<br>定义一个手势可以通过下面几个步骤来实现：</p>
+          <p>IOS支持大量的手势操作，它们能提供了很好的应用控制和出色用户体验。<br>定义一个手势可以通过下面几个步骤来实现：</p>
 <ul>
 <li>let tapRec = UITapGestureRecognizer()  //定义Tap手势类</li>
 <li>tapRec.addTarget(self, action: “tappedView”)//手势回调方法</li>
 <li>self.iv.userInteractionEnabled = true    //定义控件可交互</li>
 <li>self.iv.addGestureRecognizer(self.tapRec)//为控件添加手势</li>
 </ul>
-<p>tappedView方法：</p>
-<pre><code> /*手势回调方法*/
-func tappedView(){
-    //dosome <span class="keyword">thing</span>         
-}
-</code></pre><p>其他手势只需要定要好特定的手势类即可:</p>
-<pre><code>let tapRec = <span class="function"><span class="title">UITapGestureRecognizer</span><span class="params">()</span></span>              <span class="comment">//轻触</span>
-let pinchRec = <span class="function"><span class="title">UIPinchGestureRecognizer</span><span class="params">()</span></span>          <span class="comment">//两个指头捏或者放的操作</span>
-let swipeRec = <span class="function"><span class="title">UISwipeGestureRecognizer</span><span class="params">()</span></span>          <span class="comment">//手指在屏幕上很快的滑动</span>
-let longPressRec = <span class="function"><span class="title">UILongPressGestureRecognizer</span><span class="params">()</span></span>  <span class="comment">//长按</span>
-let rotateRec = <span class="function"><span class="title">UIRotationGestureRecognizer</span><span class="params">()</span></span>      <span class="comment">//手指反向操作</span>
-let panRec = <span class="function"><span class="title">UIPanGestureRecognizer</span><span class="params">()</span></span>                 <span class="comment">//拖动</span>
-</code></pre><p>来一个实战：</p>
-</span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/27/swift-gesture/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

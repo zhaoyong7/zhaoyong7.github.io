@@ -45,7 +45,7 @@ var changeSecond : Int = 0 {">
 <meta property="og:description" content="1.属性监视器的巧妙运用：在做ios开发的时候，我们经常有这样的需求，当一个属性，更改时，相对应的UI控件表现出来的状态也要改变，最明显的就是，当我们做一个计时器，显示分钟和秒数需要格式化，传统我们是在把实际秒数和视图表现写在回调函数中。这样当我们有多个回调函数时，代码就很冗余了。
 我们可以用更swift的方式来编写我们的代码。
 var changeSecond : Int = 0 {">
-<meta property="og:updated_time" content="2015-08-06T08:32:44.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:50:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="swfit编程技巧总结">
 <meta name="twitter:description" content="1.属性监视器的巧妙运用：在做ios开发的时候，我们经常有这样的需求，当一个属性，更改时，相对应的UI控件表现出来的状态也要改变，最明显的就是，当我们做一个计时器，显示分钟和秒数需要格式化，传统我们是在把实际秒数和视图表现写在回调函数中。这样当我们有多个回调函数时，代码就很冗余了。
@@ -247,7 +247,8 @@ var changeSecond : Int = 0 {">
          labbel!.<span class="keyword">text</span> = NSString(<span class="built_in">format</span>:<span class="string">"%02d:%02d"</span>,<span class="built_in">min</span>,<span class="keyword">second</span>)
      }    
  }
-</code></pre><h3 id="2-空合运算符:??">2.空合运算符:??</h3><p>空合运算符(a ?? b)将对可选类型a进行空判断，如果a包含一个值就进行解封，否则就返回一个默认值b.这个运算符有两个条件:</p>
+</code></pre><a id="more"></a>
+<h3 id="2-空合运算符:??">2.空合运算符:??</h3><p>空合运算符(a ?? b)将对可选类型a进行空判断，如果a包含一个值就进行解封，否则就返回一个默认值b.这个运算符有两个条件:</p>
 <ul>
 <li>表达式a必须是Optional类型</li>
 <li>默认值b的类型必须要和a存储值的类型保持一致</li>

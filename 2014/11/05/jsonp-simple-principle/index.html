@@ -55,7 +55,7 @@ $.ajax({
     type:’get’
 }) ;
 页面会报一个">
-<meta property="og:updated_time" content="2015-08-06T08:33:47.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:48:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jsonp的简单原理">
 <meta name="twitter:description" content="jsonp 全称是 JSON with padding ,是为了解决跨域请求资源问题的产生的解决方案。
@@ -261,6 +261,7 @@ $.ajax({
     <span class="keyword">type</span>:’<span class="keyword">get</span>’
 }) ;
 </code></pre><p>页面会报一个这样的错误：XMLHttpRequest cannot load <a href="http://test.com/books.php" target="_blank" rel="external">http://test.com/books.php</a>. Origin <a href="http://localhost" target="_blank" rel="external">http://localhost</a> is not allowed by Access-Control-Allow-Origin.</p>
+<a id="more"></a>
 <h3 id="JSONP的原理:">JSONP的原理:</h3><p>虽然有同源策略的限制，但是并不是所有HTML资源都必须在同一个域名，我们经常会在HTML标签中嵌入的一些图片、js、iframe、css样式等都可以通过外链的形式加载，可以利用标签跨域请求来实现。JSONP正式利用Script标签实现跨域问题的。</p>
 <h3 id="代码实现:">代码实现:</h3><h4 id="服务器端:">服务器端:</h4><!-- lang:php -->
 <pre><code>&lt;?php 

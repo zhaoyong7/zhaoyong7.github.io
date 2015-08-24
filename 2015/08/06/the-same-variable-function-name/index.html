@@ -41,7 +41,7 @@
 <meta property="og:url" content="http://blog.dqmore.com/2015/08/06/the-same-variable-function-name/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑">
-<meta property="og:updated_time" content="2015-08-06T07:36:24.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:48:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php类中同名变量与函数">
 <meta name="twitter:description" content="追踪yii源码的时候，遇到一些比较难以看懂的代码，很细微的一些差异。在设置事件处理的时候，main.php如果设定了以on开头的事件，例如onBeginRequest，而CApplication存在这么一个同名的方法onBeginRequest()，究竟是像闭包那样重写一个方法，还是动态了生成了一个变量名字为onBeginRequest的闭包? 显然这个问题很幼稚，但“同样地命名“总是让我陷入困惑">
@@ -244,7 +244,8 @@
 <span class="variable">$dmore</span> = new Dmore() ;
 <span class="variable">$dmore-</span>&gt;qmore     // 输出: <span class="string">''</span>
 <span class="variable">$dmore-</span>&gt;qmore()   // 输出: qmore..qmore
-</code></pre><p>1、如果更改下qmore属性，传入一个匿名函数</p>
+</code></pre><a id="more"></a>
+<p>1、如果更改下qmore属性，传入一个匿名函数</p>
 <!-- lang: php -->
 <pre><code><span class="variable">$dmore-</span>&gt;qmore = <span class="keyword">function</span>(){
     echo <span class="string">"xxxxxxx"</span> ;

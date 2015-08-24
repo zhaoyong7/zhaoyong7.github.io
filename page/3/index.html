@@ -324,22 +324,18 @@
 
       
         
-          <span itemprop="articleBody"><p>PHP 5.4中的traits，是新引入的特性。其实际的目的，是为了有的场合想用多继承，但PHP又没多继承，于是就发明了这样的一个东西。<br>Traits可以理解为一组能被不同的类都能调用到的方法集合，但Traits不是类！不能被实例化。先来例子看下语法：</p>
+          <p>PHP 5.4中的traits，是新引入的特性。其实际的目的，是为了有的场合想用多继承，但PHP又没多继承，于是就发明了这样的一个东西。<br>Traits可以理解为一组能被不同的类都能调用到的方法集合，但Traits不是类！不能被实例化。先来例子看下语法：</p>
 <!-- lang: php -->
 <pre><code><span class="keyword">trait</span> myTrait{
     <span class="function"><span class="keyword">function</span> <span class="title">traitMethod1</span><span class="params">()</span></span>{}
     <span class="function"><span class="keyword">function</span> <span class="title">traitMethod2</span><span class="params">()</span></span>{}
 }
-</code></pre><p>通过use myTraits，调用Traits中的方法了，调用这个traits的语法为：</p>
-<!-- lang: php -->
-<pre><code>class myClass{
-    use myTrait;
-}
-
-<span class="variable">$obj</span> = new myClass();
-<span class="variable">$obj-</span>&gt; traitMethod1 ();
-<span class="variable">$obj-</span>&gt; traitMethod2 ();
-</code></pre></span>
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/20/php5-new-feature——traits/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -422,15 +418,14 @@
 
       
         
-          <span itemprop="articleBody"><p>大多数跨域AJAX请求我们都使用JSONP ，参考 <a href="http://dqmore.com/2014/11/05/jsonp-simple-principle/" target="_blank" rel="external">JSONP的简单原理</a></p>
+          <p>大多数跨域AJAX请求我们都使用JSONP ，参考 <a href="http://dqmore.com/2014/11/05/jsonp-simple-principle/">JSONP的简单原理</a></p>
 <p>而jsonp是基于get请求的，当要传输的数据过大，只能基于POST请求，get形式无法满足我们的需求</p>
 <p>可以使用CORS(<em>跨域资源共享</em>，Cross-Origin Resource Sharing)</p>
-<p>CORS可以帮助我们解决AJAX跨域的问题，允许一个域的网络应用向另一个域提交跨域请求，要实现该功能十分简单，<em>前端仍然以正常AJAX调用</em>，只需要由服务器返回一个相应header头，以php服务器为例子:</p>
-<p><strong>接口中包含以下头信息:</strong><br><!-- lang:php --></p>
-<pre><code><span class="function"><span class="title">header</span><span class="params">(“Access-Control-Allow-Origin: *”)</span></span>
-<span class="comment">//(*)表示允许任何域名向该服务器提交信息，也可以指定对应域名:</span>
-<span class="function"><span class="title">header</span><span class="params">(“Access-Control-Allow-Origin: http://www.fortest.com”)</span></span>
-</code></pre></span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/10/Cross-Origin-Resource-Sharing/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -513,33 +508,19 @@
 
       
         
-          <span itemprop="articleBody"><p>jsonp 全称是 JSON with padding ,是为了解决跨域请求资源问题的产生的解决方案。</p>
+          <p>jsonp 全称是 JSON with padding ,是为了解决跨域请求资源问题的产生的解决方案。</p>
 <p>当我们需要在我们编写的代码内去请求其他域名的接口，但由于著名的同源策略，会因为安全问题而遭到拒绝。</p>
 <!-- lang:javascript -->
 <pre><code>$.ajax({
     url:’http:<span class="comment">//baidx.com/teach.php’,</span>
     <span class="keyword">type</span>:’<span class="keyword">get</span>’
 }) ;
-</code></pre><p>页面会报一个这样的错误：XMLHttpRequest cannot load <a href="http://test.com/books.php" target="_blank" rel="external">http://test.com/books.php</a>. Origin <a href="http://localhost" target="_blank" rel="external">http://localhost</a> is not allowed by Access-Control-Allow-Origin.</p>
-<h3 id="JSONP的原理:">JSONP的原理:</h3><p>虽然有同源策略的限制，但是并不是所有HTML资源都必须在同一个域名，我们经常会在HTML标签中嵌入的一些图片、js、iframe、css样式等都可以通过外链的形式加载，可以利用标签跨域请求来实现。JSONP正式利用Script标签实现跨域问题的。</p>
-<h3 id="代码实现:">代码实现:</h3><h4 id="服务器端:">服务器端:</h4><!-- lang:php -->
-<pre><code>&lt;?php 
-    <span class="variable">$data</span> = <span class="keyword">array</span>(
-    <span class="keyword">array</span>( ‘id’=&gt;<span class="number">123</span>,’name’=&gt;’煮酒论西游’),
-    <span class="keyword">array</span>(‘id’=&gt;<span class="number">124</span>,’name’=&gt;’封神榜’) );
-    <span class="variable">$json</span> = json_encode(<span class="variable">$data</span>) ;
-
-    <span class="variable">$callbackName</span> = $_GET[‘callback’] ;
-    echo “<span class="variable">$callbackName</span>(<span class="variable">$json</span>)” ;
-</code></pre><h4 id="客户端:">客户端:</h4><!-- lang:javascript -->
-<pre><code><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
-    <span class="function"><span class="keyword">function</span> <span class="title">showbooks</span>(<span class="params">json</span>)</span>{
-        <span class="built_in">console</span>.log(json)
-    }
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span> = “<span class="attribute">http:</span>//<span class="attribute">baidx.com</span>/<span class="attribute">teach.php</span>?<span class="attribute">callback</span>=<span class="value">showbooks”</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><p>下面的script会返回 showbooks({xxxxxxx}) ,相当于回调了showbooks方法，实现了跨域请求问题。</p>
-</span>
+</code></pre><p>页面会报一个这样的错误：XMLHttpRequest cannot load <a href="http://test.com/books.php">http://test.com/books.php</a>. Origin <a href="http://localhost">http://localhost</a> is not allowed by Access-Control-Allow-Origin.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/11/05/jsonp-simple-principle/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

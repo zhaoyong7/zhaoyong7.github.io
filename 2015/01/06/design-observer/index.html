@@ -37,20 +37,20 @@
 
 <meta name="description" content="当一个对象状态发生改变时，依赖它的对象全部收到通知，并执行相对应的裸机操作，这样的情况我们可以使用观察者模式。
 场景：一个事件发生后，要执行一连串逻辑操作。传统的方式是在该事件发生后过程式的侵入处理逻辑代码。一旦这些代码越来越多，会便得难以维护。这种方式是耦合的，侵入不友好的，每次增加新的逻辑需要修改事件主体代码。
-观察者模式实现场景的解耦，非侵入式的通知与更新机制。传统方式：&amp;lt;!-- lang:">
+观察者模式实现场景的解耦，非侵入式的通知与更新机制。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="观察者模式">
 <meta property="og:url" content="http://blog.dqmore.com/2015/01/06/design-observer/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="当一个对象状态发生改变时，依赖它的对象全部收到通知，并执行相对应的裸机操作，这样的情况我们可以使用观察者模式。
 场景：一个事件发生后，要执行一连串逻辑操作。传统的方式是在该事件发生后过程式的侵入处理逻辑代码。一旦这些代码越来越多，会便得难以维护。这种方式是耦合的，侵入不友好的，每次增加新的逻辑需要修改事件主体代码。
-观察者模式实现场景的解耦，非侵入式的通知与更新机制。传统方式：&amp;lt;!-- lang:">
-<meta property="og:updated_time" content="2015-08-06T08:33:17.000Z">
+观察者模式实现场景的解耦，非侵入式的通知与更新机制。">
+<meta property="og:updated_time" content="2015-08-24T02:48:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="观察者模式">
 <meta name="twitter:description" content="当一个对象状态发生改变时，依赖它的对象全部收到通知，并执行相对应的裸机操作，这样的情况我们可以使用观察者模式。
 场景：一个事件发生后，要执行一连串逻辑操作。传统的方式是在该事件发生后过程式的侵入处理逻辑代码。一旦这些代码越来越多，会便得难以维护。这种方式是耦合的，侵入不友好的，每次增加新的逻辑需要修改事件主体代码。
-观察者模式实现场景的解耦，非侵入式的通知与更新机制。传统方式：&amp;lt;!-- lang:">
+观察者模式实现场景的解耦，非侵入式的通知与更新机制。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -240,7 +240,8 @@
       
         <span itemprop="articleBody"><p>当一个对象状态发生改变时，依赖它的对象全部收到通知，并执行相对应的裸机操作，这样的情况我们可以使用观察者模式。</p>
 <p><strong>场景</strong>：一个事件发生后，要执行一连串逻辑操作。传统的方式是在该事件发生后过程式的侵入处理逻辑代码。一旦这些代码越来越多，会便得难以维护。这种方式是耦合的，侵入不友好的，每次增加新的逻辑需要修改事件主体代码。</p>
-<h6 id="观察者模式实现场景的解耦，非侵入式的通知与更新机制。">观察者模式实现场景的解耦，非侵入式的通知与更新机制。</h6><h4 id="传统方式：">传统方式：</h4><!-- lang:php -->
+<h6 id="观察者模式实现场景的解耦，非侵入式的通知与更新机制。">观察者模式实现场景的解耦，非侵入式的通知与更新机制。</h6><a id="more"></a>
+<h4 id="传统方式：">传统方式：</h4><!-- lang:php -->
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">Event</span></span>{
     <span class="function"><span class="keyword">function</span> <span class="title">trigger</span><span class="params">()</span></span>{
         <span class="keyword">echo</span> <span class="string">"do something..."</span> ;

@@ -56,7 +56,7 @@ UIDynamicI">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/attachment.gif">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/snap.gif">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/push.gif">
-<meta property="og:updated_time" content="2015-08-20T02:10:15.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:50:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UIkit Dynamics(UIkit动力世界)">
 <meta name="twitter:description" content="UIkit Dynamics是UIkit的一套基于现实世界物理驱动的一套交互体系，包含了我们常见的物理知识现象，如重力、碰撞、弹力等效果。而UIKit Dynamice提供了一整套逼真的物理动作，在实现一些逼真的物理效果的时事倍功半。
@@ -260,9 +260,10 @@ UIDynamicI">
 <li>UIDynamicItem 就是物理体系可以影响到的物体，像现实世界的桌子、椅子。在ios我们常见的UI控件像UIButton、UIView等实现了该接口。</li>
 <li>UIDynamicBehavior 一个行为，像重力或者弹性、吸附等效果</li>
 <li>UIDynamicAnimator 一个动画执行者，所有的行为都可以加入这个执行者，重力+碰撞就可以模拟高空坠落拉！</li>
-<li>referenceView 参照体系，就像现实世界的参照物。</li>
+<li>referenceView 参照体系，就像现实世界的参照物。- <a id="more"></a>
+<h4 id="一、重力行为UIGravityBehavior">一、重力行为UIGravityBehavior</h4></li>
 </ul>
-<h4 id="一、重力行为UIGravityBehavior">一、重力行为UIGravityBehavior</h4><!-- swift -->
+<!-- swift -->
 <pre><code>var animator : <span class="built_in">UIDynamicAnimator</span>!
 override func viewDidLoad() {
     <span class="keyword">super</span><span class="variable">.viewDidLoad</span>()
