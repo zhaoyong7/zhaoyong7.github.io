@@ -47,7 +47,7 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
 上一篇文章，php同名函数与变量也是因为阅读源码的时候突然遇到的奇怪问题。
 php可以为对象动态添加变量（在该变量不存在时候），但如果存在魔术方法__set的时候，添加变量就会以__set方法来处理。
 yii1事件处理其实基于__set形式的动态添加变量(config.php其实也是)，在component类里面__set方法作了如下处理，当遇到已">
-<meta property="og:updated_time" content="2015-08-19T06:52:24.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:46:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：事件处理机制">
 <meta name="twitter:description" content="yii1的事件处理，其实也是对观察者模式的运用。
@@ -261,7 +261,8 @@ yii1事件处理其实基于__set形式的动态添加变量(config.php其实也
     }
     ....
 }
-</code></pre><p>需要调用该事件只需<code>$this-&gt;raiseEvent(‘onXXX’,new Event($this))</code>,当然new Event 不是必须的～只是传个参数而已，到时候可以回调这个对象。</p>
+</code></pre><a id="more"></a>
+<p>需要调用该事件只需<code>$this-&gt;raiseEvent(‘onXXX’,new Event($this))</code>,当然new Event 不是必须的～只是传个参数而已，到时候可以回调这个对象。</p>
 <p>下面我门写个例子，比如有个用户反馈模块，当用户提交了反馈，就会发送一封邮件给管理员。</p>
 <!-- lang:php -->
 <pre><code>//定义一个controller

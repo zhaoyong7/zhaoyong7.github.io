@@ -53,7 +53,7 @@ CApplication构造函数初始化了yii的系统处理函数initSystemHandlers
  * Initializes the class autoloader and error handlers.
  */
 pr">
-<meta property="og:updated_time" content="2015-08-07T05:59:50.000Z">
+<meta property="og:updated_time" content="2015-08-24T02:46:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii1－源码：错误信息处理机制">
 <meta name="twitter:description" content="yii1的错误异常处理机制是通过phpset_error_handler;set_exception_handler内置函数处理的。
@@ -264,6 +264,7 @@ protected <span class="function"><span class="keyword">function</span> <span cla
         set_error_handler<span class="params">(array<span class="params">(<span class="keyword">$t</span>his,'handleError')</span>,error_reporting<span class="params">()</span>)</span>;
 }
 </code></pre><p>yii将错误处理分配给handleError;异常处理机制分配给handleException。</p>
+<a id="more"></a>
 <p>handleError，handleException函数将接收发生错误处所抛出的异常或错误的对象<code>throw new CException(‘有异常’)</code></p>
 <p>代码跟进到handleException($exception)函数：（handleExrror同理）</p>
 <!-- lang:php -->
