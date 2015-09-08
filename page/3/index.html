@@ -183,6 +183,110 @@
           
           
             
+              <a class="post-title-link" href="/2014/12/31/hexo-page-obj/" itemprop="url">
+                hexo 中的 page 对象
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-31T09:28:41+08:00" content="2014-12-31">
+            2014-12-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/12/31/hexo-page-obj/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/31/hexo-page-obj/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>hexo 框架中在ejs文件内可以以js对象访问一定的属性，其中比较常用的有page对象，在ejs文件中的调用方式：</p>
+<p><code>&lt;%= page.title %&gt;</code></p>
+<h4 id="page的主要属性有：">page的主要属性有：</h4><!-- lang:json -->
+<pre><code>{
+    “title”: “文章标题”,
+    “date”: “文章的发布日期（Moment.js 库）“,
+    “updated”: “文章的更新日期（Moment.js 库）“,
+    “comments”: “ 开启此文章的留言功能 boolean 值”,
+    “layout”: “ 文章布局”,
+    “content”: “文章内文”,
+    “excerpt”: “ 文章摘要（内文中 之前的内容）”,
+    “source”: “about/index.html 文件的相对路径”,
+    “path”: “about/index.html 文章的相对路径”,
+    “ctime”: “<span class="number">2013</span>-<span class="number">04</span>-<span class="number">05</span>T14:<span class="number">38</span>:<span class="number">36.000</span>Z”,
+    “mtime”: “<span class="number">2013</span>-<span class="number">04</span>-<span class="number">05</span>T14:<span class="number">38</span>:<span class="number">41.000</span>Z”,
+    “permalink”: “ 完整的网络访问路径”,
+    “full_path”: “D:\hexo11/source/about/index.html 原始文件路径”,
+    “categories” : “{}“,
+    “tags”: “{}”
+    “_id”: <span class="number">1</span>
+{
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2014/12/30/hello-hexo-gitcafe/" itemprop="url">
                 博客搬家
               </a>
@@ -577,7 +681,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -591,7 +695,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

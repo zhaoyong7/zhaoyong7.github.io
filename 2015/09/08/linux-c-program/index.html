@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="设计模式," />
+  <meta name="keywords" content="c,linux," />
 
 
 
@@ -35,19 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="策略模式是讲一组特定的行为和算法封装成类。以适应某些特定的上下文环境。这种模式叫做策略模式。
-实际应用中，当一个系统有多种不同类型的用户，展示行为相似，但展示内容不同，那么我们就可以使用策略模式。如针对不同性别用户或不同年龄层用户展示不同的商品内容。">
+<meta name="description">
 <meta property="og:type" content="article">
-<meta property="og:title" content="策略模式">
-<meta property="og:url" content="http://blog.dqmore.com/2015/01/15/desgin-strategy/index.html">
+<meta property="og:title" content="Linux下c编程-进程信号">
+<meta property="og:url" content="http://blog.dqmore.com/2015/09/08/linux-c-program/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
-<meta property="og:description" content="策略模式是讲一组特定的行为和算法封装成类。以适应某些特定的上下文环境。这种模式叫做策略模式。
-实际应用中，当一个系统有多种不同类型的用户，展示行为相似，但展示内容不同，那么我们就可以使用策略模式。如针对不同性别用户或不同年龄层用户展示不同的商品内容。">
-<meta property="og:updated_time" content="2015-08-24T02:49:38.000Z">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-09-08T03:55:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="策略模式">
-<meta name="twitter:description" content="策略模式是讲一组特定的行为和算法封装成类。以适应某些特定的上下文环境。这种模式叫做策略模式。
-实际应用中，当一个系统有多种不同类型的用户，展示行为相似，但展示内容不同，那么我们就可以使用策略模式。如针对不同性别用户或不同年龄层用户展示不同的商品内容。">
+<meta name="twitter:title" content="Linux下c编程-进程信号">
+<meta name="twitter:description">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -57,7 +54,7 @@
   };
 </script>
 
-  <title> 策略模式 | Qmore's Blog </title>
+  <title> Linux下c编程-进程信号 | Qmore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -185,7 +182,7 @@
           
           
             
-              策略模式
+              Linux下c编程-进程信号
             
           
         </h1>
@@ -194,8 +191,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-01-15T10:45:33+08:00" content="2015-01-15">
-            2015-01-15
+          <time itemprop="dateCreated" datetime="2015-09-08T11:46:51+08:00" content="2015-09-08">
+            2015-09-08
           </time>
         </span>
 
@@ -220,8 +217,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/01/15/desgin-strategy/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/15/desgin-strategy/" itemprop="commentsCount"></span>
+            <a href="/2015/09/08/linux-c-program/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/08/linux-c-program/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -235,64 +232,7 @@
       
 
       
-        <span itemprop="articleBody"><p>策略模式是讲一组特定的行为和算法封装成类。以适应某些特定的上下文环境。这种模式叫做策略模式。</p>
-<p>实际应用中，当一个系统有多种不同类型的用户，展示行为相似，但展示内容不同，那么我们就可以使用策略模式。如针对不同性别用户或不同年龄层用户展示不同的商品内容。</p>
-<a id="more"></a>
-<p>####策略模式<br><!-- lang:php --></p>
-<pre><code>/*策略接口*/
-interface IUserStrategy{
-    function showAd() ;
-    function showCategory() ;
-}
-
-/*策略类*/
-class FemaleUserStrategy implements IUserStrtegy{
-    function showAd(){
-        echo <span class="string">"新款女装"</span> ;
-    }
-
-    function showCategory(){
-        echo <span class="string">"女装"</span> ;
-    }
-}
-
-class ManUserStrategy implements IUserStrtegy{
-    function showAd(){
-        echo <span class="string">"新款手机"</span> ;
-    }
-
-    function showCategory(){
-        echo <span class="string">"电子产品"</span> ;
-    }
-}
-
-/*客户端，IUserStrtegy可不继承，随意*/
-class Client implements IUserStrtegy{
-    private <span class="variable">$strtegy</span> = null
-
-    function setStrtegy(IUserStrtegy <span class="variable">$strte</span>){
-        <span class="variable">$this-</span>&gt;strtegy = <span class="variable">$strte</span> ;
-    }
-
-    function __construct(IUserStrtegy strte){
-        <span class="variable">$this-</span>&gt;strtegy = <span class="variable">$strte</span> ;
-    }
-
-    function showAd(){
-        <span class="variable">$this-</span>&gt;strtegy-&gt;showAd() ;
-    }
-
-    function showCategory(){
-        <span class="variable">$this-</span>&gt;strtegy-&gt;showCategory() ;
-    }
-}
-
-/*根据条件加入策略类，以后多种情况只需添加多一个策略类即可*/
-<span class="variable">$obj</span> = $_GET[<span class="string">'female'</span>] ? new FemaleUserStrategy() : new ManUserStrategy() ;
-<span class="variable">$client</span> = new Client(<span class="variable">$obj</span>) ; // <span class="variable">$client-</span>&gt;setStrtegy(<span class="variable">$obj</span>)
-<span class="variable">$client-</span>&gt;showAd() ;
-<span class="variable">$client-</span>&gt;showCategory() ;
-</code></pre></span>
+        <span itemprop="articleBody"></span>
       
     </div>
 
@@ -300,7 +240,9 @@ class Client implements IUserStrtegy{
       
         <div class="post-tags">
           
-            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+            <a href="/tags/c/" rel="tag">#c</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -309,13 +251,11 @@ class Client implements IUserStrtegy{
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/01/17/php-config/" rel="prev">php配置总览（mac）</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/01/15/desgin-adapter/" rel="next">适配器模式</a>
+              <a href="/2015/08/20/yii1-source-behavior/" rel="next">yii1－源码：行为处理机制</a>
             
           </div>
         </div>
@@ -514,9 +454,9 @@ class Client implements IUserStrtegy{
 
     <script type="text/javascript">
       var disqus_shortname = 'qmore';
-      var disqus_identifier = '2015/01/15/desgin-strategy/';
-      var disqus_title = '策略模式';
-      var disqus_url = 'http://blog.dqmore.com/2015/01/15/desgin-strategy/';
+      var disqus_identifier = '2015/09/08/linux-c-program/';
+      var disqus_title = 'Linux下c编程-进程信号';
+      var disqus_url = 'http://blog.dqmore.com/2015/09/08/linux-c-program/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
