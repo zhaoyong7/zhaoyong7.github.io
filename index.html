@@ -183,6 +183,126 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/30/linux_env_filebasics/" itemprop="url">
+                Linux下c编程-文件基础
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-30T22:52:11+08:00" content="2015-09-30">
+            2015-09-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/09/30/linux_env_filebasics/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/30/linux_env_filebasics/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>一个打开的文件在Linux内核中使用三种<strong>数据结构</strong>单向链式表示:</p>
+<ul>
+<li>文件描述符表项(file descriptor entry)<ul>
+<li>文件描述符标志(file descritor flag ,简称fd) </li>
+<li>文件表项的指针(file table entry pointer)</li>
+</ul>
+</li>
+<li>文件表项(file table entry)<ul>
+<li>文件状态标志(file status flags):如只读、只写、读写、追加、创建等。</li>
+<li>文件当前偏移量(current file offset)</li>
+<li>v节点的指针(v-node pointer)        </li>
+</ul>
+</li>
+<li>v节点表项(v-node table entry)<ul>
+<li>v节点信息(v-node information)<ul>
+<li>文件类型</li>
+<li>此文件操作函数的指针</li>
+</ul>
+</li>
+<li>i节点信息<ul>
+<li>文件所有者</li>
+<li>长度</li>
+<li>所在设备</li>
+<li>实际磁盘数据块在磁盘上所在位置的指针</li>
+<li>等…              </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>大概示意图：<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/linux_env_filebasics.png" alt="image"></p>
+<h5 id="一、文件描述符">一、文件描述符</h5><ul>
+<li>对于Linux而言，所有打开的文件都由文件描述符引用。</li>
+<li>文件描述符是一个为负整数，是一个索引值，每一个打开的文件都对应一个文件描述符。</li>
+<li>当打开一个现存文件或创建一个新文件时，Linux向进程返回一个文件描述符。</li>
+<li>当需要读、写一个文件时，文件描述符作为文件的标识，传入read或者write作为参数代表读、写改文件。</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/21/https-ssl/" itemprop="url">
                 https加密的简介
               </a>
@@ -342,126 +462,6 @@
 <p>第六次，它鄙夷一张丑恶的嘴脸，却不知那正是自己面具中的一副；</p>
 <p>第七次，它侧身于生活的污泥，虽不甘心却又畏首畏尾。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——卡里·纪伯伦</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/08/linux_env_filebasics/" itemprop="url">
-                Linux下c编程-文件基础
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-08T11:46:51+08:00" content="2015-09-08">
-            2015-09-08
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/程序员世界/" itemprop="url" rel="index">
-                  <span itemprop="name">程序员世界</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/09/08/linux_env_filebasics/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/08/linux_env_filebasics/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>一个打开的文件在Linux内核中使用三种<strong>数据结构</strong>单向链式表示:</p>
-<ul>
-<li>文件描述符表项(file descriptor entry)<ul>
-<li>文件描述符标志(file descritor flag ,简称fd) </li>
-<li>文件表项的指针(file table entry pointer)</li>
-</ul>
-</li>
-<li>文件表项(file table entry)<ul>
-<li>文件状态标志(file status flags):如只读、只写、读写、追加、创建等。</li>
-<li>文件当前偏移量(current file offset)</li>
-<li>v节点的指针(v-node pointer)        </li>
-</ul>
-</li>
-<li>v节点表项(v-node table entry)<ul>
-<li>v节点信息(v-node information)<ul>
-<li>文件类型</li>
-<li>此文件操作函数的指针</li>
-</ul>
-</li>
-<li>i节点信息<ul>
-<li>文件所有者</li>
-<li>长度</li>
-<li>所在设备</li>
-<li>实际磁盘数据块在磁盘上所在位置的指针</li>
-<li>等…              </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>大概示意图：<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/linux_env_filebasics.png" alt="image"></p>
-<h5 id="一、文件描述符">一、文件描述符</h5><ul>
-<li>对于Linux而言，所有打开的文件都由文件描述符引用。</li>
-<li>文件描述符是一个为负整数，是一个索引值，每一个打开的文件都对应一个文件描述符。</li>
-<li>当打开一个现存文件或创建一个新文件时，Linux向进程返回一个文件描述符。</li>
-<li>当需要读、写一个文件时，文件描述符作为文件的标识，传入read或者write作为参数代表读、写改文件。</li>
-</ul>
 </span>
         
       
