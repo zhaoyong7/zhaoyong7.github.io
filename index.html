@@ -236,7 +236,7 @@
 
       
         
-          <span itemprop="articleBody"><p>一个打开的文件在Linux内核中使用三种<strong>数据结构</strong>单向链式表示:</p>
+          <p>一个打开的文件在Linux内核中使用三种<strong>数据结构</strong>单向链式表示:</p>
 <ul>
 <li>文件描述符表项(file descriptor entry)<ul>
 <li>文件描述符标志(file descritor flag ,简称fd) </li>
@@ -266,14 +266,12 @@
 </ul>
 </li>
 </ul>
-<p>大概示意图：<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/linux_env_filebasics.png" alt="image"></p>
-<h5 id="一、文件描述符">一、文件描述符</h5><ul>
-<li>对于Linux而言，所有打开的文件都由文件描述符引用。</li>
-<li>文件描述符是一个为负整数，是一个索引值，每一个打开的文件都对应一个文件描述符。</li>
-<li>当打开一个现存文件或创建一个新文件时，Linux向进程返回一个文件描述符。</li>
-<li>当需要读、写一个文件时，文件描述符作为文件的标识，传入read或者write作为参数代表读、写改文件。</li>
-</ul>
-</span>
+<p>大概示意图：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/30/linux_env_filebasics/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
