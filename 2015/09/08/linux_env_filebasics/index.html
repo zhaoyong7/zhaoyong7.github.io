@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="c,linux," />
 
 
 
@@ -35,16 +35,41 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
+<meta name="description" content="一个打开的文件在Linux内核中使用三种数据结构单向链式表示:
+
+文件描述符表项(file descriptor entry)
+文件描述符标志(file descritor flag ,简称fd) 
+文件表项的指针(file table entry pointer)
+
+
+文件表项(file table entry)
+文件状态标志(file status flags):如只读、只写、读写、追加、创建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux_c_program_filebasics">
-<meta property="og:url" content="http://blog.dqmore.com/2015/09/30/linux-c-program-filebasics/index.html">
+<meta property="og:title" content="Linux下c编程-文件基础">
+<meta property="og:url" content="http://blog.dqmore.com/2015/09/08/linux_env_filebasics/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-09-30T12:18:24.000Z">
+<meta property="og:description" content="一个打开的文件在Linux内核中使用三种数据结构单向链式表示:
+
+文件描述符表项(file descriptor entry)
+文件描述符标志(file descritor flag ,简称fd) 
+文件表项的指针(file table entry pointer)
+
+
+文件表项(file table entry)
+文件状态标志(file status flags):如只读、只写、读写、追加、创建">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/linux_env_filebasics.png">
+<meta property="og:updated_time" content="2015-09-30T14:49:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux_c_program_filebasics">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Linux下c编程-文件基础">
+<meta name="twitter:description" content="一个打开的文件在Linux内核中使用三种数据结构单向链式表示:
+
+文件描述符表项(file descriptor entry)
+文件描述符标志(file descritor flag ,简称fd) 
+文件表项的指针(file table entry pointer)
+
+
+文件表项(file table entry)
+文件状态标志(file status flags):如只读、只写、读写、追加、创建">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -54,7 +79,7 @@
   };
 </script>
 
-  <title> linux_c_program_filebasics | Qmore's Blog </title>
+  <title> Linux下c编程-文件基础 | Qmore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,7 +207,7 @@
           
           
             
-              linux_c_program_filebasics
+              Linux下c编程-文件基础
             
           
         </h1>
@@ -191,19 +216,34 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-30T20:18:24+08:00" content="2015-09-30">
-            2015-09-30
+          <time itemprop="dateCreated" datetime="2015-09-08T11:46:51+08:00" content="2015-09-08">
+            2015-09-08
           </time>
         </span>
 
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
         
 
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/30/linux-c-program-filebasics/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/30/linux-c-program-filebasics/" itemprop="commentsCount"></span>
+            <a href="/2015/09/08/linux_env_filebasics/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/08/linux_env_filebasics/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -217,22 +257,69 @@
       
 
       
-        <span itemprop="articleBody"></span>
+        <span itemprop="articleBody"><p>一个打开的文件在Linux内核中使用三种<strong>数据结构</strong>单向链式表示:</p>
+<ul>
+<li>文件描述符表项(file descriptor entry)<ul>
+<li>文件描述符标志(file descritor flag ,简称fd) </li>
+<li>文件表项的指针(file table entry pointer)</li>
+</ul>
+</li>
+<li>文件表项(file table entry)<ul>
+<li>文件状态标志(file status flags):如只读、只写、读写、追加、创建等。</li>
+<li>文件当前偏移量(current file offset)</li>
+<li>v节点的指针(v-node pointer)        </li>
+</ul>
+</li>
+<li>v节点表项(v-node table entry)<ul>
+<li>v节点信息(v-node information)<ul>
+<li>文件类型</li>
+<li>此文件操作函数的指针</li>
+</ul>
+</li>
+<li>i节点信息<ul>
+<li>文件所有者</li>
+<li>长度</li>
+<li>所在设备</li>
+<li>实际磁盘数据块在磁盘上所在位置的指针</li>
+<li>等…              </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>大概示意图：<br><img src="http://7u2h92.com1.z0.glb.clouddn.com/linux_env_filebasics.png" alt="image"></p>
+<h5 id="一、文件描述符">一、文件描述符</h5><ul>
+<li>对于Linux而言，所有打开的文件都由文件描述符引用。</li>
+<li>文件描述符是一个为负整数，是一个索引值，每一个打开的文件都对应一个文件描述符。</li>
+<li>当打开一个现存文件或创建一个新文件时，Linux向进程返回一个文件描述符。</li>
+<li>当需要读、写一个文件时，文件描述符作为文件的标识，传入read或者write作为参数代表读、写改文件。</li>
+</ul>
+</span>
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag">#c</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2015/09/17/saying-Kahlil-Gibran/" rel="prev">我曾七次鄙视自己的灵魂</a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/21/https-ssl/" rel="next">https加密的简介</a>
+              <a href="/2015/08/20/yii1-source-behavior/" rel="next">yii1－源码：行为处理机制</a>
             
           </div>
         </div>
@@ -335,7 +422,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -377,7 +464,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、文件描述符"><span class="nav-number">1.</span> <span class="nav-text">一、文件描述符</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -431,9 +518,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'qmore';
-      var disqus_identifier = '2015/09/30/linux-c-program-filebasics/';
-      var disqus_title = 'linux_c_program_filebasics';
-      var disqus_url = 'http://blog.dqmore.com/2015/09/30/linux-c-program-filebasics/';
+      var disqus_identifier = '2015/09/08/linux_env_filebasics/';
+      var disqus_title = 'Linux下c编程-文件基础';
+      var disqus_url = 'http://blog.dqmore.com/2015/09/08/linux_env_filebasics/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
