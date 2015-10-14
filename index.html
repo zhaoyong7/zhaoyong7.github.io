@@ -251,10 +251,10 @@
 <li>注释</li>
 <li>零字符宽</li>
 </ol>
-<p>######定界符:<br>php里通常用使用”/“作为定界符开始和结束，也可以使用”#”,一般在你所要匹配的字符里有许多的”/“时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
-<p>例如匹配uri:<code>$regex = “/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i”</code></p>
-<p>可以替换成:<code>$regex = “#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>“</code></p>
-<p>######修饰符:<br>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
+<h6 id="定界符:">定界符:</h6><p>php里通常用使用’/‘作为定界符开始和结束，也可以使用’#’,一般在你所要匹配的字符里有许多的’/‘时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
+<p>例如匹配uri:<code>$regex = ‘/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i’</code></p>
+<p>可以替换成:<code>$regex = ‘#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>‘</code></p>
+<h6 id="修饰符:">修饰符:</h6><p>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
 </span>
         
       

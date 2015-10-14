@@ -43,7 +43,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="PHP中有两套两套正则表达式规则，一套是POSIX，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的PERL兼容正则。
 php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
-<meta property="og:updated_time" content="2015-10-14T08:13:21.000Z">
+<meta property="og:updated_time" content="2015-10-14T08:17:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php正则表达式">
 <meta name="twitter:description" content="PHP中有两套两套正则表达式规则，一套是POSIX，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的PERL兼容正则。
@@ -250,10 +250,10 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <li>注释</li>
 <li>零字符宽</li>
 </ol>
-<p>######定界符:<br>php里通常用使用”/“作为定界符开始和结束，也可以使用”#”,一般在你所要匹配的字符里有许多的”/“时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
-<p>例如匹配uri:<code>$regex = “/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i”</code></p>
-<p>可以替换成:<code>$regex = “#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>“</code></p>
-<p>######修饰符:<br>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
+<h6 id="定界符:">定界符:</h6><p>php里通常用使用’/‘作为定界符开始和结束，也可以使用’#’,一般在你所要匹配的字符里有许多的’/‘时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
+<p>例如匹配uri:<code>$regex = ‘/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i’</code></p>
+<p>可以替换成:<code>$regex = ‘#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>‘</code></p>
+<h6 id="修饰符:">修饰符:</h6><p>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
 </span>
       
     </div>
@@ -420,7 +420,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#定界符:"><span class="nav-number">1.</span> <span class="nav-text">定界符:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#修饰符:"><span class="nav-number">2.</span> <span class="nav-text">修饰符:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
