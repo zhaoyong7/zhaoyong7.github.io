@@ -183,6 +183,108 @@
           
           
             
+              <a class="post-title-link" href="/2015/10/14/regular_express/" itemprop="url">
+                php正则表达式
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-14T14:36:20+08:00" content="2015-10-14">
+            2015-10-14
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/10/14/regular_express/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/14/regular_express/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>PHP中有两套两套正则表达式规则，一套是<strong>POSIX</strong>，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的<strong>PERL兼容正则</strong>。</p>
+<p>php两套函数区别:<a href="http://www.php.net/manual/zh/reference.pcre.pattern.posix.php" target="_blank" rel="external">http://www.php.net/manual/zh/reference.pcre.pattern.posix.php</a></p>
+<p><strong>术语</strong>：</p>
+<ol>
+<li>定界符:<code> /、#</code></li>
+<li>字域符:<code>i</code></li>
+<li>修饰符</li>
+<li>限定符</li>
+<li>脱字符</li>
+<li>通配符</li>
+<li>反向引用</li>
+<li>惰性匹配</li>
+<li>注释</li>
+<li>零字符宽</li>
+</ol>
+<p>######定界符:<br>php里通常用使用”/“作为定界符开始和结束，也可以使用”#”,一般在你所要匹配的字符里有许多的”/“时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
+<p>例如匹配uri:<code>$regex = ‘/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i’</code></p>
+<p>可以替换成:<code>$regex = ‘#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>‘</code></p>
+<p>######修饰符:<br>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/30/linux_c_filebasics/" itemprop="url">
                 Linux下c编程-文件基础
               </a>
@@ -1073,101 +1175,6 @@ protected <span class="function"><span class="keyword">function</span> <span cla
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/07/yii2-restful-api/" itemprop="url">
-                yii2中定制restful api
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-05-07T14:49:22+08:00" content="2015-05-07">
-            2015-05-07
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/程序员世界/" itemprop="url" rel="index">
-                  <span itemprop="name">程序员世界</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/07/yii2-restful-api/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/07/yii2-restful-api/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h4 id="1、apache配置:">1、apache配置:</h4><p>找到httpd.conf中的这两段内容：</p>
-<!-- .conf -->
-<pre><code> <span class="comment"># AllowOverride controls what directives may be placed in .htaccess files.</span>
-<span class="comment"># It can be "All", "None", or any combination of the keywords:</span>
-<span class="comment">#   Options FileInfo AuthConfig Limit</span>
-<span class="comment">#</span>
-<span class="title">AllowOverride</span> <span class="built_in">none</span>
-</code></pre><p>将<code>AllowOverride none</code> 改为 <code>AllowOverride all</code><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/07/yii2-restful-api/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1206,7 +1213,7 @@ protected <span class="function"><span class="keyword">function</span> <span cla
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
