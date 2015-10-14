@@ -46,7 +46,7 @@
 文件状态标志(file status flags):如只读、只写、读写、追加、创建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下c编程-文件基础">
-<meta property="og:url" content="http://blog.dqmore.com/2015/09/30/linux_env_filebasics/index.html">
+<meta property="og:url" content="http://blog.dqmore.com/2015/09/30/linux_c_filebasics/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="一个打开的文件在Linux内核中使用三种数据结构单向链式表示:
 
@@ -58,7 +58,7 @@
 文件表项(file table entry)
 文件状态标志(file status flags):如只读、只写、读写、追加、创建">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/linux_env_filebasics.png">
-<meta property="og:updated_time" content="2015-09-30T14:53:03.000Z">
+<meta property="og:updated_time" content="2015-10-14T01:31:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下c编程-文件基础">
 <meta name="twitter:description" content="一个打开的文件在Linux内核中使用三种数据结构单向链式表示:
@@ -242,8 +242,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/30/linux_env_filebasics/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/30/linux_env_filebasics/" itemprop="commentsCount"></span>
+            <a href="/2015/09/30/linux_c_filebasics/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/30/linux_c_filebasics/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -295,6 +295,25 @@
 <li>文件描述符是一个为负整数，是一个索引值，每一个打开的文件都对应一个文件描述符。</li>
 <li>当打开一个现存文件或创建一个新文件时，Linux向进程返回一个文件描述符。</li>
 <li>当需要读、写一个文件时，文件描述符作为文件的标识，传入read或者write作为参数代表读、写改文件。</li>
+</ul>
+<p>一个进程在启动的时候会自动打开三个文件，它们分别是标准输入、标准输出、标准出错。对应的文件描述符是0、1、2，所以，正常情况下打开一个文件，它返回的文件描述符&gt;=3。</p>
+<h5 id="二、文件操作">二、文件操作</h5><ul>
+<li><p>文件描述符操作<code>dup()</code>和<code>dup2()</code></p>
+<p>  复制文件操作符、更改进程的标准输入输出设备</p>
+</li>
+<li><p>改变文件状态标志<code>fcntl()</code></p>
+<p>  <code>int fcntl(int fd,int cmd …)</code></p>
+<p>  cmd取值为F_GETFL、F_SETFL … ，可以根据文件描述符获取或更改文件状态的标志，如更改为read、write … 。</p>
+</li>
+</ul>
+<h5 id="三、文件的原子操作">三、文件的原子操作</h5><p>所谓文件的原子操作就是在该操作完成结束前不会被其他事务或事件打断，如果发生打断会发生临界资源抢占，导致数据混乱等现象。</p>
+<ul>
+<li><p>文件追加原子操作：</p>
+<p>  打开文件时用D_APPEN标志，进程对文件的偏移量和数据追加都成为原子操作，内核每次对文件写之前，都将进程当前的偏移量设置为文件的尾端，这将不再需要lseek来调整偏移量。</p>
+</li>
+<li><p>文件创建原子操作：</p>
+<p>  open函数以参数O_CREAT和O_EXCL运行，若改文件存在时，open将失败，否者创建，使得文件存判定和创建过程成为原子操作。</p>
+</li>
 </ul>
 </span>
       
@@ -464,7 +483,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、文件描述符"><span class="nav-number">1.</span> <span class="nav-text">一、文件描述符</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、文件描述符"><span class="nav-number">1.</span> <span class="nav-text">一、文件描述符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、文件操作"><span class="nav-number">2.</span> <span class="nav-text">二、文件操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、文件的原子操作"><span class="nav-number">3.</span> <span class="nav-text">三、文件的原子操作</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -518,9 +537,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'qmore';
-      var disqus_identifier = '2015/09/30/linux_env_filebasics/';
+      var disqus_identifier = '2015/09/30/linux_c_filebasics/';
       var disqus_title = 'Linux下c编程-文件基础';
-      var disqus_url = 'http://blog.dqmore.com/2015/09/30/linux_env_filebasics/';
+      var disqus_url = 'http://blog.dqmore.com/2015/09/30/linux_c_filebasics/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
