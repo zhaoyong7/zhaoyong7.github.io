@@ -43,7 +43,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="PHP中有两套两套正则表达式规则，一套是POSIX，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的PERL兼容正则。
 php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
-<meta property="og:updated_time" content="2015-10-14T08:17:06.000Z">
+<meta property="og:updated_time" content="2015-10-15T02:28:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php正则表达式">
 <meta name="twitter:description" content="PHP中有两套两套正则表达式规则，一套是POSIX，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的PERL兼容正则。
@@ -237,23 +237,66 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
       
         <span itemprop="articleBody"><p>PHP中有两套两套正则表达式规则，一套是<strong>POSIX</strong>，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的<strong>PERL兼容正则</strong>。</p>
 <p>php两套函数区别:<a href="http://www.php.net/manual/zh/reference.pcre.pattern.posix.php" target="_blank" rel="external">http://www.php.net/manual/zh/reference.pcre.pattern.posix.php</a></p>
+<a id="more"></a>
 <p><strong>术语</strong>：</p>
 <ol>
 <li>定界符:<code> /、#</code></li>
-<li>字域符:<code>i</code></li>
-<li>修饰符</li>
-<li>限定符</li>
-<li>脱字符</li>
-<li>通配符</li>
-<li>反向引用</li>
+<li>修饰符:<code>i、x</code></li>
+<li>字域符:<code>[\w]</code></li>
+<li>限定符:<code>{3,5}、*、+</code></li>
+<li>脱字符:<code>^</code></li>
+<li>通配符(零宽断言):<code>?=、?!、?&lt;=、?&lt;!</code></li>
+<li>反向引用:<code>\1、?\<world\>:\k\<world\></world\></world\></code>,World为key,自定义</li>
 <li>惰性匹配</li>
 <li>注释</li>
 <li>零字符宽</li>
 </ol>
-<h6 id="定界符:">定界符:</h6><p>php里通常用使用’/‘作为定界符开始和结束，也可以使用’#’,一般在你所要匹配的字符里有许多的’/‘时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
+<p><strong>特殊意义字符(元字符)</strong>：</p>
+<ul>
+<li>\w代表任意字母，数字，下划线，汉字的字符</li>
+<li>\W代表任意<strong>不是</strong>字母，数字，下划线，汉字的字符</li>
+<li>\s代表空格 </li>
+<li>\S代表不是空格</li>
+<li>\d代表任意数字</li>
+<li>\D代表任意非数字</li>
+<li>\b代表单词开头或结束位置</li>
+<li>\B代表不是单词开头或结束位置</li>
+</ul>
+<p><strong>[],(),{}代表不同的意思</strong>：</p>
+<ol>
+<li><p>[]匹配的范围:</p>
+<p> 如[abc] 可以匹配a ,aa, b,bb,c,cc,abc,aabbcc等任意出现abc的字符</p>
+</li>
+<li><p>()匹配字符:</p>
+<p> 如(abc) 只能匹配含有abc字符，如aabc,ccaabc等,用于分组匹配</p>
+</li>
+<li><p>{}匹配的长度:</p>
+<p> 如[a-z]{3,5}，匹配adsc</p>
+</li>
+</ol>
+<h6 id="定界符:">定界符:</h6><p>php里通常用使用<code>/</code>作为定界符开始和结束，也可以使用<code>#</code>,一般在你所要匹配的字符里有许多的<code>/</code>时候可以用<code>#</code>作为定界符号，这样规则会显的更加清晰。</p>
 <p>例如匹配uri:<code>$regex = ‘/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i’</code></p>
 <p>可以替换成:<code>$regex = ‘#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>‘</code></p>
-<h6 id="修饰符:">修饰符:</h6><p>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
+<h6 id="修饰符:">修饰符:</h6><p>用于改变正则表达式行为。如<code>/helloworld/i</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格。</p>
+<h6 id="字符域:">字符域:</h6><p>[\w]用方括号扩起来的部分就是字符域。</p>
+<p>[]是匹配的范围，当加上^如[^asb]代表反义：除了asb这几个字母以外的任意字符</p>
+<h6 id="限定符:">限定符:</h6><p>如[\w]{3,5}或者[\w]*或者[\w]+这些[\w]后面的符号都表示限定符</p>
+<p>{3,5}表示3到5个字符。{3,}超过3个字符，{,5}最多5个，{3}三个字符。</p>
+<ul>
+<li>{n}：表示n个</li>
+<li>{n,}：表示n个到更多</li>
+<li>{n,m}：表示n到m个</li>
+<li>* ：表示0到多个。</li>
+<li>+ ：表示1到多个。</li>
+<li>? ：表示0或1个</li>
+</ul>
+<h6 id="脱字符:">脱字符:</h6><p><code>^</code>,放在字符域(如:[^\w])中表示否定(不包括的意思)，放在表达式之前，表示以当前这个字符开始。(/^n/i,表示以n开头)。</p>
+<h6 id="通配符:">通配符:</h6><p>断言某些字符串中某些字符的存在与否。</p>
+<p>正向预查:(?=) 相对应的 (?!)表示否定意思</p>
+<p>反向预查:(?&lt;=) 相对应的 (?&lt;!)表示否定意思</p>
+<p>/(?&lt;=1)2(?=3)/  : 2前面紧跟1,后面紧跟3,如5555111234444</p>
+<p>/(?&lt;!1)2(?!3)/  : 2前面不紧跟1,后面不紧跟3,如555152535</p>
+<p><strong>注意:</strong> <em>(?=) 不占用字符，也就是说 /HE(?=L)LO/ 能匹配 HELO ,而不能匹配 HELLO</em></p>
 </span>
       
     </div>
@@ -420,7 +463,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#定界符:"><span class="nav-number">1.</span> <span class="nav-text">定界符:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#修饰符:"><span class="nav-number">2.</span> <span class="nav-text">修饰符:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#定界符:"><span class="nav-number">1.</span> <span class="nav-text">定界符:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#修饰符:"><span class="nav-number">2.</span> <span class="nav-text">修饰符:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#字符域:"><span class="nav-number">3.</span> <span class="nav-text">字符域:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#限定符:"><span class="nav-number">4.</span> <span class="nav-text">限定符:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#脱字符:"><span class="nav-number">5.</span> <span class="nav-text">脱字符:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#通配符:"><span class="nav-number">6.</span> <span class="nav-text">通配符:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

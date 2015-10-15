@@ -236,26 +236,13 @@
 
       
         
-          <span itemprop="articleBody"><p>PHP中有两套两套正则表达式规则，一套是<strong>POSIX</strong>，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的<strong>PERL兼容正则</strong>。</p>
-<p>php两套函数区别:<a href="http://www.php.net/manual/zh/reference.pcre.pattern.posix.php" target="_blank" rel="external">http://www.php.net/manual/zh/reference.pcre.pattern.posix.php</a></p>
-<p><strong>术语</strong>：</p>
-<ol>
-<li>定界符:<code> /、#</code></li>
-<li>字域符:<code>i</code></li>
-<li>修饰符</li>
-<li>限定符</li>
-<li>脱字符</li>
-<li>通配符</li>
-<li>反向引用</li>
-<li>惰性匹配</li>
-<li>注释</li>
-<li>零字符宽</li>
-</ol>
-<h6 id="定界符:">定界符:</h6><p>php里通常用使用’/‘作为定界符开始和结束，也可以使用’#’,一般在你所要匹配的字符里有许多的’/‘时候可以用”#”作为定界符号，这样规则会显的更加清晰。</p>
-<p>例如匹配uri:<code>$regex = ‘/^http:\/\/([\w.]+)\/([\w]+)\/([\w]+).html$/i’</code></p>
-<p>可以替换成:<code>$regex = ‘#^<a href="http://([\w.]+)/([\w]+)/([\w]+)\.html$#i" target="_blank" rel="external">http://([\w.]+)/([\w]+)/([\w]+)\.html$#i</a>‘</code></p>
-<h6 id="修饰符:">修饰符:</h6><p>用于改变正则表达式行为。如<code>‘/helloworld/i’</code>中的<code>i</code>就是修饰符，表示忽略大小写，还有一个修饰符<code>x</code>表示忽略空格</p>
-</span>
+          <p>PHP中有两套两套正则表达式规则，一套是<strong>POSIX</strong>，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的<strong>PERL兼容正则</strong>。</p>
+<p>php两套函数区别:<a href="http://www.php.net/manual/zh/reference.pcre.pattern.posix.php">http://www.php.net/manual/zh/reference.pcre.pattern.posix.php</a></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/14/regular_express/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
