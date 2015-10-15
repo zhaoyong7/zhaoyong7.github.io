@@ -43,7 +43,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="PHP中有两套两套正则表达式规则，一套是POSIX，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的PERL兼容正则。
 php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
-<meta property="og:updated_time" content="2015-10-15T02:28:30.000Z">
+<meta property="og:updated_time" content="2015-10-15T08:15:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php正则表达式">
 <meta name="twitter:description" content="PHP中有两套两套正则表达式规则，一套是POSIX，由IEEE协会制定，但是php 5.3开始已经废弃了该规则对应的系列函数，事实上PHP对此规则支持并不完善。另一套来自PCRE(Perl Compatible Regular Expression)库提供的PERL兼容正则。
@@ -247,9 +247,9 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <li>脱字符:<code>^</code></li>
 <li>通配符(零宽断言):<code>?=、?!、?&lt;=、?&lt;!</code></li>
 <li>反向引用:<code>\1、?\<world\>:\k\<world\></world\></world\></code>,World为key,自定义</li>
-<li>惰性匹配</li>
-<li>注释</li>
-<li>零字符宽</li>
+<li>惰性匹配:<code>*?、+?、??、{n,m}?、{n,}?</code></li>
+<li>注释:<code>(?#comment)</code></li>
+<li>零字符宽:<code>?=、?!、?&lt;=、?&lt;!</code>即不占用字符宽度</li>
 </ol>
 <p><strong>特殊意义字符(元字符)</strong>：</p>
 <ul>
@@ -261,6 +261,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <li>\D代表任意非数字</li>
 <li>\b代表单词开头或结束位置</li>
 <li>\B代表不是单词开头或结束位置</li>
+<li>. 代表任意字符</li>
 </ul>
 <p><strong>[],(),{}代表不同的意思</strong>：</p>
 <ol>
@@ -297,6 +298,7 @@ php两套函数区别:http://www.php.net/manual/zh/reference.pcre.pattern">
 <p>/(?&lt;=1)2(?=3)/  : 2前面紧跟1,后面紧跟3,如5555111234444</p>
 <p>/(?&lt;!1)2(?!3)/  : 2前面不紧跟1,后面不紧跟3,如555152535</p>
 <p><strong>注意:</strong> <em>(?=) 不占用字符，也就是说 /HE(?=L)LO/ 能匹配 HELO ,而不能匹配 HELLO</em></p>
+<p><strong>了解更多，看大神deerchao的30分钟教程</strong>：<a href="http://deerchao.net/tutorials/regex/common.htm" target="_blank" rel="external">http://deerchao.net/tutorials/regex/common.htm</a></p>
 </span>
       
     </div>
