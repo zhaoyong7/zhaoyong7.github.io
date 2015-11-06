@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="设计模式," />
+  <meta name="keywords" content="js," />
 
 
 
@@ -35,19 +35,46 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="适配器模式可以将截然不同的函数接口封装成统一的API
-在实际应用中，如 PHP的数据库操作接口有mysql,mysqli,pdo三种，我们可以通过适配器模式统一成一致的api，方便外部调用。类似的场景还有memcache,redis,file,apc等不同的缓存函数。">
+<meta name="description" content="以下都是以js/php为基础的代码：
+1、求数值数组中的最大值或最小值：
+&amp;lt;!-- js:lang --&amp;gt;
+var num = [1,34,5,2,31,22] ;
+Math.max.apply(Math,num) ;
+2、点赞、星星数等：
+&amp;lt;!-- js:lang --&amp;gt;
+var num = 2 ;
+&quot;★★★★★☆☆☆☆☆&quot;.substring(5-num,10-num) ;
+//★★☆☆☆
+3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="适配器模式">
-<meta property="og:url" content="http://blog.dqmore.com/2015/01/15/desgin-adapter/index.html">
+<meta property="og:title" content="好玩的代码">
+<meta property="og:url" content="http://blog.dqmore.com/2015/10/19/fun_code/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
-<meta property="og:description" content="适配器模式可以将截然不同的函数接口封装成统一的API
-在实际应用中，如 PHP的数据库操作接口有mysql,mysqli,pdo三种，我们可以通过适配器模式统一成一致的api，方便外部调用。类似的场景还有memcache,redis,file,apc等不同的缓存函数。">
-<meta property="og:updated_time" content="2015-08-24T02:49:34.000Z">
+<meta property="og:description" content="以下都是以js/php为基础的代码：
+1、求数值数组中的最大值或最小值：
+&amp;lt;!-- js:lang --&amp;gt;
+var num = [1,34,5,2,31,22] ;
+Math.max.apply(Math,num) ;
+2、点赞、星星数等：
+&amp;lt;!-- js:lang --&amp;gt;
+var num = 2 ;
+&quot;★★★★★☆☆☆☆☆&quot;.substring(5-num,10-num) ;
+//★★☆☆☆
+3">
+<meta property="og:updated_time" content="2015-11-06T02:01:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="适配器模式">
-<meta name="twitter:description" content="适配器模式可以将截然不同的函数接口封装成统一的API
-在实际应用中，如 PHP的数据库操作接口有mysql,mysqli,pdo三种，我们可以通过适配器模式统一成一致的api，方便外部调用。类似的场景还有memcache,redis,file,apc等不同的缓存函数。">
+<meta name="twitter:title" content="好玩的代码">
+<meta name="twitter:description" content="以下都是以js/php为基础的代码：
+1、求数值数组中的最大值或最小值：
+&amp;lt;!-- js:lang --&amp;gt;
+var num = [1,34,5,2,31,22] ;
+Math.max.apply(Math,num) ;
+2、点赞、星星数等：
+&amp;lt;!-- js:lang --&amp;gt;
+var num = 2 ;
+&quot;★★★★★☆☆☆☆☆&quot;.substring(5-num,10-num) ;
+//★★☆☆☆
+3">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -57,7 +84,7 @@
   };
 </script>
 
-  <title> 适配器模式 | Qmore's Blog </title>
+  <title> 好玩的代码 | Qmore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -185,7 +212,7 @@
           
           
             
-              适配器模式
+              好玩的代码
             
           
         </h1>
@@ -194,8 +221,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-01-15T10:32:46+08:00" content="2015-01-15">
-            2015-01-15
+          <time itemprop="dateCreated" datetime="2015-10-19T17:56:04+08:00" content="2015-10-19">
+            2015-10-19
           </time>
         </span>
 
@@ -220,8 +247,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/01/15/desgin-adapter/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/15/desgin-adapter/" itemprop="commentsCount"></span>
+            <a href="/2015/10/19/fun_code/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/19/fun_code/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -235,63 +262,21 @@
       
 
       
-        <span itemprop="articleBody"><p>适配器模式可以将截然不同的函数接口封装成统一的API</p>
-<p>在实际应用中，如 PHP的数据库操作接口有mysql,mysqli,pdo三种，我们可以通过适配器模式统一成一致的api，方便外部调用。<br>类似的场景还有memcache,redis,file,apc等不同的缓存函数。</p>
+        <span itemprop="articleBody"><p><em>以下都是以js/php为基础的代码</em>：</p>
+<p>1、求数值数组中的最大值或最小值：</p>
+<!-- js:lang -->
+<pre><code>var num = [<span class="number">1</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">31</span>,<span class="number">22</span>] ;
+Math.max.apply(Math,num) ;
+</code></pre><p>2、点赞、星星数等：</p>
+<!-- js:lang -->
+<pre><code><span class="keyword">var</span> <span class="built_in">num</span> = <span class="number">2</span> ;
+<span class="string">"★★★★★☆☆☆☆☆"</span>.substring(<span class="number">5</span>-<span class="built_in">num</span>,<span class="number">10</span>-<span class="built_in">num</span>) ;
+<span class="comment">//★★☆☆☆</span>
+</code></pre><p>3、控制在0~100之间</p>
 <a id="more"></a>
-<p>####适配器模式</p>
-<!-- lang:php -->
-<pre><code>/*适配器接口*/
-interface IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>) ;
-    function query(<span class="variable">$sql</span>) ;
-    function close() ;
-}
-
-/*mysql*/
-class Mysql implements IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>){
-        //Mysql操作接口connect代码
-    }
-
-    function query(<span class="variable">$sql</span>){
-        //Mysql操作接口query代码
-    }
-
-    function close(){
-        //Mysql操作接口close代码
-    }
-
-}
-
-/*mysqli*/
-class Mysqli implements IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>){
-        //Mysqli操作接口connect代码
-    }
-
-    function query(<span class="variable">$sql</span>){
-        //Mysqli操作接口query代码
-    }
-
-    function close(){
-        //Mysqli操作接口close代码
-    }
-}
-
-/*pdo*/
-class Pdo implements IDatabase{
-    function connect(<span class="variable">$host</span>,<span class="variable">$user</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>){
-        //Pdo操作接口connect代码
-    }
-
-    function query(<span class="variable">$sql</span>){
-        //Pdo操作接口query代码
-    }
-
-    function close(){
-        //Pdo操作接口close代码
-    }
-}
+<!-- js:lang -->
+<pre><code>var someValue = <span class="number">102</span> ;
+Math.min(Math.max(someValue,<span class="number">0</span>),<span class="number">100</span>);
 </code></pre></span>
       
     </div>
@@ -300,7 +285,7 @@ class Pdo implements IDatabase{
       
         <div class="post-tags">
           
-            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+            <a href="/tags/js/" rel="tag">#js</a>
           
         </div>
       
@@ -309,13 +294,11 @@ class Pdo implements IDatabase{
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/01/15/desgin-strategy/" rel="prev">策略模式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/01/12/swfit-skill/" rel="next">swfit编程技巧总结</a>
+              <a href="/2015/10/14/regular_express/" rel="next">php正则表达式</a>
             
           </div>
         </div>
@@ -514,9 +497,9 @@ class Pdo implements IDatabase{
 
     <script type="text/javascript">
       var disqus_shortname = 'qmore';
-      var disqus_identifier = '2015/01/15/desgin-adapter/';
-      var disqus_title = '适配器模式';
-      var disqus_url = 'http://blog.dqmore.com/2015/01/15/desgin-adapter/';
+      var disqus_identifier = '2015/10/19/fun_code/';
+      var disqus_title = '好玩的代码';
+      var disqus_url = 'http://blog.dqmore.com/2015/10/19/fun_code/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
