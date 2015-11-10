@@ -35,16 +35,40 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="I/O处理模型：">
+<meta name="description" content="I/O处理模型：I/O处理的五种模式
+阻塞I/O模型：
+ 若所调用的I/O函数没有完成相关的功能就会使进程挂起，直到相关数据到达才会返回。如：终端的访问。
+
+非阻塞I/O模型：
+ 当请求的I/O操作不能完成时，则不让进路挂起，而是返回一个错误。    
+
+I/O多路转接模型：
+ 如果请求的I/O操作阻塞，且他不是真正阻塞I/O,而是让其中的一个函数等待，在这其间，I/O还能进行其他操作。如:sel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下c编程-文件高级">
-<meta property="og:url" content="http://blog.dqmore.com/2015/09/30/linux_c_fileadvanced/index.html">
+<meta property="og:url" content="http://blog.dqmore.com/2015/11/06/linux_c_fileadvanced/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
-<meta property="og:description" content="I/O处理模型：">
-<meta property="og:updated_time" content="2015-11-06T01:55:16.000Z">
+<meta property="og:description" content="I/O处理模型：I/O处理的五种模式
+阻塞I/O模型：
+ 若所调用的I/O函数没有完成相关的功能就会使进程挂起，直到相关数据到达才会返回。如：终端的访问。
+
+非阻塞I/O模型：
+ 当请求的I/O操作不能完成时，则不让进路挂起，而是返回一个错误。    
+
+I/O多路转接模型：
+ 如果请求的I/O操作阻塞，且他不是真正阻塞I/O,而是让其中的一个函数等待，在这其间，I/O还能进行其他操作。如:sel">
+<meta property="og:updated_time" content="2015-11-06T08:55:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下c编程-文件高级">
-<meta name="twitter:description" content="I/O处理模型：">
+<meta name="twitter:description" content="I/O处理模型：I/O处理的五种模式
+阻塞I/O模型：
+ 若所调用的I/O函数没有完成相关的功能就会使进程挂起，直到相关数据到达才会返回。如：终端的访问。
+
+非阻塞I/O模型：
+ 当请求的I/O操作不能完成时，则不让进路挂起，而是返回一个错误。    
+
+I/O多路转接模型：
+ 如果请求的I/O操作阻塞，且他不是真正阻塞I/O,而是让其中的一个函数等待，在这其间，I/O还能进行其他操作。如:sel">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -191,8 +215,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-30T22:52:11+08:00" content="2015-09-30">
-            2015-09-30
+          <time itemprop="dateCreated" datetime="2015-11-06T10:04:12+08:00" content="2015-11-06">
+            2015-11-06
           </time>
         </span>
 
@@ -217,8 +241,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/09/30/linux_c_fileadvanced/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/30/linux_c_fileadvanced/" itemprop="commentsCount"></span>
+            <a href="/2015/11/06/linux_c_fileadvanced/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/06/linux_c_fileadvanced/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -232,7 +256,30 @@
       
 
       
-        <span itemprop="articleBody"><h4 id="I/O处理模型：">I/O处理模型：</h4></span>
+        <span itemprop="articleBody"><h4 id="I/O处理模型：">I/O处理模型：</h4><h6 id="I/O处理的五种模式">I/O处理的五种模式</h6><ol>
+<li><p>阻塞I/O模型：</p>
+<p> 若所调用的I/O函数没有完成相关的功能就会使进程挂起，直到相关数据到达才会返回。如：终端的访问。</p>
+</li>
+<li><p>非阻塞I/O模型：</p>
+<p> 当请求的I/O操作不能完成时，则不让进路挂起，而是返回一个错误。    </p>
+</li>
+<li><p>I/O多路转接模型：</p>
+<p> 如果请求的I/O操作阻塞，且他不是真正阻塞I/O,而是让其中的一个函数等待，在这其间，I/O还能进行其他操作。如:select函数。</p>
+</li>
+<li><p>信号驱动I/O模型：</p>
+<p> 在这种模型下，通过安装一个信号处理程序，系统可以自动捕获特定信号的到来，从而启动I/O。 </p>
+</li>
+<li><p>异步I/O模型：</p>
+<p> 在这种模型下，当一个操作符已准备好，可以启动I/O时，进程会通知内核，由内核进行后续处理。</p>
+</li>
+</ol>
+<h6 id="设置非阻塞的方式：">设置非阻塞的方式：</h6><ul>
+<li>使用open打开文件，指定O_NONBLOCK文件标志</li>
+<li>fcntl修改文件描述符状态标志    </li>
+</ul>
+<h6 id="I/O多路转换——select函数：">I/O多路转换——select函数：</h6><h4 id="文件锁机制：">文件锁机制：</h4><p>概念：</p>
+<p>当多个用户共享使用，操作一个文件的时候，linux通常采用的方法是给文件上锁，来避免共享资源产生竞争的状态。</p>
+<h4 id="存储映射：">存储映射：</h4></span>
       
     </div>
 
@@ -251,13 +298,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/14/regular_express/" rel="prev">php正则表达式</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/30/linux_c_filebasics/" rel="next">Linux下c编程-文件基础</a>
+              <a href="/2015/10/19/fun_code/" rel="next">好玩的代码</a>
             
           </div>
         </div>
@@ -402,7 +447,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#I/O处理模型："><span class="nav-number">1.</span> <span class="nav-text">I/O处理模型：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#I/O处理模型："><span class="nav-number">1.</span> <span class="nav-text">I/O处理模型：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#I/O处理的五种模式"><span class="nav-number">1.0.1.</span> <span class="nav-text">I/O处理的五种模式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#设置非阻塞的方式："><span class="nav-number">1.0.2.</span> <span class="nav-text">设置非阻塞的方式：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#I/O多路转换——select函数："><span class="nav-number">1.0.3.</span> <span class="nav-text">I/O多路转换——select函数：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件锁机制："><span class="nav-number">2.</span> <span class="nav-text">文件锁机制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储映射："><span class="nav-number">3.</span> <span class="nav-text">存储映射：</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -456,9 +501,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'qmore';
-      var disqus_identifier = '2015/09/30/linux_c_fileadvanced/';
+      var disqus_identifier = '2015/11/06/linux_c_fileadvanced/';
       var disqus_title = 'Linux下c编程-文件高级';
-      var disqus_url = 'http://blog.dqmore.com/2015/09/30/linux_c_fileadvanced/';
+      var disqus_url = 'http://blog.dqmore.com/2015/11/06/linux_c_fileadvanced/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

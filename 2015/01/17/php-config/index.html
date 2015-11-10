@@ -35,16 +35,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="1.mcrypt拓展Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原">
+<meta name="description" content="mcrypt扩展Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php配置总览（mac）">
 <meta property="og:url" content="http://blog.dqmore.com/2015/01/17/php-config/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
-<meta property="og:description" content="1.mcrypt拓展Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原">
-<meta property="og:updated_time" content="2015-08-24T02:50:55.000Z">
+<meta property="og:description" content="mcrypt扩展Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原">
+<meta property="og:updated_time" content="2015-11-10T03:00:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php配置总览（mac）">
-<meta name="twitter:description" content="1.mcrypt拓展Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原">
+<meta name="twitter:description" content="mcrypt扩展Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -232,11 +232,10 @@
       
 
       
-        <span itemprop="articleBody"><h4 id="1-mcrypt拓展">1.mcrypt拓展</h4><p>Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原<br><a id="more"></a></p>
+        <span itemprop="articleBody"><h4 id="mcrypt扩展">mcrypt扩展</h4><p>Mcrypt扩展库可以实现加密解密功能，就是既能将明文加密，也可以密文还原<br><a id="more"></a></p>
 <ul>
 <li>下载并解压<a href="ftp://mcrypt.hellug.gr/pub/crypto/mcrypt/libmcrypt" target="_blank" rel="external">libmcrypt-2.5.X</a></li>
 <li>终端依次执行以下命令：<ul>
-<li>tar zxvf libmcrypt-2.5.7.tar.gz</li>
 <li>cd libmcrypt-2.5.7/</li>
 <li>./configure –disable-poxsi-thread –enable-static</li>
 <li>make</li>
@@ -245,7 +244,6 @@
 </li>
 <li>下载并解压<a href="http://cn2.php.net/get/php-5.4.36.tar.bz2/from/a/mirror" target="_blank" rel="external">php源码文件</a></li>
 <li>终端依次执行以下命令：<ul>
-<li>tar zxvf php-5.3.4.tar.gz</li>
 <li>cd php-5.3.4/ext/mcrypt</li>
 <li>phpsize</li>
 <li>./configure</li>
@@ -256,6 +254,26 @@
 <li>打开php.ini<ul>
 <li>sudo vi /etc/php.ini</li>
 <li>添加extension=/usr/lib/php/extensions/no-debug-non-zts-20100525/mcrypt.so</li>
+</ul>
+</li>
+<li>重启服务器sudo apachectl restart</li>
+</ul>
+<h4 id="redis扩展">redis扩展</h4><p>高效内存服务</p>
+<ul>
+<li>下载并解压<a href="https://github.com/nicolasff/phpredis/archive/2.2.4.tar.gz" target="_blank" rel="external">reids-2.2-4</a></li>
+<li>进入phpredis-2.2.4<ul>
+<li>phpize</li>
+<li>./configure</li>
+<li>make</li>
+</ul>
+</li>
+<li>拷贝到php扩展目录（php.ini中指定）<ul>
+<li>sudo cp modules/redis.so /usr/lib/php/extensions/no-debug-non-zts-20100525/ （目录名字有所差异）</li>
+</ul>
+</li>
+<li>打开php.ini<ul>
+<li>sudo vi /etc/php.ini</li>
+<li>添加extension=/usr/lib/php/extensions/no-debug-non-zts-20100525/redis.so</li>
 </ul>
 </li>
 <li>重启服务器sudo apachectl restart</li>
@@ -430,7 +448,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-mcrypt拓展"><span class="nav-number">1.</span> <span class="nav-text">1.mcrypt拓展</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#mcrypt扩展"><span class="nav-number">1.</span> <span class="nav-text">mcrypt扩展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis扩展"><span class="nav-number">2.</span> <span class="nav-text">redis扩展</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

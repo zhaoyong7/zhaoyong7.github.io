@@ -183,6 +183,112 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/06/linux_c_fileadvanced/" itemprop="url">
+                Linux下c编程-文件高级
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-06T10:04:12+08:00" content="2015-11-06">
+            2015-11-06
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/11/06/linux_c_fileadvanced/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/06/linux_c_fileadvanced/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h4 id="I/O处理模型：">I/O处理模型：</h4><h6 id="I/O处理的五种模式">I/O处理的五种模式</h6><ol>
+<li><p>阻塞I/O模型：</p>
+<p> 若所调用的I/O函数没有完成相关的功能就会使进程挂起，直到相关数据到达才会返回。如：终端的访问。</p>
+</li>
+<li><p>非阻塞I/O模型：</p>
+<p> 当请求的I/O操作不能完成时，则不让进路挂起，而是返回一个错误。    </p>
+</li>
+<li><p>I/O多路转接模型：</p>
+<p> 如果请求的I/O操作阻塞，且他不是真正阻塞I/O,而是让其中的一个函数等待，在这其间，I/O还能进行其他操作。如:select函数。</p>
+</li>
+<li><p>信号驱动I/O模型：</p>
+<p> 在这种模型下，通过安装一个信号处理程序，系统可以自动捕获特定信号的到来，从而启动I/O。 </p>
+</li>
+<li><p>异步I/O模型：</p>
+<p> 在这种模型下，当一个操作符已准备好，可以启动I/O时，进程会通知内核，由内核进行后续处理。</p>
+</li>
+</ol>
+<h6 id="设置非阻塞的方式：">设置非阻塞的方式：</h6><ul>
+<li>使用open打开文件，指定O_NONBLOCK文件标志</li>
+<li>fcntl修改文件描述符状态标志    </li>
+</ul>
+<h6 id="I/O多路转换——select函数：">I/O多路转换——select函数：</h6><h4 id="文件锁机制：">文件锁机制：</h4><p>概念：</p>
+<p>当多个用户共享使用，操作一个文件的时候，linux通常采用的方法是给文件上锁，来避免共享资源产生竞争的状态。</p>
+<h4 id="存储映射：">存储映射：</h4></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/10/19/fun_code/" itemprop="url">
                 好玩的代码
               </a>
@@ -341,89 +447,6 @@ Math.max.apply(Math,num) ;
               阅读全文 &raquo;
             </a>
           </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/30/linux_c_fileadvanced/" itemprop="url">
-                Linux下c编程-文件高级
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-30T22:52:11+08:00" content="2015-09-30">
-            2015-09-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/程序员世界/" itemprop="url" rel="index">
-                  <span itemprop="name">程序员世界</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/09/30/linux_c_fileadvanced/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/30/linux_c_fileadvanced/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h4 id="I/O处理模型：">I/O处理模型：</h4></span>
         
       
     </div>
