@@ -59,7 +59,7 @@
 如何创建一个守护进程：
 
 适用umask将文件模式创建屏蔽字">
-<meta property="og:updated_time" content="2015-11-12T01:11:16.000Z">
+<meta property="og:updated_time" content="2015-11-12T01:16:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php进程相关">
 <meta name="twitter:description" content="&amp;lt;!-- ticks | deamon | zombie | fork | wait |setsid ....--&amp;gt;
@@ -336,7 +336,8 @@ public  <span class="keyword">function</span> sigintCallBack(){
         PCNTL_G(spares) = <span class="built_in">queue</span>;
         <span class="built_in">queue</span> = next;
 }
-</code></pre><p>睡眠经常会被一些信号中断，我们可以利用它返回的剩余时间让进程继续睡眠</p>
+</code></pre><p>在没有为进程注册中断回调函数的适合，我们control+c就直接退出进程，但是如果指定了SIGINT中断函数，睡眠经常会被一些信号（SIGINT,SIGALRM）中断，如果不是以ticks形式配合信号，信号回调函数不会立刻执行而是放入信号队列，在遇到对应的触发函数如pcntl_signal_dispatch后触发。</p>
+<p>我们可以利用它返回的剩余时间让进程继续睡眠：</p>
 <pre><code><span class="variable">$left</span> = sleep(<span class="number">5</span>);
 echo <span class="string">"left $a seconds\n"</span> ;
 pcntl_signal_dispatch();
