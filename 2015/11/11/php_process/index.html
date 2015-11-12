@@ -59,7 +59,7 @@
 如何创建一个守护进程：
 
 适用umask将文件模式创建屏蔽字">
-<meta property="og:updated_time" content="2015-11-12T01:16:48.000Z">
+<meta property="og:updated_time" content="2015-11-12T01:26:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php进程相关">
 <meta name="twitter:description" content="&amp;lt;!-- ticks | deamon | zombie | fork | wait |setsid ....--&amp;gt;
@@ -277,7 +277,47 @@
 <p>相关代码：</p>
 <a id="more"></a>
 <!-- php:lang -->
-<pre><code>blabla<span class="escape">``</span>
+<pre><code>public <span class="keyword">function</span> main(){
+
+    umask(<span class="number">0</span>) ;
+
+    <span class="variable">$pid</span> = pcntl_fork() ;
+
+    if(<span class="variable">$pid</span> &lt; <span class="number">0</span>){
+        die(<span class="string">'fork new process fail'</span>) ;
+    }else if(<span class="variable">$pid</span>){ 
+        exit ; //exit master process
+    }
+
+    //the child process
+
+    chdir(<span class="string">"/"</span>) ;
+
+    fclose(STDIN);
+    fclose(STDOUT);
+    fclose(STDERR);
+
+    <span class="variable">$STDIN</span> = fopen(<span class="string">'/dev/null'</span>, <span class="string">'r'</span>);
+    <span class="variable">$STDOUT</span> = fopen(<span class="string">'/dev/null'</span>, <span class="string">'wb'</span>);
+    <span class="variable">$STDERR</span> = fopen(<span class="string">'/dev/null'</span>, <span class="string">'wb'</span>);
+
+    // make it session leader
+    posix_setsid();
+
+    for(;;){
+        sleep(<span class="number">10</span>) ;
+        pcntl_signal_dispatch();
+    }
+
+}
+
+//注册信号回调函数
+pcntl_signal(SIGINT, <span class="string">"cleanup"</span>);
+
+public <span class="keyword">function</span> cleanup(){
+    echo <span class="string">"the "</span>.getmypid() .<span class="string">" is cleanup"</span> ;
+    exit() ;
+}
 </code></pre><h4 id="ticks、sleep信号唤醒、信号注册等：">ticks、sleep信号唤醒、信号注册等：</h4><p><strong>何为ticks?</strong></p>
 <p>进行信号处理的时候pcntl_signal往往要配合ticks使用（性能差），何为ticks？ticks就是在每n【declare(ticks = 1)】条语句中插入你的tick回调函数，如：</p>
 <pre><code><span class="variable">$a</span> = <span class="number">1</span>;
