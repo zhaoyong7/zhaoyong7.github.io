@@ -59,7 +59,7 @@
 如何创建一个守护进程：
 
 适用umask将文件模式创建屏蔽字">
-<meta property="og:updated_time" content="2015-11-12T01:08:24.000Z">
+<meta property="og:updated_time" content="2015-11-12T01:11:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php进程相关">
 <meta name="twitter:description" content="&amp;lt;!-- ticks | deamon | zombie | fork | wait |setsid ....--&amp;gt;
@@ -275,6 +275,7 @@
 <li>关闭不需要的文件描述符</li>
 </ol>
 <p>相关代码：</p>
+<a id="more"></a>
 <!-- php:lang -->
 <pre><code>blabla<span class="escape">``</span>
 </code></pre><h4 id="ticks、sleep信号唤醒、信号注册等：">ticks、sleep信号唤醒、信号注册等：</h4><p><strong>何为ticks?</strong></p>
@@ -335,8 +336,7 @@ public  <span class="keyword">function</span> sigintCallBack(){
         PCNTL_G(spares) = <span class="built_in">queue</span>;
         <span class="built_in">queue</span> = next;
 }
-</code></pre><p>}</p>
-<p>睡眠经常会被一些信号中断，我们可以利用它返回的剩余时间让进程继续睡眠</p>
+</code></pre><p>睡眠经常会被一些信号中断，我们可以利用它返回的剩余时间让进程继续睡眠</p>
 <pre><code><span class="variable">$left</span> = sleep(<span class="number">5</span>);
 echo <span class="string">"left $a seconds\n"</span> ;
 pcntl_signal_dispatch();
