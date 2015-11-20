@@ -183,6 +183,103 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/12/swfit-skill/" itemprop="url">
+                swfit编程技巧总结
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-12T11:47:02+08:00" content="2015-01-12">
+            2015-01-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/01/12/swfit-skill/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/01/12/swfit-skill/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="1-属性监视器的巧妙运用：">1.属性监视器的巧妙运用：</h3><p>在做ios开发的时候，我们经常有这样的需求，当一个属性，更改时，相对应的UI控件表现出来的状态也要改变，最明显的就是，当我们做一个计时器，显示分钟和秒数需要格式化，传统我们是在把实际秒数和视图表现写在回调函数中。这样当我们有多个回调函数时，代码就很冗余了。</p>
+<p>我们可以用更<em>swift</em>的方式来编写我们的代码。</p>
+<pre><code>var changeSecond : Int = <span class="number">0</span> {
+     willSet(newSecond){
+         let <span class="built_in">min</span> = newSecond / <span class="number">60</span>
+         let <span class="keyword">second</span> = newSecond % <span class="number">60</span> 
+         labbel!.<span class="keyword">text</span> = NSString(<span class="built_in">format</span>:<span class="string">"%02d:%02d"</span>,<span class="built_in">min</span>,<span class="keyword">second</span>)
+     }    
+ }
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/12/swfit-skill/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/09/swift-life/" itemprop="url">
                 swift执行过程
               </a>
@@ -1003,106 +1100,11 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/11/05/jsonp-simple-principle/" itemprop="url">
-                jsonp的简单原理
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-11-05T10:09:25+08:00" content="2014-11-05">
-            2014-11-05
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/程序员世界/" itemprop="url" rel="index">
-                  <span itemprop="name">程序员世界</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/11/05/jsonp-simple-principle/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/11/05/jsonp-simple-principle/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>jsonp 全称是 JSON with padding ,是为了解决跨域请求资源问题的产生的解决方案。</p>
-<p>当我们需要在我们编写的代码内去请求其他域名的接口，但由于著名的同源策略，会因为安全问题而遭到拒绝。</p>
-<!-- lang:javascript -->
-<pre><code>$.ajax({
-    url:’http:<span class="comment">//baidx.com/teach.php’,</span>
-    <span class="keyword">type</span>:’<span class="keyword">get</span>’
-}) ;
-</code></pre><p>页面会报一个这样的错误：XMLHttpRequest cannot load <a href="http://test.com/books.php">http://test.com/books.php</a>. Origin <a href="http://localhost">http://localhost</a> is not allowed by Access-Control-Allow-Origin.</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/11/05/jsonp-simple-principle/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">&raquo;</a>
   </nav>
 
  </div>
@@ -1136,7 +1138,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1150,7 +1152,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
