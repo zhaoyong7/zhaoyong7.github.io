@@ -236,7 +236,7 @@
 
       
         
-          <span itemprop="articleBody"><h5 id="一、安装以及初始化一个svn仓库">一、安装以及初始化一个svn仓库</h5><ul>
+          <h5 id="一、安装以及初始化一个svn仓库">一、安装以及初始化一个svn仓库</h5><ul>
 <li><p>安装</p>
 <p>  <code>yum -y install subversion</code></p>
 </li>
@@ -245,58 +245,11 @@
 <p>  2、<code>svnadmin create /usr/local/svnrepos/project01</code></p>
 </li>
 <li><p>配置仓库权限等信息：</p>
-<p>  此时project01初始化了以下文件<br>  <img src="http://7u2h92.com1.z0.glb.clouddn.com/svnrepos_list.png" alt="svnrepos_list"></p>
-<p>  进入<strong>conf</strong>目录，可以看到svnserve.conf、passwd、authz三个文件</p>
-<p>  1、svnserve.conf：</p>
-<ul>
-<li><p>[general]</p>
-<p>  anon-access = read / write / none  #控制非授权用户访问仓库的权限。</p>
-<p>  auth-access = read / write / none  #控制授权用户反问仓库的权限。</p>
-<p>  password-db = passwd #指定用户密码口令的文件。</p>
-<p>  authz-db = authz #指定权限配置文件名。通过该文件实现以路径为基础的访问控制。</p>
-<p>  realm = /usr/local/svnrepos/ #指定版本库的认证域，即在登录时提示的认证域名称。若两个版本库的认证域相同，建议使用相同的用户名口令数据文件 </p>
-</li>
-<li><p>[sasl] #加密相关，后期探讨</p>
-<p>  use-sasl = true                #是否启用sasl加密</p>
-<p>  min-encryption = 0            #加密最小长度</p>
-<p>  max-encryption = 256        #加密最大长度</p>
-<p>2、passwd</p>
-</li>
-<li><p>[users]</p>
-<p>  #username = password #用户名以及密码</p>
-<p>  admin01 = admin01pwd</p>
-<p>  admin02 = admin02pwd</p>
-<p>  test1 = test1pwd</p>
-<p>  test2 = test2pwd</p>
-<p>3、authz</p>
-</li>
-<li><p>[groups] #小组</p>
-<p>  admin = admin01,admin02 #管理员账号小组</p>
-<p>  testuser = test01,test02</p>
-</li>
-<li><p>[/] #这里代表svnserver -d -r /0/1/2  服务器监听的仓库根目录,也就是2</p>
-<p>  @admin = rw        #所有目录admin小组可读可写</p>
-<p>  @testuser = r   #所有目录testuser小组可读</p>
-</li>
-<li><p>[somedir:/]</p>
-<p>  @admin = rw        #admin小组对somedir目录可读可写</p>
-<p>  @testuser = r   #testuser小组对somedir目录可读</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>启动svn服务</p>
-<p>  <code>senserve -d -r /usr/local/svnrepos</code></p>
-</li>
-<li><p>客户端checkout：</p>
-<p>  <code>svn co svn://xxx.xxx.xxx.xxx/project01</code></p>
-<p>  svn服务器与项目部署在同一个服务器上：</p>
-<p>  <code>svn co svn://127.0.0.1/project01</code></p>
-</li>
-</ul>
-<h5 id="二、服务器原有项目导入新的仓库">二、服务器原有项目导入新的仓库</h5><p>若svn服务器与项目服务器同在一个物理ip，此时若想把原来部署在其他同步工具的项目部署在svn中，只需checkout svn仓库，cp到原来项目到svn仓库,然后add、commit即可。</p>
-</span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/25/svn_create/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
