@@ -37,11 +37,15 @@
 
 <meta name="description" content="一、安装以及初始化一个svn仓库
 安装
-  yum -y install subversion
+
+yum -y install subversion
+
 
 创建一个总仓库文件夹，里面放两个仓库project01
-  1、mkdir /usr/local/svnrepos/
-  2、svnadmin create /usr/local/svnrepos/project01
+
+mkdir /usr/local/svnrepos/
+svnadmin create /usr/local/svnrepos/project01
+
 
 配置仓库权限等信息：">
 <meta property="og:type" content="article">
@@ -50,24 +54,32 @@
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="一、安装以及初始化一个svn仓库
 安装
-  yum -y install subversion
+
+yum -y install subversion
+
 
 创建一个总仓库文件夹，里面放两个仓库project01
-  1、mkdir /usr/local/svnrepos/
-  2、svnadmin create /usr/local/svnrepos/project01
+
+mkdir /usr/local/svnrepos/
+svnadmin create /usr/local/svnrepos/project01
+
 
 配置仓库权限等信息：">
 <meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/svnrepos_list.png">
-<meta property="og:updated_time" content="2015-11-25T09:07:35.000Z">
+<meta property="og:updated_time" content="2015-11-25T09:12:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建svn服务器以及将原有项目导入方法">
 <meta name="twitter:description" content="一、安装以及初始化一个svn仓库
 安装
-  yum -y install subversion
+
+yum -y install subversion
+
 
 创建一个总仓库文件夹，里面放两个仓库project01
-  1、mkdir /usr/local/svnrepos/
-  2、svnadmin create /usr/local/svnrepos/project01
+
+mkdir /usr/local/svnrepos/
+svnadmin create /usr/local/svnrepos/project01
+
 
 配置仓库权限等信息：">
 
@@ -259,17 +271,22 @@
       
         <span itemprop="articleBody"><h5 id="一、安装以及初始化一个svn仓库">一、安装以及初始化一个svn仓库</h5><ul>
 <li><p>安装</p>
-<p>  <code>yum -y install subversion</code></p>
+<ul>
+<li><code>yum -y install subversion</code></li>
+</ul>
 </li>
 <li><p>创建一个总仓库文件夹，里面放两个仓库<strong>project01</strong></p>
-<p>  1、<code>mkdir /usr/local/svnrepos/</code></p>
-<p>  2、<code>svnadmin create /usr/local/svnrepos/project01</code></p>
+<ul>
+<li><code>mkdir /usr/local/svnrepos/</code></li>
+<li><code>svnadmin create /usr/local/svnrepos/project01</code></li>
+</ul>
 </li>
 <li><p>配置仓库权限等信息：</p>
 <a id="more"></a>
 <p>  此时project01初始化了以下文件<br>  <img src="http://7u2h92.com1.z0.glb.clouddn.com/svnrepos_list.png" alt="svnrepos_list"></p>
 <p>  进入<strong>conf</strong>目录，可以看到svnserve.conf、passwd、authz三个文件</p>
-<p>  1、svnserve.conf：</p>
+<ol>
+<li><p>svnserve.conf：</p>
 <ul>
 <li><p>[general]</p>
 <p>  anon-access = read / write / none  #控制非授权用户访问仓库的权限。</p>
@@ -282,16 +299,22 @@
 <p>  use-sasl = true                #是否启用sasl加密</p>
 <p>  min-encryption = 0            #加密最小长度</p>
 <p>  max-encryption = 256        #加密最大长度</p>
-<p>2、passwd</p>
 </li>
+</ul>
+</li>
+<li><p>passwd</p>
+<ul>
 <li><p>[users]</p>
 <p>  #username = password #用户名以及密码</p>
 <p>  admin01 = admin01pwd</p>
 <p>  admin02 = admin02pwd</p>
 <p>  test1 = test1pwd</p>
 <p>  test2 = test2pwd</p>
-<p>3、authz</p>
 </li>
+</ul>
+</li>
+<li><p>authz</p>
+<ul>
 <li><p>[groups] #小组</p>
 <p>  admin = admin01,admin02 #管理员账号小组</p>
 <p>  testuser = test01,test02</p>
@@ -306,6 +329,8 @@
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <ul>
 <li><p>启动svn服务</p>
@@ -313,7 +338,7 @@
 </li>
 <li><p>客户端checkout：</p>
 <p>  <code>svn co svn://xxx.xxx.xxx.xxx/project01</code></p>
-<p>  svn服务器与项目部署在同一个服务器上：</p>
+<p>  <em>svn服务器与项目部署在同一个服务器上:</em></p>
 <p>  <code>svn co svn://127.0.0.1/project01</code></p>
 </li>
 </ul>
