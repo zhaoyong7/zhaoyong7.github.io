@@ -26,7 +26,7 @@
 
 
 
-  <meta name="keywords" content="php,restful,yii2," />
+  <meta name="keywords" content="svn,配置," />
 
 
 
@@ -35,28 +35,47 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="1、apache配置:找到httpd.conf中的这两段内容：
-&amp;lt;!-- .conf --&amp;gt;
- # AllowOverride controls what directives may be placed in .htaccess files.
-# It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
-#   Options Fi">
+<meta name="description" content="一、安装以及初始化一个svn仓库
+安装
+  yum -y install subversion
+
+创建一个总仓库文件夹，里面放两个仓库project01
+  1、mkdir /usr/local/svnrepos/
+  2、svnadmin create /usr/local/svnrepos/project01
+
+配置仓库权限等信息：
+  此时project01初始化了以下文件  
+  进入co">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yii2中定制restful api">
-<meta property="og:url" content="http://blog.dqmore.com/2015/05/07/yii2-restful-api/index.html">
+<meta property="og:title" content="创建svn服务器以及将原有项目导入方法">
+<meta property="og:url" content="http://blog.dqmore.com/2015/11/25/svn_create/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
-<meta property="og:description" content="1、apache配置:找到httpd.conf中的这两段内容：
-&amp;lt;!-- .conf --&amp;gt;
- # AllowOverride controls what directives may be placed in .htaccess files.
-# It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
-#   Options Fi">
-<meta property="og:updated_time" content="2015-08-24T02:50:40.000Z">
+<meta property="og:description" content="一、安装以及初始化一个svn仓库
+安装
+  yum -y install subversion
+
+创建一个总仓库文件夹，里面放两个仓库project01
+  1、mkdir /usr/local/svnrepos/
+  2、svnadmin create /usr/local/svnrepos/project01
+
+配置仓库权限等信息：
+  此时project01初始化了以下文件  
+  进入co">
+<meta property="og:image" content="http://7u2h92.com1.z0.glb.clouddn.com/svnrepos_list.png">
+<meta property="og:updated_time" content="2015-11-25T09:04:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yii2中定制restful api">
-<meta name="twitter:description" content="1、apache配置:找到httpd.conf中的这两段内容：
-&amp;lt;!-- .conf --&amp;gt;
- # AllowOverride controls what directives may be placed in .htaccess files.
-# It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
-#   Options Fi">
+<meta name="twitter:title" content="创建svn服务器以及将原有项目导入方法">
+<meta name="twitter:description" content="一、安装以及初始化一个svn仓库
+安装
+  yum -y install subversion
+
+创建一个总仓库文件夹，里面放两个仓库project01
+  1、mkdir /usr/local/svnrepos/
+  2、svnadmin create /usr/local/svnrepos/project01
+
+配置仓库权限等信息：
+  此时project01初始化了以下文件  
+  进入co">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -66,7 +85,7 @@
   };
 </script>
 
-  <title> yii2中定制restful api | Qmore's Blog </title>
+  <title> 创建svn服务器以及将原有项目导入方法 | Qmore's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -194,7 +213,7 @@
           
           
             
-              yii2中定制restful api
+              创建svn服务器以及将原有项目导入方法
             
           
         </h1>
@@ -203,8 +222,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-05-07T14:49:22+08:00" content="2015-05-07">
-            2015-05-07
+          <time itemprop="dateCreated" datetime="2015-11-25T16:08:22+08:00" content="2015-11-25">
+            2015-11-25
           </time>
         </span>
 
@@ -229,8 +248,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/07/yii2-restful-api/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/07/yii2-restful-api/" itemprop="commentsCount"></span>
+            <a href="/2015/11/25/svn_create/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/25/svn_create/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -244,55 +263,66 @@
       
 
       
-        <span itemprop="articleBody"><h4 id="1、apache配置:">1、apache配置:</h4><p>找到httpd.conf中的这两段内容：</p>
-<!-- .conf -->
-<pre><code> <span class="comment"># AllowOverride controls what directives may be placed in .htaccess files.</span>
-<span class="comment"># It can be "All", "None", or any combination of the keywords:</span>
-<span class="comment">#   Options FileInfo AuthConfig Limit</span>
-<span class="comment">#</span>
-<span class="title">AllowOverride</span> <span class="built_in">none</span>
-</code></pre><p>将<code>AllowOverride none</code> 改为 <code>AllowOverride all</code><br><a id="more"></a><br><!-- .conf --></p>
-<pre><code><span class="comment">#LoadModule rewrite_module libexec/apache2/mod_rewrite.so</span>
-</code></pre><p>将<code>#</code>去掉，打开rewrite模块</p>
-<h4 id="2、-htaccess文件:">2、.htaccess文件:</h4><p>写入下面内容,并放入yii2根目录的web目录下：webroot/yii2/web(yii2是自己命名的项目名称，webroot的Apache根目录)<br><!-- .htaccess --></p>
-<pre><code><span class="keyword"><span class="common">Options</span></span> +FollowSymLinks
-<span class="keyword">IndexIgnore</span> /
-<span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span>
-<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-f
-<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-d
-<span class="keyword"><span class="common">RewriteRule</span></span> . index.php
-</code></pre><h4 id="3、config/web-php配置urlManager:">3、config/web.php配置urlManager:</h4><!-- php -->
-<pre><code><span class="string">'urlManager'</span> =&gt; [
-        <span class="string">'enablePrettyUrl'</span> =&gt; <span class="keyword">true</span>,
-        <span class="string">'enableStrictParsing'</span> =&gt; <span class="keyword">true</span>,
-        <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,
-        <span class="string">'rules'</span> =&gt; [
-            [
-                <span class="string">'class'</span> =&gt; <span class="string">'yii\rest\UrlRule'</span>,  <span class="string">'controller'</span> =&gt; <span class="string">'user'</span> ,
-            ],
-        ],
-    ] ,
-</code></pre><p>访问路径：<code><a href="http://loacalhost/yii2/web/users" target="_blank" rel="external">http://loacalhost/yii2/web/users</a></code>(yii自动讲名词变为复数形式，具体看文档，可取消)</p>
-<h4 id="4、controller继承ActiveController:">4、controller继承ActiveController:</h4><!-- controller -->
-<pre><code>namespace app\controllers;
-use yii\rest\<span class="type">ActiveController</span>;
-<span class="class"><span class="keyword">class</span> <span class="title">CountryController</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActiveController</span>
-</span>{
-    public $modelClass = <span class="symbol">'app</span>\models\<span class="type">Country</span>';
-}
-</code></pre><h4 id="额外：不同modules下urlmanger配置:">额外：不同modules下urlmanger配置:</h4><p>假设生成了一个modules/v1 的模块，urlmanger配置如下</p>
-<!-- conf -->
-<pre><code><span class="symbol">'urlManager'</span> =&gt; [
-       <span class="symbol">'enablePrettyUrl'</span> =&gt; <span class="literal">true</span>,
-       <span class="symbol">'enableStrictParsing'</span> =&gt; <span class="literal">true</span>,
-       <span class="symbol">'showScriptName'</span> =&gt; <span class="literal">false</span>,
-       <span class="symbol">'rules'</span> =&gt; [
-           [
-               <span class="symbol">'class'</span> =&gt; <span class="symbol">'yii</span>\rest\<span class="type">UrlRule'</span>,  <span class="symbol">'controller'</span> =&gt; [<span class="symbol">'v1</span>/country'] ,
-           ],
-       ],
-   ] ,
-</code></pre><p>访问路径：<code><a href="http://loacalhost/yii2/web/v1/countries" target="_blank" rel="external">http://loacalhost/yii2/web/v1/countries</a></code>(yii自动讲名词变为复数形式，具体看文档，可取消)</p>
+        <span itemprop="articleBody"><h5 id="一、安装以及初始化一个svn仓库">一、安装以及初始化一个svn仓库</h5><ul>
+<li><p>安装</p>
+<p>  <code>yum -y install subversion</code></p>
+</li>
+<li><p>创建一个总仓库文件夹，里面放两个仓库<strong>project01</strong></p>
+<p>  1、<code>mkdir /usr/local/svnrepos/</code></p>
+<p>  2、<code>svnadmin create /usr/local/svnrepos/project01</code></p>
+</li>
+<li><p>配置仓库权限等信息：</p>
+<p>  此时project01初始化了以下文件<br>  <img src="http://7u2h92.com1.z0.glb.clouddn.com/svnrepos_list.png" alt="svnrepos_list"></p>
+<p>  进入<strong>conf</strong>目录，可以看到svnserve.conf、passwd、authz三个文件</p>
+<p>  1、svnserve.conf：</p>
+<ul>
+<li><p>[general]</p>
+<p>  anon-access = read / write / none  #控制非授权用户访问仓库的权限。</p>
+<p>  auth-access = read / write / none  #控制授权用户反问仓库的权限。</p>
+<p>  password-db = passwd #指定用户密码口令的文件。</p>
+<p>  authz-db = authz #指定权限配置文件名。通过该文件实现以路径为基础的访问控制。</p>
+<p>  realm = /usr/local/svnrepos/ #指定版本库的认证域，即在登录时提示的认证域名称。若两个版本库的认证域相同，建议使用相同的用户名口令数据文件 </p>
+</li>
+<li><p>[sasl] #加密相关，后期探讨</p>
+<p>  use-sasl = true                #是否启用sasl加密</p>
+<p>  min-encryption = 0            #加密最小长度</p>
+<p>  max-encryption = 256        #加密最大长度</p>
+<p>2、passwd</p>
+</li>
+<li><p>[users]</p>
+<p>  #username = password #用户名以及密码</p>
+<p>  admin01 = admin01pwd</p>
+<p>  admin02 = admin02pwd</p>
+<p>  test1 = test1pwd</p>
+<p>  test2 = test2pwd</p>
+<p>3、authz</p>
+</li>
+<li><p>[groups] #小组</p>
+<p>  admin = admin01,admin02 #管理员账号小组</p>
+<p>  testuser = test01,test02</p>
+</li>
+<li><p>[/] #这里代表svnserver -d -r /0/1/2  服务器监听的仓库根目录,也就是2</p>
+<p>  @admin = rw        #所有目录admin小组可读可写</p>
+<p>  @testuser = r   #所有目录testuser小组可读</p>
+</li>
+<li><p>[somedir:/]</p>
+<p>  @admin = rw        #admin小组对somedir目录可读可写</p>
+<p>  @testuser = r   #testuser小组对somedir目录可读</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>启动svn服务</p>
+<p>  <code>senserve -d -r /usr/local/svnrepos</code></p>
+</li>
+<li><p>客户端checkout：</p>
+<p>  <code>svn co svn://xxx.xxx.xxx.xxx/project01</code></p>
+<p>  svn服务器与项目部署在同一个服务器上：</p>
+<p>  <code>svn co svn://127.0.0.1/project01</code></p>
+</li>
+</ul>
+<h5 id="二、服务器原有项目导入新的仓库">二、服务器原有项目导入新的仓库</h5><p>若svn服务器与项目服务器同在一个物理ip，此时若想把原来部署在其他同步工具的项目部署在svn中，只需checkout svn仓库，cp到原来项目到svn仓库,然后add、commit即可。</p>
 </span>
       
     </div>
@@ -301,11 +331,9 @@ use yii\rest\<span class="type">ActiveController</span>;
       
         <div class="post-tags">
           
-            <a href="/tags/php/" rel="tag">#php</a>
+            <a href="/tags/svn/" rel="tag">#svn</a>
           
-            <a href="/tags/restful/" rel="tag">#restful</a>
-          
-            <a href="/tags/yii2/" rel="tag">#yii2</a>
+            <a href="/tags/配置/" rel="tag">#配置</a>
           
         </div>
       
@@ -314,13 +342,11 @@ use yii\rest\<span class="type">ActiveController</span>;
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/06/25/use-stream-context-create/" rel="prev">没有curl,如何进行服务器端请求？</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/03/23/UIkit-Dynamice-world/" rel="next">UIkit Dynamics(UIkit动力世界)</a>
+              <a href="/2015/11/20/centos_php_mysql_apache_install/" rel="next">CentOS下源码安装php、apache、mysql</a>
             
           </div>
         </div>
@@ -465,7 +491,7 @@ use yii\rest\<span class="type">ActiveController</span>;
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、apache配置:"><span class="nav-number">1.</span> <span class="nav-text">1、apache配置:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-htaccess文件:"><span class="nav-number">2.</span> <span class="nav-text">2、.htaccess文件:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、config/web-php配置urlManager:"><span class="nav-number">3.</span> <span class="nav-text">3、config/web.php配置urlManager:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、controller继承ActiveController:"><span class="nav-number">4.</span> <span class="nav-text">4、controller继承ActiveController:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#额外：不同modules下urlmanger配置:"><span class="nav-number">5.</span> <span class="nav-text">额外：不同modules下urlmanger配置:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、安装以及初始化一个svn仓库"><span class="nav-number">1.</span> <span class="nav-text">一、安装以及初始化一个svn仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、服务器原有项目导入新的仓库"><span class="nav-number">2.</span> <span class="nav-text">二、服务器原有项目导入新的仓库</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -519,9 +545,9 @@ use yii\rest\<span class="type">ActiveController</span>;
 
     <script type="text/javascript">
       var disqus_shortname = 'qmore';
-      var disqus_identifier = '2015/05/07/yii2-restful-api/';
-      var disqus_title = 'yii2中定制restful api';
-      var disqus_url = 'http://blog.dqmore.com/2015/05/07/yii2-restful-api/';
+      var disqus_identifier = '2015/11/25/svn_create/';
+      var disqus_title = '创建svn服务器以及将原有项目导入方法';
+      var disqus_url = 'http://blog.dqmore.com/2015/11/25/svn_create/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
