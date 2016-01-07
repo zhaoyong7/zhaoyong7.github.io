@@ -183,6 +183,279 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/07/psr-0_and_autoload/" itemprop="url">
+                利用namespace来自动加载PHP文件（PSR-0标准）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-07T15:25:00+08:00" content="2016-01-07">
+            2016-01-07
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/07/psr-0_and_autoload/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/07/psr-0_and_autoload/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>php5.3开始支持命名空间，关键字namespace</p>
+<p>利用命名空间可以很方面实现一个类的自动加载。</p>
+<h4 id="自动加载">自动加载</h4><h6 id="魔术方法___autoload">魔术方法 __autoload</h6><p>当调用一个不存在的类时候会自动调用该魔术方法<em>\</em>_autoload_。</p>
+<p>index.php<br><!-- lang:php --></p>
+<pre><code><span class="keyword">function</span> __autoload(<span class="variable">$class</span>){
+    <span class="variable">$require</span> = __DIR_<span class="number">_</span>.<span class="string">'/'</span>.<span class="variable">$class</span>.<span class="string">'.php'</span>
+    echo <span class="variable">$require</span>.<span class="string">"\n"</span> ;
+    require <span class="variable">$require</span> ;
+}    
+
+Class1::test();
+Class2::test();
+</code></pre><p>Class1.php</p>
+<!-- lang:php --> 
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">Class1</span></span>{
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
+        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;
+    }
+}
+</code></pre><p>Class2.php<br><!-- lang:php --> </p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">class2</span></span>{
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
+        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;
+    }
+}
+</code></pre><h6 id="spl_autoload_register()函数">spl_autoload_register()函数</h6><p>__autoload以及不推荐适用，原因是当我们项目很庞大时候会依赖不同的框架，如果我们每个框架都定义了这个魔术方法，那么就会报方法名重复了。php 5.3之后官方提供了sql库中的<strong>spl_autoload_register()</strong>函数注册类加载，取代之前的<strong>__autoload</strong></p>
+<p>该函数允许项目中存在多个加载函数。</p>
+<p>index.php<br><!-- lang:php --></p>
+<pre><code>spl_autoload_register(<span class="string">'myOwnAutoLoadFunc'</span>) ;
+
+<span class="keyword">function</span> myOwnAutoLoadFunc(<span class="variable">$class</span>){
+    <span class="variable">$require</span> = __DIR_<span class="number">_</span>.<span class="string">'/'</span>.<span class="variable">$class</span>.<span class="string">'.php'</span>
+    echo <span class="variable">$require</span>.<span class="string">"\n"</span> ;
+    require <span class="variable">$require</span> ;
+}    
+
+Class1::test();
+Class2::test();
+</code></pre><p>这样每个项目框架都可以自己定义自己的类加载方法了(spl函数是函数调用需要放在文件顶部)。另外，如果类指定了命名空间，加载回调函数的参数就会包含其命名空间。</p>
+<p>####PSR-0标准的基础框架：</p>
+<p>#####PSR-0规范：</p>
+<ol>
+<li>命名空间必须与路径一致。</li>
+<li>类名首字母大写</li>
+<li>只有唯一一个入口文件（如index.php为入口，其他文件不能执行）。</li>
+</ol>
+<p>#####定义一个符合PSR-0的MVC基础框架:</p>
+<p>######目录结构</p>
+<ul>
+<li>psr-0\  <ul>
+<li>components\<ul>
+<li>AutoLoad.php</li>
+</ul>
+</li>
+<li>controllers\<ul>
+<li>TestControllers.php</li>
+</ul>
+</li>
+<li>models\<ul>
+<li>TestModel</li>
+</ul>
+</li>
+<li>index.php</li>
+</ul>
+</li>
+</ul>
+<p>######具体实现：    </p>
+<p>Autoload.php:<br><!-- php:lang --></p>
+<pre><code>Class Autoload{
+    public static autoLoadHandler(<span class="variable">$class</span>){
+        <span class="variable">$class</span> = str_replace(<span class="string">'\\'</span>,DIRECTORY_SEPARATOR,<span class="variable">$class</span>) ;
+        require BASEDIR.DIRECTORY_SEPARATOR.<span class="variable">$class</span>.<span class="string">'.php'</span>;
+    }
+}    
+</code></pre><p>index.php:</p>
+<!-- php:lang -->
+<pre><code><span class="class"><span class="keyword">define</span></span>(<span class="string">'BASEDIR'</span>,__DIR__) ; 
+<span class="comment">//__DIR__都是指当前文件位置，无论当前文件是否被其他文件导入，所以最好指定一个更目录，以便其他被导入的文件使用。</span>
+requre <span class="string">'components/AutoLoad.php'</span>
+spl_autoload_register(<span class="string">'Autoload'</span>,<span class="string">'autoLoadHandler'</span>) ;
+
+controllers<span class="subst">\</span>TestController<span class="tag">::test</span>();
+</code></pre><p>TestController.php:<br><!-- TestController.php --></p>
+<pre><code><span class="keyword">namespace</span> <span class="title">controllers</span> ;
+<span class="keyword">use</span> <span class="title">models</span>\<span class="title">TestModel</span>;
+
+<span class="class"><span class="keyword">Class</span> <span class="title">TestControllers</span></span>{
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
+        <span class="keyword">echo</span>  <span class="keyword">__METHOD__</span>.<span class="string">"\n"</span>
+        (<span class="keyword">new</span> TestModel())-&gt;test() ;
+    }
+} 
+</code></pre><p>TestModel.php:<br><!-- TestModel.php --></p>
+<pre><code><span class="keyword">namespace</span> <span class="title">models</span> ;
+
+<span class="class"><span class="keyword">Class</span> <span class="title">TestModel</span></span>{
+    publci <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
+        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span>.<span class="string">"\n"</span> ;
+    }
+}
+</code></pre><p>执行</p>
+<p>index.php</p>
+<p>输出：</p>
+<p>controllers\TestController::test</p>
+<p>models\TestModel::test</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/01/07/composer/" itemprop="url">
+                composer基础
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-07T15:25:00+08:00" content="2016-01-07">
+            2016-01-07
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/程序员世界/" itemprop="url" rel="index">
+                  <span itemprop="name">程序员世界</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/07/composer/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/07/composer/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>composer是php依赖管理工具。<br>可以加载你项目需要的包，以及时刻管理这些包（如升级、安装等）。</p>
+<p>依赖管理工具：<br>composer不像yum或者apt那样的包管理工具，当然它确实有点像是在管理“包”</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/25/svn_create/" itemprop="url">
                 创建svn服务器以及将原有项目导入方法
               </a>
@@ -992,206 +1265,6 @@ Math.max.apply(Math,num) ;
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/17/saying-Kahlil-Gibran/" itemprop="url">
-                我曾七次鄙视自己的灵魂
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-17T16:02:50+08:00" content="2015-09-17">
-            2015-09-17
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/那些第一眼就征服了你/" itemprop="url" rel="index">
-                  <span itemprop="name">那些第一眼就征服了你</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/09/17/saying-Kahlil-Gibran/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/17/saying-Kahlil-Gibran/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>我曾七次鄙视自己的灵魂：</p>
-<p>第一次，它本可进取时，却故作谦卑；</p>
-<p>第二次，它在空虚时，用爱欲来填充；</p>
-<p>第三次，在困难和容易之间，它选择容易；</p>
-<p>第四次，它犯了错，却借由别人也会犯错来宽慰自己；</p>
-<p>第五次，它自由软弱，却把它认为是生命的坚韧；</p>
-<p>第六次，它鄙夷一张丑恶的嘴脸，却不知那正是自己面具中的一副；</p>
-<p>第七次，它侧身于生活的污泥，虽不甘心却又畏首畏尾。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——卡里·纪伯伦</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/20/yii1-source-behavior/" itemprop="url">
-                yii1－源码：行为处理机制
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-08-20T10:15:54+08:00" content="2015-08-20">
-            2015-08-20
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/程序员世界/" itemprop="url" rel="index">
-                  <span itemprop="name">程序员世界</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/20/yii1-source-behavior/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/20/yii1-source-behavior/" itemprop="commentsCount"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>当我们为一个类添加特性的话，最最最简单的就是改代码，你觉的不好维护，那么就会去继承，通过子类来管理，但是，人一多，想法就越多，那么就会多级继承，看起来都会觉得累。<br>yii1中可以通过CBehavior将没有任何关系的类绑定到自己身上。</p>
-<h4 id="1、绑定变量和函数：">1、绑定变量和函数：</h4><p>首先，我们用先创建一个CBehavior类,只有一个成员属性，如：</p>
-<!-- lang:php -->
-<pre><code><span class="comment">//protected/behaviors/QmoreBehavior.php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">QmoreBehavior</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">CBehavior</span>{</span>
-
-    public $dmore = <span class="string">"i am lmy"</span> ;
-
-}
-<span class="comment">//TestController</span>
-<span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">CController</span>{</span>
-
-    public function actionTest(){
-        <span class="comment">//装载这个行为</span>
-        $<span class="keyword">this</span>-&gt;attachBehavior(<span class="symbol">'q</span>q',<span class="symbol">'application</span>.behaviors.<span class="type">QmoreBehavior</span>') ;
-
-        echo $<span class="keyword">this</span>-&gt;dmore
-    }
-}   
-<span class="comment">//输出 ：i am lmy</span>
-</code></pre><p>很神奇，它可以输出QmoreBehavior的变量：i am lmy,我们可以跟进<code>attachBehavior</code>这个方法看看作了什么处理<code>attachBehavior</code>：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/20/yii1-source-behavior/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1230,7 +1303,7 @@ Math.max.apply(Math,num) ;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1244,7 +1317,7 @@ Math.max.apply(Math,num) ;
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1292,7 +1365,7 @@ Math.max.apply(Math,num) ;
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp;  2014 - 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>
