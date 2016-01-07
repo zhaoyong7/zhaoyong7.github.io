@@ -37,29 +37,20 @@
 
 <meta name="description" content="php5.3开始支持命名空间，关键字namespace
 利用命名空间可以很方面实现一个类的自动加载。
-自动加载魔术方法 __autoload当调用一个不存在的类时候会自动调用该魔术方法\_autoload_。
-index.php&amp;lt;!-- lang:php --&amp;gt;
-function __autoload($class){
-    $require = __DIR__.&apos;/&apos;.$class.&apos;.php">
+自动加载魔术方法 __autoload当调用一个不存在的类时候会自动调用该魔术方法__autoload_。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用namespace来自动加载PHP文件（PSR-0标准）">
 <meta property="og:url" content="http://blog.dqmore.com/2016/01/07/psr-0_and_autoload/index.html">
 <meta property="og:site_name" content="Qmore's Blog">
 <meta property="og:description" content="php5.3开始支持命名空间，关键字namespace
 利用命名空间可以很方面实现一个类的自动加载。
-自动加载魔术方法 __autoload当调用一个不存在的类时候会自动调用该魔术方法\_autoload_。
-index.php&amp;lt;!-- lang:php --&amp;gt;
-function __autoload($class){
-    $require = __DIR__.&apos;/&apos;.$class.&apos;.php">
-<meta property="og:updated_time" content="2016-01-07T14:17:13.000Z">
+自动加载魔术方法 __autoload当调用一个不存在的类时候会自动调用该魔术方法__autoload_。">
+<meta property="og:updated_time" content="2016-01-07T14:21:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用namespace来自动加载PHP文件（PSR-0标准）">
 <meta name="twitter:description" content="php5.3开始支持命名空间，关键字namespace
 利用命名空间可以很方面实现一个类的自动加载。
-自动加载魔术方法 __autoload当调用一个不存在的类时候会自动调用该魔术方法\_autoload_。
-index.php&amp;lt;!-- lang:php --&amp;gt;
-function __autoload($class){
-    $require = __DIR__.&apos;/&apos;.$class.&apos;.php">
+自动加载魔术方法 __autoload当调用一个不存在的类时候会自动调用该魔术方法__autoload_。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -249,8 +240,9 @@ function __autoload($class){
       
         <span itemprop="articleBody"><p>php5.3开始支持命名空间，关键字namespace</p>
 <p>利用命名空间可以很方面实现一个类的自动加载。</p>
-<h4 id="自动加载">自动加载</h4><h6 id="魔术方法___autoload">魔术方法 __autoload</h6><p>当调用一个不存在的类时候会自动调用该魔术方法<em>\</em>_autoload_。</p>
-<p>index.php<br><!-- lang:php --></p>
+<h4 id="自动加载">自动加载</h4><h6 id="魔术方法___autoload">魔术方法 __autoload</h6><p>当调用一个不存在的类时候会自动调用该魔术方法__autoload_。</p>
+<a id="more"></a>
+<p>index.php:<br><!-- lang:php --></p>
 <pre><code><span class="keyword">function</span> __autoload(<span class="variable">$class</span>){
     <span class="variable">$require</span> = __DIR_<span class="number">_</span>.<span class="string">'/'</span>.<span class="variable">$class</span>.<span class="string">'.php'</span>
     echo <span class="variable">$require</span>.<span class="string">"\n"</span> ;
@@ -259,14 +251,13 @@ function __autoload($class){
 
 Class1::test();
 Class2::test();
-</code></pre><p>Class1.php</p>
-<!-- lang:php --> 
+</code></pre><p>Class1.php:<br><!-- lang:php --> </p>
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">Class1</span></span>{
     <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
         <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;
     }
 }
-</code></pre><p>Class2.php<br><!-- lang:php --> </p>
+</code></pre><p>Class2.php:<br><!-- lang:php --> </p>
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">class2</span></span>{
     <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
         <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;
@@ -274,7 +265,7 @@ Class2::test();
 }
 </code></pre><h6 id="spl_autoload_register()函数">spl_autoload_register()函数</h6><p>__autoload以及不推荐适用，原因是当我们项目很庞大时候会依赖不同的框架，如果我们每个框架都定义了这个魔术方法，那么就会报方法名重复了。php 5.3之后官方提供了sql库中的<strong>spl_autoload_register()</strong>函数注册类加载，取代之前的<strong>__autoload</strong></p>
 <p>该函数允许项目中存在多个加载函数。</p>
-<p>index.php<br><!-- lang:php --></p>
+<p>index.php:<br><!-- lang:php --></p>
 <pre><code>spl_autoload_register(<span class="string">'myOwnAutoLoadFunc'</span>) ;
 
 <span class="keyword">function</span> myOwnAutoLoadFunc(<span class="variable">$class</span>){
@@ -286,16 +277,12 @@ Class2::test();
 Class1::test();
 Class2::test();
 </code></pre><p>这样每个项目框架都可以自己定义自己的类加载方法了(spl函数是函数调用需要放在文件顶部)。另外，如果类指定了命名空间，加载回调函数的参数就会包含其命名空间。</p>
-<p>####PSR-0标准的基础框架：</p>
-<p>#####PSR-0规范：</p>
-<ol>
+<h4 id="PSR-0标准的基础框架：">PSR-0标准的基础框架：</h4><h5 id="PSR-0规范：">PSR-0规范：</h5><ol>
 <li>命名空间必须与路径一致。</li>
 <li>类名首字母大写</li>
 <li>只有唯一一个入口文件（如index.php为入口，其他文件不能执行）。</li>
 </ol>
-<p>#####定义一个符合PSR-0的MVC基础框架:</p>
-<p>######目录结构</p>
-<ul>
+<h5 id="定义一个符合PSR-0的MVC基础框架:">定义一个符合PSR-0的MVC基础框架:</h5><h6 id="目录结构">目录结构</h6><ul>
 <li>psr-0\  <ul>
 <li>components\<ul>
 <li>AutoLoad.php</li>
@@ -313,8 +300,7 @@ Class2::test();
 </ul>
 </li>
 </ul>
-<p>######具体实现：    </p>
-<p>Autoload.php:<br><!-- php:lang --></p>
+<h6 id="具体实现：">具体实现：</h6><p>Autoload.php:<br><!-- php:lang --></p>
 <pre><code>Class Autoload{
     public static autoLoadHandler(<span class="variable">$class</span>){
         <span class="variable">$class</span> = str_replace(<span class="string">'\\'</span>,DIRECTORY_SEPARATOR,<span class="variable">$class</span>) ;
@@ -522,7 +508,7 @@ controllers<span class="subst">\</span>TestController<span class="tag">::test</s
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动加载"><span class="nav-number">1.</span> <span class="nav-text">自动加载</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#魔术方法___autoload"><span class="nav-number">1.0.1.</span> <span class="nav-text">魔术方法 __autoload</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#spl_autoload_register()函数"><span class="nav-number">1.0.2.</span> <span class="nav-text">spl_autoload_register()函数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动加载"><span class="nav-number">1.</span> <span class="nav-text">自动加载</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#魔术方法___autoload"><span class="nav-number">1.0.1.</span> <span class="nav-text">魔术方法 __autoload</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#spl_autoload_register()函数"><span class="nav-number">1.0.2.</span> <span class="nav-text">spl_autoload_register()函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PSR-0标准的基础框架："><span class="nav-number">2.</span> <span class="nav-text">PSR-0标准的基础框架：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PSR-0规范："><span class="nav-number">2.1.</span> <span class="nav-text">PSR-0规范：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定义一个符合PSR-0的MVC基础框架:"><span class="nav-number">2.2.</span> <span class="nav-text">定义一个符合PSR-0的MVC基础框架:</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#目录结构"><span class="nav-number">2.2.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#具体实现："><span class="nav-number">2.2.2.</span> <span class="nav-text">具体实现：</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

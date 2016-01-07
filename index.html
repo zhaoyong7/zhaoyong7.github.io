@@ -236,112 +236,14 @@
 
       
         
-          <span itemprop="articleBody"><p>php5.3开始支持命名空间，关键字namespace</p>
+          <p>php5.3开始支持命名空间，关键字namespace</p>
 <p>利用命名空间可以很方面实现一个类的自动加载。</p>
-<h4 id="自动加载">自动加载</h4><h6 id="魔术方法___autoload">魔术方法 __autoload</h6><p>当调用一个不存在的类时候会自动调用该魔术方法<em>\</em>_autoload_。</p>
-<p>index.php<br><!-- lang:php --></p>
-<pre><code><span class="keyword">function</span> __autoload(<span class="variable">$class</span>){
-    <span class="variable">$require</span> = __DIR_<span class="number">_</span>.<span class="string">'/'</span>.<span class="variable">$class</span>.<span class="string">'.php'</span>
-    echo <span class="variable">$require</span>.<span class="string">"\n"</span> ;
-    require <span class="variable">$require</span> ;
-}    
-
-Class1::test();
-Class2::test();
-</code></pre><p>Class1.php</p>
-<!-- lang:php --> 
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">Class1</span></span>{
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
-        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;
-    }
-}
-</code></pre><p>Class2.php<br><!-- lang:php --> </p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">class2</span></span>{
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
-        <span class="keyword">echo</span> <span class="keyword">__CLASS__</span>;
-    }
-}
-</code></pre><h6 id="spl_autoload_register()函数">spl_autoload_register()函数</h6><p>__autoload以及不推荐适用，原因是当我们项目很庞大时候会依赖不同的框架，如果我们每个框架都定义了这个魔术方法，那么就会报方法名重复了。php 5.3之后官方提供了sql库中的<strong>spl_autoload_register()</strong>函数注册类加载，取代之前的<strong>__autoload</strong></p>
-<p>该函数允许项目中存在多个加载函数。</p>
-<p>index.php<br><!-- lang:php --></p>
-<pre><code>spl_autoload_register(<span class="string">'myOwnAutoLoadFunc'</span>) ;
-
-<span class="keyword">function</span> myOwnAutoLoadFunc(<span class="variable">$class</span>){
-    <span class="variable">$require</span> = __DIR_<span class="number">_</span>.<span class="string">'/'</span>.<span class="variable">$class</span>.<span class="string">'.php'</span>
-    echo <span class="variable">$require</span>.<span class="string">"\n"</span> ;
-    require <span class="variable">$require</span> ;
-}    
-
-Class1::test();
-Class2::test();
-</code></pre><p>这样每个项目框架都可以自己定义自己的类加载方法了(spl函数是函数调用需要放在文件顶部)。另外，如果类指定了命名空间，加载回调函数的参数就会包含其命名空间。</p>
-<p>####PSR-0标准的基础框架：</p>
-<p>#####PSR-0规范：</p>
-<ol>
-<li>命名空间必须与路径一致。</li>
-<li>类名首字母大写</li>
-<li>只有唯一一个入口文件（如index.php为入口，其他文件不能执行）。</li>
-</ol>
-<p>#####定义一个符合PSR-0的MVC基础框架:</p>
-<p>######目录结构</p>
-<ul>
-<li>psr-0\  <ul>
-<li>components\<ul>
-<li>AutoLoad.php</li>
-</ul>
-</li>
-<li>controllers\<ul>
-<li>TestControllers.php</li>
-</ul>
-</li>
-<li>models\<ul>
-<li>TestModel</li>
-</ul>
-</li>
-<li>index.php</li>
-</ul>
-</li>
-</ul>
-<p>######具体实现：    </p>
-<p>Autoload.php:<br><!-- php:lang --></p>
-<pre><code>Class Autoload{
-    public static autoLoadHandler(<span class="variable">$class</span>){
-        <span class="variable">$class</span> = str_replace(<span class="string">'\\'</span>,DIRECTORY_SEPARATOR,<span class="variable">$class</span>) ;
-        require BASEDIR.DIRECTORY_SEPARATOR.<span class="variable">$class</span>.<span class="string">'.php'</span>;
-    }
-}    
-</code></pre><p>index.php:</p>
-<!-- php:lang -->
-<pre><code><span class="class"><span class="keyword">define</span></span>(<span class="string">'BASEDIR'</span>,__DIR__) ; 
-<span class="comment">//__DIR__都是指当前文件位置，无论当前文件是否被其他文件导入，所以最好指定一个更目录，以便其他被导入的文件使用。</span>
-requre <span class="string">'components/AutoLoad.php'</span>
-spl_autoload_register(<span class="string">'Autoload'</span>,<span class="string">'autoLoadHandler'</span>) ;
-
-controllers<span class="subst">\</span>TestController<span class="tag">::test</span>();
-</code></pre><p>TestController.php:<br><!-- TestController.php --></p>
-<pre><code><span class="keyword">namespace</span> <span class="title">controllers</span> ;
-<span class="keyword">use</span> <span class="title">models</span>\<span class="title">TestModel</span>;
-
-<span class="class"><span class="keyword">Class</span> <span class="title">TestControllers</span></span>{
-    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
-        <span class="keyword">echo</span>  <span class="keyword">__METHOD__</span>.<span class="string">"\n"</span>
-        (<span class="keyword">new</span> TestModel())-&gt;test() ;
-    }
-} 
-</code></pre><p>TestModel.php:<br><!-- TestModel.php --></p>
-<pre><code><span class="keyword">namespace</span> <span class="title">models</span> ;
-
-<span class="class"><span class="keyword">Class</span> <span class="title">TestModel</span></span>{
-    publci <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
-        <span class="keyword">echo</span> <span class="keyword">__METHOD__</span>.<span class="string">"\n"</span> ;
-    }
-}
-</code></pre><p>执行</p>
-<p>index.php</p>
-<p>输出：</p>
-<p>controllers\TestController::test</p>
-<p>models\TestModel::test</p>
-</span>
+<h4 id="自动加载">自动加载</h4><h6 id="魔术方法___autoload">魔术方法 __autoload</h6><p>当调用一个不存在的类时候会自动调用该魔术方法__autoload_。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/07/psr-0_and_autoload/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
