@@ -51,7 +51,7 @@ PHP: (wget --content-disposition “url”:获取安装包)
 
 Mysql:
  http://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.6.16.tar.g">
-<meta property="og:updated_time" content="2016-03-08T16:56:24.000Z">
+<meta property="og:updated_time" content="2016-03-09T02:31:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS下源码安装php、apache(nginx)、mysql">
 <meta name="twitter:description" content="一、准备安装包：wget “xxxxxx” :
@@ -284,12 +284,12 @@ Mysql:
 <ul>
 <li><p>安装apr依赖：    </p>
 <p>  <code>cd apr-1.5.2</code></p>
-<p>  <code>./configure –prefix=/usr/local/apr</code></p>
+<p>  <code>./configure --prefix=/usr/local/apr</code></p>
 <p>  <code>make &amp;&amp; make install</code></p>
 </li>
 <li><p>安装apr-util依赖：</p>
 <p>  <code>cd apr-util-1.5.4</code></p>
-<p>  <code>./configure –prefix=/usr/local/apr-util –with-apr=/usr/local/apr</code></p>
+<p>  <code>./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr</code></p>
 <p>  <code>make &amp;&amp; make install</code>        </p>
 </li>
 <li><p>安装pcre依赖：</p>
@@ -299,7 +299,7 @@ Mysql:
 </li>
 <li><p>安装apache:</p>
 <p>  <code>cd httpd-2.4.17</code></p>
-<p>  <code>./configure –prefix=/usr/local/apache2 –with-apr=/usr/local/apr –with-apr-util=/usr/local/apr-util –with-pcre=/usr/local/pcre –enable-so –enable-rewrite</code>    </p>
+<p>  <code>./configure --prefix=/usr/local/apache2 --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --with-pcre=/usr/local/pcre --enable-so --enable-rewrite</code>    </p>
 <p>  <code>make &amp;&amp; make install</code></p>
 </li>
 </ul>
@@ -307,7 +307,7 @@ Mysql:
 <li><p>安装nginx:</p>
 <ul>
 <li><p><code>cd nginx-1.9.12</code></p>
-<p><code>./configure –prefix=/usr/local/nginx –with-pcre=/usr/src/pcre-8.37</code>(重新cp一份pcre解压包，再进行./configure )<br><code>make &amp;&amp; make install</code></p>
+<p><code>./configure --prefix=/usr/local/nginx --with-pcre=/usr/src/pcre-8.37</code>(重新cp一份pcre解压包，再进行./configure )<br><code>make &amp;&amp; make install</code></p>
 </li>
 </ul>
 </li>
@@ -348,11 +348,11 @@ Mysql:
 <p>  <strong>注：此时可以利用service mysqld start | stop | restart….，启动mysql脚本</strong></p>
 </li>
 <li><p>加入开机启动项目<strong>（选）</strong>：</p>
-<p>  <code>chkconfig –level 35 mysqld on</code></p>
+<p>  <code>chkconfig --level 35 mysqld on</code></p>
 </li>
 <li><p>mysql加入加入PATH路径<strong>（选）</strong>：</p>
 <p>  <code>vim /etc/profile</code></p>
-<p>  <code>PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH </code></p>
+<p>  <code>PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH </code>--</p>
 <p>  <code>source /etc/profile</code></p>
 </li>
 <li><p>修改mysql用户root密码<strong>（选）</strong>：</p>
@@ -365,9 +365,9 @@ Mysql:
 <ul>
 <li><p>安装：</p>
 <p>  <code>cd php-5.6.4</code></p>
-<p>  <code>./configure –prefix=/usr/local/php –with-apxs2=/usr/local/apache2/bin/apxs –with-libxml-dir=/usr/include/libxml2 –with-config-file-path=/usr/local/apache2/conf –with-mysql=/usr/local/mysql –with-mysqli=/usr/local/mysql/bin/mysql_config –with-gd –enable-gd-native-ttf –with-zlib –with-mcrypt –with-pdo-mysql=/usr/local/mysql –enable-shmop –enable-soap –enable-sockets –enable-wddx –enable-zip –with-xmlrpc –enable-fpm –enable-mbstring –with-zlib-dir –with-bz2 –with-curl –enable-exif –enable-ftp –with-jpeg-dir=/usr/lib –with-png-dir=/usr/lib –with-freetype-dir=/usr/lib/</code></p>
-<p>  <strong>注：遇到reinstall依赖，直接yum安装即可，当遇到Cannot allocate memory时，在编译的时候加上–disable-fileinfo，重新编译。</strong></p>
-<p>  <strong>注:–with-config-file-path指定php.ini位置。</strong></p>
+<p>  <code>./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2/bin/apxs --with-libxml-dir=/usr/include/libxml2 --with-config-file-path=/usr/local/apache2/conf --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-gd --enable-gd-native-ttf --with-zlib --with-mcrypt --with-pdo-mysql=/usr/local/mysql --enable-shmop --enable-soap --enable-sockets --enable-wddx --enable-zip --with-xmlrpc --enable-fpm --enable-mbstring --with-zlib-dir --with-bz2 --with-curl --enable-exif --enable-ftp --with-jpeg-dir=/usr/lib --with-png-dir=/usr/lib --with-freetype-dir=/usr/lib/</code></p>
+<p>  <strong>注：遇到reinstall依赖，直接yum安装即可，当遇到Cannot allocate memory时，在编译的时候加上--disable-fileinfo，重新编译。</strong></p>
+<p>  <strong>注:--with-config-file-path指定php.ini位置。</strong></p>
 <p>  <code>make &amp;&amp; make install</code></p>
 </li>
 </ul>
